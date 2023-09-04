@@ -13,7 +13,8 @@ import OlvideContraseña from "./pages/auth/OlvideContraseña";
 //Pages Admin
 import Error404 from "./pages/Error404";
 import Home from "./pages/admin/Home";
-import Servicios from "./pages/admin/Servicios";
+import ServiciosOPEN from "./pages/admin/ServiciosOpen";
+import ServiciosIBM from "./pages/admin/ServiciosIBM";
 import RutaProtegida from "./pages/RutaProtegida";
 
 function App() {
@@ -26,7 +27,8 @@ function App() {
 
           <Route path="/" element={<LayoutAdmin />}>
             <Route index element={<Home />} />
-            <Route path="Servicios" element={<Servicios />} />
+            <Route path="servicios-open" element={<ServiciosOPEN />} />
+            <Route path="servicios-ibm" element={<ServiciosIBM />} />
           </Route>
 
           {/* Registro de Usuario */}

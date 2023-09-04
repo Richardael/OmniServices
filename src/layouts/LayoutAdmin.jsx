@@ -49,13 +49,22 @@ const LayoutAdmin = () => {
     <RiHome3Line /> Inicio
   </Link>
   <Link
-    to="/servicios"
+    to="/servicios-ibm"
     className={`flex items-center gap-4 text-xl p-4 hover:text-gray-200 transition-colors ${
-      location.pathname === '/servicios' ? 'text-primary-300' : 'text-gray-400'
+      location.pathname === '/servicios-ibm' ? 'text-primary-300' : 'text-gray-400'
     }`}
   >
     <RiFileList3Line />
-    <span className="flex-1 flex items-center justify-between gap-4">Servicios</span>
+    <span className="flex-1 flex items-center justify-between gap-4">Servicios IBM</span>
+  </Link>
+  <Link
+    to="/servicios-open"
+    className={`flex items-center gap-4 text-xl p-4 hover:text-gray-200 transition-colors ${
+      location.pathname === '/servicios-open' ? 'text-primary-300' : 'text-gray-400'
+    }`}
+  >
+    <RiFileList3Line />
+    <span className="flex-1 flex items-center justify-between gap-4">Servicios Open</span>
   </Link>
 </nav>
         </div>
