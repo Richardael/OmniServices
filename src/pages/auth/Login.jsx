@@ -95,15 +95,16 @@ const Login = () => {
       <div className="min-h-screen flex items-center justify-center p-4">
         <div className="max-w-lg">
           <div className="flex justify-center mb-8">
-            <h1 className="text-3xl font-semibold text-primary-300">BlueNote</h1>
+            <h1 className="text-3xl font-bold text-secondary-100">OmniServices</h1>
             {/* <img src="/logo.png" width="50" height="50" /> */}
           </div>
           <div className="bg-white w-full rounded-lg p-8 mb-8">
             <div className="flex flex-col items-center gap-1 mb-4">
-              <h1 className="text-xl text-gray-900">Bienvenido a<span className="text-primary-300"> BlueNote</span></h1>
+              <h1 className="text-xl text-gray-900">Bienvenido a<span className="text-primary-300 font-semibold"> OmniServices</span></h1>
               <p className="text-gray-400 text-sm">
                 Ingresa con tu correo electrónico y tu contraseña
               </p>
+
             </div>
             <form onSubmit={handleLoginSubmit} className="flex flex-col gap-4">
               <div className="relative">
@@ -150,12 +151,21 @@ const Login = () => {
                 </button>
               </div>
             </form>
+            <p className="text-secondary-300 text-center mt-5">
+                ¿No Tienes una Cuenta?{" "}
+                              <Link
+                to="/auth/registro-user"
+                className="text-primary-300 font-medium hover:underline decoration-1 transition-colors"
+              >
+                Registrate
+              </Link>
+              </p>
           </div>
-          <span className="flex items-center justify-center gap-2 text-gray-500">
+          <span className="flex items-center justify-center gap-2 text-gray-200">
             ¿Olvidaste tu contraseña?{" "}
             <Link
                 to="/auth/olvide-contraseña"
-                className="text-primary-300 font-medium hover:text-primary-400 transition-colors"
+                className="text-secondary-100 font-medium hover:underline decoration-1 transition-colors"
               >
                 Recuperar
               </Link>

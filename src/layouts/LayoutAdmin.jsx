@@ -8,10 +8,12 @@ import {
   RiMenu3Fill,
   RiCloseLine,
   RiHome3Line,
+  RiAdminLine,
 } from "react-icons/ri";
 
 const LayoutAdmin = () => {
   const location = useLocation();
+  const [admin, setAdmin] = useState(true); // [false, () => {}
   const [showMenu, setShowMenu] = useState(false);
   const cerrarSesion = () => {
     localStorage.removeItem('refreshToken');
@@ -66,6 +68,26 @@ const LayoutAdmin = () => {
     <RiFileList3Line />
     <span className="flex-1 flex items-center justify-between gap-4">Servicios Open</span>
   </Link>
+  {/* Admin Registro */}
+  {admin ? (
+    <Link
+      to="/registro-servicios"
+      className={`flex items-center gap-4 text-xl pl-4 py-4 hover:text-gray-200 transition-colors ${
+        location.pathname === '/registro-servicios' ? 'text-primary-300' : 'text-gray-400'
+      }`}
+    >
+      <RiAdminLine />
+      <span className="flex-1 flex items-center justify-between gap-4">Registrar Servicios</span>
+    </Link>
+  ) : (
+    <Link
+      to="/registro-servicios"
+      className={`hidden`}
+    >
+      <RiAdminLine />
+      <span className="flex-1 flex items-center justify-between gap-4">Registro de Servicios</span>
+    </Link>
+  )}
 </nav>
         </div>
         {/* Logout */}
@@ -82,7 +104,7 @@ const LayoutAdmin = () => {
       {/* Btn menu movile */}
       <button
         onClick={toggleMenu}
-        className="lg:hidden fixed right-4 bottom-4 bg-[#664EFA] ring-4 ring-[#141517] text-white text-xl p-3 rounded-full z-50"
+        className="lg:hidden fixed right-4 bottom-4 bg-primary-300 ring-4 ring-primary-100 text-white text-xl p-3 rounded-full z-50"
       >
         {showMenu ? <RiCloseLine /> : <RiMenu3Fill />}
       </button>

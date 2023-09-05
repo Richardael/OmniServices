@@ -16,24 +16,21 @@ import Home from "./pages/admin/Home";
 import ServiciosOPEN from "./pages/admin/ServiciosOpen";
 import ServiciosIBM from "./pages/admin/ServiciosIBM";
 import RutaProtegida from "./pages/RutaProtegida";
+import RegistrarServicios from "./pages/admin/RegistrarServicios";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+
         {/* Ruta Protegida */}
         <Route path="/" element={<RutaProtegida />}>
           {/* Rutas Dashboard Admin */}
-
           <Route path="/" element={<LayoutAdmin />}>
             <Route index element={<Home />} />
             <Route path="servicios-open" element={<ServiciosOPEN />} />
             <Route path="servicios-ibm" element={<ServiciosIBM />} />
-          </Route>
-
-          {/* Registro de Usuario */}
-          <Route path="registro-user" element={<LayoutAuth />}>
-            <Route index element={<Register />} />
+            <Route path="registro-servicios" element={<RegistrarServicios />}/>
           </Route>
         </Route>
 
@@ -41,6 +38,7 @@ function App() {
         <Route path="auth" element={<LayoutAuth />}>
           <Route index element={<Login />} />
           <Route path="olvide-contraseña" element={<OlvideContraseña />} />
+          <Route path="registro-user" element={<Register />} />
         </Route>
 
         {/* Ruta 404 */}

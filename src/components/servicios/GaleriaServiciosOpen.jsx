@@ -61,6 +61,11 @@ const GaleriaServiciosOpen = () => {
         categoria: "Base de datos",
         nombre_servicio: "Mantenimiento de base de datos",
         descripcion_servicio: "Mantenimiento de base de datos"
+      },{
+        id: 7,
+        categoria: "Administracion",
+        nombre_servicio: "Administracion de servidores IBMi",
+        descripcion_servicio: "Administracion de servidores IBMi  y Linux con implementacion de soluciones de alta disponibilidad"
       }
   
     ]
@@ -69,7 +74,7 @@ const GaleriaServiciosOpen = () => {
       {/* Si Hay Servicios */}
       {servicios && servicios.length ? (
         <>
-          <div className='grid grid-cols-4 gap-4'>
+          <div className='grid grid-cols-4 gap-4 max-sm:grid-cols-1'>
 
           {servicios.map((servicios) => (
             //Quiero que la tarjeta reciba categoria, nombre de servicio y descripcion del servicio
