@@ -27,45 +27,51 @@ const GaleriaServiciosOpen = () => {
     obtenerServicios();
     }, [])
 
-    //Crea un objeto de servicios de prueba
+    //Crea un objeto de servicios de prueba usando id_servicio,categoria,nombre_servicio,descripcion_servicio,tiempo_estimado,prioridad_servicio,costos_servicio,pre_requisitos,tarifa_servicio,tipo_servicio,tipo_plataforma,descripciont_servicio
+    //Quiero que sean ejemplos de servicios de distintas categorias
     const servicios = [
       {
-        id: 1,
+        id_servicio: 1,
         categoria: "Programacion",
-        nombre_servicio: "Desarrollo web",
-        descripcion_servicio: "Desarrollo de paginas web con HTML, CSS y JS"
-      },
-      {
-        id: 2,
-        categoria: "Redes",
-        nombre_servicio: "Mantenimiento de equipos",
-        descripcion_servicio: "Mantenimiento de equipos de computo"
-      },
-      {
-        id: 3,
+        nombre_servicio: "Desarrollo de Pagina Web",
+        descripcion_servicio: "Desarrollo de una pagina web para una empresa de ventas de productos de tecnologia",
+        tiempo_estimado: "2",
+        prioridad_servicio: "Alta",
+        costos_servicio: "1000",
+        pre_requisitos: "Ninguno",
+        tarifa_servicio: "100",
+        tipo_servicio: "Desarrollo",
+        tipo_plataforma: "Open",
+        descripciont_servicio: "Desarrollo de una pagina web para una empresa de ventas de productos de tecnologia",
+        disponibilidad_servicio: "24/7"      
+      },{
+        id_servicio: 2,
         categoria: "Hardware",
-        nombre_servicio: "Instalacion de software",
-        descripcion_servicio: "Instalacion de software en equipos de computo"
+        nombre_servicio: "Mantenimiento de Computadoras",
+        descripcion_servicio: "Mantenimiento de Computadoras de una empresa de ventas de productos de tecnologia",
+        tiempo_estimado: "2",
+        prioridad_servicio: "Alta",
+        costos_servicio: "1000",
+        pre_requisitos: "Ninguno",
+        tarifa_servicio: "100",
+        tipo_servicio: "Mantenimiento",
+        tipo_plataforma: "Open",
+        descripciont_servicio: "Mantenimiento de Computadoras de una empresa de ventas de productos de tecnologia, se empieza limpiando la tarjeta madre",
+        disponibilidad_servicio: "24/7"     
       },{
-        id: 4,
+        id_servicio: 3,
         categoria: "Software",
-        nombre_servicio: "Desarrollo de software",
-        descripcion_servicio: "Desarrollo de software a la medida"
-      },{
-        id: 5,
-        categoria: "Seguridad",
-        nombre_servicio: "Seguridad informatica",
-        descripcion_servicio: "Seguridad informatica para empresas"
-      },{
-        id: 6,
-        categoria: "Base de datos",
-        nombre_servicio: "Mantenimiento de base de datos",
-        descripcion_servicio: "Mantenimiento de base de datos"
-      },{
-        id: 7,
-        categoria: "Administracion",
-        nombre_servicio: "Administracion de servidores IBMi",
-        descripcion_servicio: "Administracion de servidores IBMi  y Linux con implementacion de soluciones de alta disponibilidad"
+        nombre_servicio: "Desarrollo de Aplicacion Movil",
+        descripcion_servicio: "Desarrollo de una aplicacion movil para una empresa de ventas de productos de tecnologia",
+        tiempo_estimado: "2",
+        prioridad_servicio: "Alta",
+        costos_servicio: "1000",
+        pre_requisitos: "Ninguno",
+        tarifa_servicio: "100",
+        tipo_servicio: "Desarrollo",
+        tipo_plataforma: "Open",
+        descripciont_servicio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quibusdam debitis sapiente quidem? Voluptatem corporis dolores nemo velit possimus, nostrum ratione tempore ducimus qui modi doloremque a labore! Nihil in quidem adipisci! Quasi dolores ut praesentium, harum tempora neque, eligendi id magnam modi blanditiis esse dolorum officia quo in dolor vel pariatur magni quae aperiam corrupti corporis. Sunt magni eligendi sequi architecto numquam optio voluptates doloribus mollitia quas molestias neque qui facere ipsam, quisquam quaerat ad voluptas, omnis voluptate cumque est cupiditate tempore libero eos quibusdam? Quasi facere ex omnis similique, quibusdam suscipit dolores doloremque explicabo quas recusandae beatae dignissimos sapiente. Quidem odit molestiae quis possimus velit et necessitatibus totam similique maiores libero aspernatur vero ut aperiam quisquam modi facilis, in assumenda, nam excepturi nemo incidunt? Quasi, cum rem impedit perferendis vel consequatur nesciunt? Ex quidem, tempora fugiat molestiae modi necessitatibus ad repellat distinctio, velit molestias voluptatum alias fugit aspernatur excepturi nemo ea, facere saepe. Quo accusantium ut ducimus quia, dicta molestias vero repellat quidem voluptates voluptatum placeat modi sunt doloribus? Tenetur sequi temporibus quam cupiditate iste praesentium id excepturi vel, itaque provident officia nulla, ipsum eaque, commodi repudiandae! Asperiores beatae omnis, quae suscipit officia delectus cupiditate! Voluptatum, inventore a!", 
+        disponibilidad_servicio: "24/7"      
       }
   
     ]
@@ -77,8 +83,8 @@ const GaleriaServiciosOpen = () => {
           <div className='grid grid-cols-4 gap-4 max-sm:grid-cols-1'>
 
           {servicios.map((servicios) => (
-            //Quiero que la tarjeta reciba categoria, nombre de servicio y descripcion del servicio
-            <TarjetaServicios key={servicios.id} categoria={servicios.categoria} nombre_servicio={servicios.nombre_servicio} descripcion_servicio={servicios.descripcion_servicio} />
+            //Quiero que la tarjeta reciba todos los datos de mis tarjetas de ejemplos
+            <TarjetaServicios key={servicios.id} {...servicios} />
           ))}
            </div>
         </>

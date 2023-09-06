@@ -4,7 +4,7 @@ import { RiSettings2Fill, RiDatabase2Line,RiShieldCheckLine, RiAdminLine, RiWifi
 //Quiero que ademas al presionar dicha tarjeta se genere un modal con la descripcion extendida de la tarjeta
 
 
-const TarjetaServicios = ({id_servicio,categoria,nombre_servicio,descripcion_servicio}) => {
+const TarjetaServicios = ({id_servicio,categoria,nombre_servicio,descripcion_servicio,tiempo_estimado,prioridad_servicio,costos_servicio,pre_requisitos,tarifa_servicio,tipo_servicio,tipo_plataforma,descripciont_servicio, disponibilidad_servicio}) => {
   const iconoServicios = () => {
     if (categoria === "Programacion") {
       return <RiTerminalBoxLine className='mx-auto mb-10 mt-5 h-20 w-20'/>
@@ -47,7 +47,7 @@ className="bg-white flex flex-col max-w-sm mx-auto rounded-lg shadow-xl h-[370px
     {nombre_servicio.split(" ").splice(0,5).join(" ")}
     </h1>
     <p className='text-secondary-300 max-sm:sm'>
-    {descripcion_servicio.split(" ").splice(0,10).join(" ")}...
+    {descripcion_servicio.split(" ").splice(0,8).join(" ")}...
     </p>
     <button onClick={toggleModal} className="bg-primary-300 text-white py-2 px-16 max-sm:px-auto rounded-lg shadow-md hover:bg-primary-200 transition duration-300 ease-in-out absolute bottom-4 right-4 left-4 ">
       Ver más
@@ -56,13 +56,13 @@ className="bg-white flex flex-col max-w-sm mx-auto rounded-lg shadow-xl h-[370px
     </div>
 {showModal ? (
   <>
-    <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+    <div className=" flex overflow-x-hidden fixed inset-0 z-50 outline-none focus:outline-none">
       <div className="relative w-auto my-6 mx-auto max-w-3xl">
         {/*content*/}
         <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
           {/*header*/}
           <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
-            <h3 className="text-3xl font-semibold">
+            <h3 className="text-2xl font-semibold">
               {nombre_servicio}
             </h3>
             <button
@@ -75,13 +75,69 @@ className="bg-white flex flex-col max-w-sm mx-auto rounded-lg shadow-xl h-[370px
             </button>
           </div>
           {/*body*/}
-          <div className="relative p-6 flex-auto">
-            <p className="my-4 text-gray-600 text-lg leading-relaxed">
+          <div className="relative px-6 py-2 flex-auto">
+            <div className='grid grid-cols-3 shadow-md border-2 border-secondary-200 rounded-md p-2 mt-2 text-center mb-5'>
+              <div>
+                <h1 className='text-xl font-semibold text-primary-300'>Tipo de Plataforma</h1>
+                <p className='text-secondary-300'>{tipo_plataforma}</p>
+              </div>
+              <div>
+              <h1 className='text-xl font-semibold text-primary-300'>Tipo de Servicio</h1>
+                <p className='text-secondary-300'>{tipo_servicio}</p>
+              </div>
+              <div>
+              <h1 className='text-xl font-semibold text-primary-300'>Categoria</h1>
+                <p className='text-secondary-300'>{categoria}</p>
+              </div>
+              </div>
+              <div className='grid grid-cols-4 shadow-md border-2 border-secondary-200 rounded-md p-2 mt-2 text-center mb-5'>
+              <div>
+                <h1 className='text-xl font-semibold text-primary-300'>Prioridad</h1>
+                <p className='text-secondary-300'>{prioridad_servicio}</p>
+              </div>
+              <div>
+                <h1 className='text-xl font-semibold text-primary-300'>Disponibilidad</h1>
+                <p className='text-secondary-300'>{disponibilidad_servicio}</p>
+              </div>
+              <div>
+                <h1 className='text-xl font-semibold text-primary-300'>Pre-Requisitos</h1>
+                <p className='text-secondary-300'>{pre_requisitos}</p>
+              </div>
+              <div>
+                <h1 className='text-xl font-semibold text-primary-300'>Tiempo Estimado</h1>
+                <p className='text-secondary-300'>{tiempo_estimado} <span className=' font-semibold'>Horas</span></p>
+              </div>
+            </div>
+            <div className='grid grid-cols-2 shadow-md border-2 border-secondary-200 rounded-md p-2 mt-2 mb-5 text-center'>
+              <div>
+                <h1 className='text-xl font-semibold text-primary-300'>Costos</h1>
+                <p className='text-secondary-300'>{costos_servicio}</p>
+              </div>
+              <div className=''>
+                <h1 className='text-xl font-semibold text-primary-300'>Tarifa</h1>
+                <p className='text-secondary-300'>{tarifa_servicio}</p>
+              </div>
+            </div>
+            <div className='w-full grid gap-2 grid-cols-2 mb-2'>
+              <div>
+              <h1 className='text-xl font-semibold text-primary-300 mt-2 text-center'>Descripcion del Servicio</h1>
+            <p className="mt-2 text-secondary-300 text-lg leading-relaxed border rounded-md p-2 shadow-md text-justify">
               {descripcion_servicio}
             </p>
+              </div>
+              <div>
+              <h1 className='text-xl font-semibold text-primary-300 mt-2 text-center'>Descripcion Tecnica del Servicio</h1>
+            <p className="mt-2 text-secondary-300 text-lg leading-relaxed border rounded-md p-2 shadow-md text-justify" >
+              {descripciont_servicio}
+            </p>
+              </div>
+        
+
+            </div>
+            
           </div>
           {/*footer*/}
-          <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
+          <div className="flex items-center justify-end px-6 py-2 border-t border-solid border-gray-300 rounded-b">
             <button
               className="text-secondary-200 bg-primary-300 rounded-md font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
               type="button"
