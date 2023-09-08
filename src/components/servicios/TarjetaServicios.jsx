@@ -4,7 +4,7 @@ import { RiSettings2Fill, RiDatabase2Line,RiShieldCheckLine, RiAdminLine, RiWifi
 //Quiero que ademas al presionar dicha tarjeta se genere un modal con la descripcion extendida de la tarjeta
 
 
-const TarjetaServicios = ({id_servicio,categoria,nombre_servicio,descripcion_servicio,tiempo_estimado,prioridad_servicio,costos_servicio,pre_requisitos,tarifa_servicio,tipo_servicio,tipo_plataforma,descripciont_servicio, disponibilidad_servicio}) => {
+const TarjetaServicios = ({id_servicio,categoria,nombre_servicio,descripcion_servicio,tiempo_estimado,prioridad_servicio,costos_servicio,pre_requisitos,tarifa_servicio,tipo_servicio,tipo_plataforma,descripciont_servicio, disponibilidad_servicio, industria_atendida}) => {
   const iconoServicios = () => {
     if (categoria === "Programacion") {
       return <RiTerminalBoxLine className='mx-auto mb-10 mt-5 h-20 w-20'/>
@@ -76,18 +76,22 @@ className="bg-white flex flex-col max-w-sm mx-auto rounded-lg shadow-xl h-[370px
           </div>
           {/*body*/}
           <div className="relative px-6 py-2 flex-auto">
-            <div className='grid grid-cols-3 shadow-md border-2 border-secondary-200 rounded-md p-2 mt-2 text-center mb-5'>
+            <div className='grid grid-cols-4 shadow-md border-2 border-secondary-200 rounded-md p-2 mt-2 text-center mb-5'>
               <div>
                 <h1 className='text-xl font-semibold text-primary-300'>Tipo de Plataforma</h1>
                 <p className='text-secondary-300'>{tipo_plataforma}</p>
+              </div>
+              <div>
+              <h1 className='text-xl font-semibold text-primary-300'>Categoria</h1>
+                <p className='text-secondary-300'>{categoria}</p>
               </div>
               <div>
               <h1 className='text-xl font-semibold text-primary-300'>Tipo de Servicio</h1>
                 <p className='text-secondary-300'>{tipo_servicio}</p>
               </div>
               <div>
-              <h1 className='text-xl font-semibold text-primary-300'>Categoria</h1>
-                <p className='text-secondary-300'>{categoria}</p>
+                <h1 className='text-xl font-semibold text-primary-300'>Industria Atendida</h1>
+                <p className='text-secondary-300'>{industria_atendida}</p>
               </div>
               </div>
               <div className='grid grid-cols-4 shadow-md border-2 border-secondary-200 rounded-md p-2 mt-2 text-center mb-5'>
