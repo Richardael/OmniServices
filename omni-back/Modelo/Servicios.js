@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const servicioSchema = new mongoose.Schema({
+const serviciosSchema = new mongoose.Schema({
   nombre: {
     type: String,
     required: true,
@@ -24,6 +24,6 @@ const servicioSchema = new mongoose.Schema({
   tiempo_estimado: String, 
 });
 
-const Servicio = mongoose.model('Servicio', servicioSchema);
+const ServiciosModel = mongoose.model('Servicios', serviciosSchema);
 
-module.exports = Servicio;
+module.exports = ServiciosModel;

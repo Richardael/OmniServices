@@ -1,7 +1,7 @@
 // models/Servicio.js
 const mongoose = require('mongoose');
 
-const servicioSchema = new mongoose.Schema({
+const registroServiciosSchema = new mongoose.Schema({
   nombre: {
     type: String,
     required: true,
@@ -52,6 +52,6 @@ const servicioSchema = new mongoose.Schema({
   },
 });
 
-const Servicio = mongoose.model('Servicio', servicioSchema);
+const RegistroServiciosModel = mongoose.model('RegistroServicios', registroServiciosSchema);
 
-module.exports = Servicio;
+module.exports = RegistroServiciosModel;

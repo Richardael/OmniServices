@@ -1,9 +1,10 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const Servicio = require('./RegistroServicios'); // Importa el modelo de servicio
+const RegistroServiciosModel = require('./Modelo/RegistroServicios'); // Importa el modelo de servicio
+const ServiciosModel = require('./Modelo/Servicios'); // Importa el modelo de servicios
 const cors = require('cors'); // Importa el módulo 'cors'
-const Servicio = require('./Servicio'); // Importa el modelo de servicio
+
 
 mongoose.connect('mongodb://localhost/OmniServices', {
   useNewUrlParser: true,
@@ -16,7 +17,7 @@ app.use(cors());
 app.get('/servicios', async (req, res) => {
   try {
     // Obtén todos los servicios desde la base de datos
-    const servicios = await Servicio.find();
+    const servicios = await ServiciosModel.find();
     res.json(servicios);
   } catch (error) {
     console.error(error);
@@ -31,7 +32,7 @@ app.post('/registro', async (req, res) => {
     const { nombre, descripcion, descripcion_tecnica, categoria, tipo_servicio, tipo_plataforma, tarifa, pre_requisito, disponibilidad, costos, prioridad, tiempo_estimado} = req.body;
 
     // Crea una nueva instancia de usuario
-    const newServicio = new Servicio({ nombre, descripcion, descripcion_tecnica, categoria, tipo_servicio, tipo_plataforma, tarifa, pre_requisito, disponibilidad, costos, prioridad, tiempo_estimado});
+    const newServicio = new RegistroServiciosModel({ nombre, descripcion, descripcion_tecnica, categoria, tipo_servicio, tipo_plataforma, tarifa, pre_requisito, disponibilidad, costos, prioridad, tiempo_estimado});
 
     // Guarda el usuario en la base de datos
     await newServicio.save();
