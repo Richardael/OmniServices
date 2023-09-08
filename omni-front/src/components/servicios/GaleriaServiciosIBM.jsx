@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react'
+import React, { useState,useEffect } from 'react'
+import axios from 'axios'
 import TarjetaServicios from './TarjetaServicios'
 //Quiero que mi galeria de Servicios muestre todos los servicios que tengo en mi base de datos estoy usando Mysql
 //Para eso voy a usar un hook de react que se llama useEffect
@@ -9,26 +10,37 @@ import TarjetaServicios from './TarjetaServicios'
 //Si el arreglo de dependencias no existe, la funcion anonima se ejecuta cada vez que el componente se renderiza
 
 const GaleriaServiciosIBM = () => {
+  const [servicioss, setServicioss] = useState([]);
+    useEffect(() => {
+      //Obtengo los servicios desde mi backend y los almaceno en mi estado de servicios
+   const obtenerServicios = async () => {
+       const { data} = await axios.get('http://192.168.1.50:8000/servicios');
+       setServicioss(data);
+   }
+   //Aca quiero exportar las categorias, nombre y descripcion en forma de un array para mis tarjetas
+    obtenerServicios();
+    }, [])
+    //Estos son los campos id_servicio,categoria,nombre_servicio,descripcion_servicio,tiempo_estimado,prioridad_servicio,costos_servicio,pre_requisitos,tarifa_servicio,tipo_servicio,tipo_plataforma,descripciont_servicio, disponibilidad_servicio, industria_atendida
+    const servicios = servicioss.map((servicios) => {
+      return {
+        id: servicios.id_servicio,
+        categoria: servicios.categoria,
+        nombre_servicio: servicios.nombre_servicio,
+        descripcion_servicio: servicios.descripcion_servicio,
+        tiempo_estimado: servicios.tiempo_estimado,
+        prioridad_servicio: servicios.prioridad_servicio,
+        costos_servicio: servicios.costos_servicio,
+        pre_requisitos: servicios.pre_requisitos,
+        tarifa_servicio: servicios.tarifa_servicio,
+        tipo_servicio: servicios.tipo_servicio,
+        tipo_plataforma: servicios.tipo_plataforma,
+        descripciont_servicio: servicios.descripciont_servicio,
+        disponibilidad_servicio: servicios.disponibilidad_servicio,
+        industria_atendida: servicios.industria_atendida,
+      }
+    })
   //Quiero que implementes ejemplos de servicios del AS/400
   //Quiero que las categorias sean: programacion, seguridad, administracion, comunicacion, administracion, base de datos y operaciones
-  const servicios = [
-    {
-      id_servicio: 1,
-      categoria: "Operaciones",
-      nombre_servicio: "Respaldo Total del Sistema IBM i",
-      descripcion_servicio: "Respaldo Total del Sistema IBM i, se realiza un respaldo de todo el sistema operativo, incluyendo los programas, archivos, librerias, usuarios, etc",
-      tiempo_estimado: "6",
-      industria_atendida: "Banca",
-      prioridad_servicio: "Alta",
-      costos_servicio: "?",
-      pre_requisitos: "Tener un As/400, somos ProIBM no arreglamos Canaimas / Poseer Imagen ISO del Sistema Operativo IBM i",
-      tarifa_servicio: "120$ hh",
-      tipo_servicio: "Recuperacion del Sistema Operativo IBM i",
-      tipo_plataforma: "IBM",
-      descripciont_servicio: "Un respaldo de sistema operativo IBM i implica la copia de datos críticos del sistema y su configuración. Se realiza mediante herramientas como BRMS (Backup, Recovery, and Media Services) siguiendo estos pasos: Configurar una política de respaldo, Seleccionar objetos a respaldar, Definir medios de almacenamiento, Programar el respaldo, Ejecutar el respaldo, Verificar la integridad de la copia. Este proceso asegura la disponibilidad y recuperación en caso de fallos.",
-      disponibilidad_servicio: "24/7"
-    }
-  ]
   return (
     <div>
             {/* Si Hay Servicios */}

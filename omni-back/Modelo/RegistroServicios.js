@@ -1,16 +1,15 @@
 // models/Servicio.js
 const mongoose = require('mongoose');
-
 const registroServiciosSchema = new mongoose.Schema({
-  nombre: {
+  nombre_servicio: {
     type: String,
     required: true,
   },
-  descripcion: {
+  descripcion_servicio: {
     type: String,
     required: true,
   },
-  descripcion_tecnica: {
+  descripciont_servicio: {
     type: String,
     required: true,
   },
@@ -26,23 +25,23 @@ const registroServiciosSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  tarifa: {
+  tarifa_servicio: {
     type: String,
     required: true,
   },
-  pre_requisito: {
+  pre_requisitos: {
     type: String,
     required: true,
   },
-  disponibilidad: {
+  disponibilidad_servicio: {
     type: String,
     required: true,
   },
-  costos: {
+  costos_servicio: {
     type: Number,
     required: true,
   },
-  prioridad: {
+  prioridad_servicio: {
     type: String,
     required: true,
   },
@@ -50,6 +49,10 @@ const registroServiciosSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  industria_atendida: {
+    type: String,
+    required:true,
+  }
 });
 
 const RegistroServiciosModel = mongoose.model('RegistroServicios', registroServiciosSchema);

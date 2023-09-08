@@ -27,7 +27,7 @@ const LayoutAdmin = () => {
   return (
     <>
       {/* Sidebar */}
-      <sidebar
+      <div
         className={`bg-[#1E1F24] fixed ${
           showMenu ? "-left-0" : "-left-full"
         } lg:left-0 top-0 w-72 h-full p-8 flex flex-col justify-between transition-all overflow-y-scroll z-50`}
@@ -100,7 +100,7 @@ const LayoutAdmin = () => {
             <RiLogoutCircleRLine /> Cerrar Sesión
           </a>
         </div>
-      </sidebar>
+      </div>
       {/* Btn menu movile */}
       <button
         onClick={toggleMenu}
