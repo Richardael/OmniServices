@@ -1,4 +1,3 @@
-// models/Servicio.js
 const mongoose = require('mongoose');
 
 const servicioSchema = new mongoose.Schema({
@@ -10,46 +9,19 @@ const servicioSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  descripcion_tecnica: {
-    type: String,
-    required: true,
-  },
-  categoria: {
-    type: String,
-    required: true,
-  },
-  tipo_servicio: {
-    type: String,
-    required: true,
-  },
-  tipo_plataforma: {
-    type: String,
-    required: true,
-  },
-  tarifa: {
-    type: String,
-    required: true,
-  },
-  pre_requisito: {
-    type: String,
-    required: true,
-  },
-  disponibilidad: {
-    type: String,
-    required: true,
-  },
+  descripcion_tecnica: String, 
+  categoria: String, 
+  tipo_servicio: String, 
+  tipo_plataforma: String, 
+  tarifa: String, 
+  pre_requisito: String, 
+  disponibilidad: String, 
   costos: {
     type: Number,
     required: true,
   },
-  prioridad: {
-    type: String,
-    required: true,
-  },
-  tiempo_estimado: {
-    type: String,
-    required: true,
-  },
+  prioridad: String, 
+  tiempo_estimado: String, 
 });
 
 const Servicio = mongoose.model('Servicio', servicioSchema);
