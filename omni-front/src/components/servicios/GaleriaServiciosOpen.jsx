@@ -20,7 +20,7 @@ const GaleriaServiciosOpen = () => {
     useEffect(() => {
       //Obtengo los servicios desde mi backend y los almaceno en mi estado de servicios
    const obtenerServicios = async () => {
-       const { data } = await axios.get('http://localhost:8000/api/servicios');
+       const { data } = await axios.get('http://192.168.1.50:8000/servicios/open');
        setServicios(data);
    }
    //Aca quiero exportar las categorias, nombre y descripcion en forma de un array para mis tarjetas
@@ -29,52 +29,25 @@ const GaleriaServiciosOpen = () => {
 
     //Crea un objeto de servicios de prueba usando id_servicio,categoria,nombre_servicio,descripcion_servicio,tiempo_estimado,prioridad_servicio,costos_servicio,pre_requisitos,tarifa_servicio,tipo_servicio,tipo_plataforma,descripciont_servicio
     //Quiero que sean ejemplos de servicios de distintas categorias
-    const servicios = [
-      {
-        id_servicio: 1,
-        categoria: "Programacion",
-        nombre_servicio: "Desarrollo de Pagina Web",
-        descripcion_servicio: "Desarrollo de una pagina web para una empresa de ventas de productos de tecnologia",
-        tiempo_estimado: "2",
-        prioridad_servicio: "Alta",
-        costos_servicio: "1000",
-        pre_requisitos: "Ninguno",
-        tarifa_servicio: "100",
-        tipo_servicio: "Desarrollo",
-        tipo_plataforma: "Open",
-        descripciont_servicio: "Desarrollo de una pagina web para una empresa de ventas de productos de tecnologia",
-        disponibilidad_servicio: "24/7"      
-      },{
-        id_servicio: 2,
-        categoria: "Hardware",
-        nombre_servicio: "Mantenimiento de Computadoras",
-        descripcion_servicio: "Mantenimiento de Computadoras de una empresa de ventas de productos de tecnologia",
-        tiempo_estimado: "2",
-        prioridad_servicio: "Alta",
-        costos_servicio: "1000",
-        pre_requisitos: "Ninguno",
-        tarifa_servicio: "100",
-        tipo_servicio: "Mantenimiento",
-        tipo_plataforma: "Open",
-        descripciont_servicio: "Mantenimiento de Computadoras de una empresa de ventas de productos de tecnologia, se empieza limpiando la tarjeta madre",
-        disponibilidad_servicio: "24/7"     
-      },{
-        id_servicio: 3,
-        categoria: "Software",
-        nombre_servicio: "Desarrollo de Aplicacion Movil",
-        descripcion_servicio: "Desarrollo de una aplicacion movil para una empresa de ventas de productos de tecnologia",
-        tiempo_estimado: "2",
-        prioridad_servicio: "Alta",
-        costos_servicio: "1000",
-        pre_requisitos: "Ninguno",
-        tarifa_servicio: "100",
-        tipo_servicio: "Desarrollo",
-        tipo_plataforma: "Open",
-        descripciont_servicio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quibusdam debitis sapiente quidem? Voluptatem corporis dolores nemo velit possimus, nostrum ratione tempore ducimus qui modi doloremque a labore! Nihil in quidem adipisci! Quasi dolores ut praesentium, harum tempora neque, eligendi id magnam modi blanditiis esse dolorum officia quo in dolor vel pariatur magni quae aperiam corrupti corporis. Sunt magni eligendi sequi architecto numquam optio voluptates doloribus mollitia quas molestias neque qui facere ipsam, quisquam quaerat ad voluptas, omnis voluptate cumque est cupiditate tempore libero eos quibusdam? Quasi facere ex omnis similique, quibusdam suscipit dolores doloremque explicabo quas recusandae beatae dignissimos sapiente. Quidem odit molestiae quis possimus velit et necessitatibus totam similique maiores libero aspernatur vero ut aperiam quisquam modi facilis, in assumenda, nam excepturi nemo incidunt? Quasi, cum rem impedit perferendis vel consequatur nesciunt? Ex quidem, tempora fugiat molestiae modi necessitatibus ad repellat distinctio, velit molestias voluptatum alias fugit aspernatur excepturi nemo ea, facere saepe. Quo accusantium ut ducimus quia, dicta molestias vero repellat quidem voluptates voluptatum placeat modi sunt doloribus? Tenetur sequi temporibus quam cupiditate iste praesentium id excepturi vel, itaque provident officia nulla, ipsum eaque, commodi repudiandae! Asperiores beatae omnis, quae suscipit officia delectus cupiditate! Voluptatum, inventore a!", 
-        disponibilidad_servicio: "24/7"      
-      }
-  
-    ]
+       //Estos son los campos id_servicio,categoria,nombre_servicio,descripcion_servicio,tiempo_estimado,prioridad_servicio,costos_servicio,pre_requisitos,tarifa_servicio,tipo_servicio,tipo_plataforma,descripciont_servicio, disponibilidad_servicio, industria_atendida
+       const servicios = servicioss.map((servicios) => {
+        return {
+          id: servicios.id_servicio,
+          categoria: servicios.categoria,
+          nombre_servicio: servicios.nombre_servicio,
+          descripcion_servicio: servicios.descripcion_servicio,
+          tiempo_estimado: servicios.tiempo_estimado,
+          prioridad_servicio: servicios.prioridad_servicio,
+          costos_servicio: servicios.costos_servicio,
+          pre_requisitos: servicios.pre_requisitos,
+          tarifa_servicio: servicios.tarifa_servicio,
+          tipo_servicio: servicios.tipo_servicio,
+          tipo_plataforma: servicios.tipo_plataforma,
+          descripciont_servicio: servicios.descripciont_servicio,
+          disponibilidad_servicio: servicios.disponibilidad_servicio,
+          industria_atendida: servicios.industria_atendida,
+        }
+      })
   return (
     <div>
       {/* Si Hay Servicios */}

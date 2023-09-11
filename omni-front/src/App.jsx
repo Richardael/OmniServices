@@ -17,6 +17,8 @@ import ServiciosOPEN from "./pages/admin/ServiciosOpen";
 import ServiciosIBM from "./pages/admin/ServiciosIBM";
 import RutaProtegida from "./pages/RutaProtegida";
 import RegistrarServicios from "./pages/admin/RegistrarServicios";
+import TalleresIBM from "./pages/admin/TalleresIBM";
+import TalleresOpen from "./pages/admin/TalleresOpen";
 
 function App() {
   return (
@@ -31,6 +33,8 @@ function App() {
             <Route path="servicios-open" element={<ServiciosOPEN />} />
             <Route path="servicios-ibm" element={<ServiciosIBM />} />
             <Route path="registro-servicios" element={<RegistrarServicios />}/>
+            <Route path="talleres-ibm" element={<TalleresIBM />} />
+            <Route path="talleres-open" element={<TalleresOpen />} />
           </Route>
         </Route>
 
