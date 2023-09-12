@@ -26,8 +26,9 @@ app.use(cors());
 app.get('/servicios/ibm', async (req, res) => {
   try {
     // Obtén todos los servicios desde la base de datos
-    const servicios = await ServiciosModel.find({ tipo_plataforma: "iBM" });
-    res.json(servicios);
+    const serviciosIBM = await ServiciosModel.find();
+    console.log("Servicios encontrados:", serviciosIBM);
+    res.json(serviciosIBM);
     console.log("Pasaste por busqueda IBM");
   } catch (error) {
     console.error(error);
@@ -39,6 +40,7 @@ app.get('/servicios/open', async (req, res) => {
   try {
     // Obtén todos los servicios desde la base de datos
     const serviciosOpen = await ServiciosModel.find({ tipo_plataforma: "Open" });
+    console.log("Servicios encontrados:", serviciosOpen);
     res.json(serviciosOpen);
     console.log("Busqueda Open");
   } catch (error) {
@@ -48,7 +50,7 @@ app.get('/servicios/open', async (req, res) => {
 });
 
 
-app.post('/registro', async (req, res) => {
+app.post('/registro/servicios', async (req, res) => {
   try {
     // Obtén los datos del cuerpo de la solicitud
     const { categoria,nombre_servicio,descripcion_servicio,tiempo_estimado,prioridad_servicio,costos_servicio,pre_requisitos,tarifa_servicio,tipo_servicio,tipo_plataforma,descripciont_servicio, disponibilidad_servicio, industria_atendida} = req.body;
@@ -72,5 +74,5 @@ app.post('/registro', async (req, res) => {
 const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, () => {
-  console.log(`Servidor en ejecución en http://192.168.1.50:${PORT}`);
+  console.log(`Servidor en ejecución en http://192.168.1.43:${PORT}`);
 });
