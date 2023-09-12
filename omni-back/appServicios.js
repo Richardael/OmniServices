@@ -23,10 +23,10 @@ mongoose.connect(uri, {
 app.use(express.json());
 app.use(cors());
 
-app.get('/servicios', async (req, res) => {
+app.get('/servicios/ibm', async (req, res) => {
   try {
     // Obtén todos los servicios desde la base de datos
-    const servicios = await ServiciosModel.find();
+    const servicios = await ServiciosModel.find({ tipo_plataforma: "iBM" });
     res.json(servicios);
     console.log("Pasaste por busqueda IBM");
   } catch (error) {

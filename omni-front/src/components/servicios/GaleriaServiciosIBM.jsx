@@ -14,7 +14,7 @@ const GaleriaServiciosIBM = () => {
     useEffect(() => {
       //Obtengo los servicios desde mi backend y los almaceno en mi estado de servicios
    const obtenerServicios = async () => {
-       const { data} = await axios.get('http://192.168.1.50:8000/servicios');
+       const { data} = await axios.get('http://192.168.1.43:8000/servicios/ibm');
        setServicioss(data);
    }
    //Aca quiero exportar las categorias, nombre y descripcion en forma de un array para mis tarjetas
