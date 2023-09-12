@@ -93,7 +93,7 @@ onSubmit={handleRegisterServices}
                 Categoria
               </option>
               <option value="Programacion">Programación</option>
-              <option value="BaseDeDatos">Base de datos</option>
+              <option value="Base de datos">Base de datos</option>
               <option value="Seguridad">Seguridad</option>
               <option value="Redes">Redes</option>
               <option value="Hardware">Hardware</option>
@@ -111,7 +111,6 @@ onSubmit={handleRegisterServices}
             Tipo de Servicios
           </option>
           <option value="Recuperacion del Sistema Operativo IBM i">Recuperacion del Sistema Operativo IBM i</option>
-          <option value="">Open</option>
         </select>
         {/* Industria Atendida */}
         <select
@@ -123,15 +122,15 @@ onSubmit={handleRegisterServices}
             Industria Atendida
           </option>
           <option value="Banca">Banca</option>
-          <option value="">Finanzas</option>
-          <option value="">Educacion</option>
-          <option value="">Salud</option>
-          <option value="">Seguros</option>
-          <option value="">Telecomunicaciones</option>
-          <option value="">Hosteleria</option>
-          <option value="">Comercio Electronico</option>
-          <option value="">Distribucion y Logistica</option>
-          <option value="">Manufactura</option>
+          <option value="Finanzas">Finanzas</option>
+          <option value="Educacion">Educacion</option>
+          <option value="Salud">Salud</option>
+          <option value="Seguros">Seguros</option>
+          <option value="Telecomunicaciones">Telecomunicaciones</option>
+          <option value="Hosteleria">Hosteleria</option>
+          <option value="Comercio Electronico">Comercio Electronico</option>
+          <option value="Distribucion y Logistica">Distribucion y Logistica</option>
+          <option value="Manufactura">Manufactura</option>
         </select>
       </div>
       
@@ -159,11 +158,11 @@ onSubmit={handleRegisterServices}
           <option disabled selected>
             Prioridad del Servicio
           </option>
-          <option value="">Muy Alta</option>
+          <option value="Muy Alta">Muy Alta</option>
           <option value="Alta">Alta</option>
-          <option value="">Media</option>
-          <option value="">Baja</option>
-          <option value="">Muy Baja</option>
+          <option value="Media">Media</option>
+          <option value="Baja">Baja</option>
+          <option value="Muy Baja">Muy Baja</option>
         </select>
         {/* Disponibilidad */}
         <select
@@ -175,10 +174,10 @@ onSubmit={handleRegisterServices}
             Disponibilidad 
           </option>
           <option value="24/7">24/7</option>
-          <option value="">8/5</option>
-          <option value="">8/7</option>
-          <option value="">8/6</option>
-          <option value="">8/4</option>
+          <option value="8/5">8/5</option>
+          <option value="8/7">8/7</option>
+          <option value="8/6">8/6</option>
+          <option value="8/4">8/4</option>
         </select>
         {/* Pre-requisitos */}
         <div>

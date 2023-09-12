@@ -10,6 +10,7 @@ import {
   RiHome3Line,
   RiAdminLine,
   RiArrowRightSLine,
+  RiGroupLine,
 } from "react-icons/ri";
 
 const LayoutAdmin = () => {
@@ -130,7 +131,7 @@ const LayoutAdmin = () => {
                         : "text-gray-400"
                     }`}
                   >
-                    <RiFileList3Line />
+                    <RiGroupLine />
                     <span className="flex-1 flex items-center justify-between gap-4">
                       Talleres IBM
                     </span>
@@ -145,7 +146,7 @@ const LayoutAdmin = () => {
                         : "text-gray-400"
                     }`}
                   >
-                    <RiFileList3Line />
+                    <RiGroupLine />
                     <span className="flex-1 flex items-center justify-between gap-4">
                       Talleres Open
                     </span>

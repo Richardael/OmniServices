@@ -1,8 +1,13 @@
 import React from 'react'
+import BarraDeBusquedaOpen from '../../components/servicios/BarraDeBusquedaOpen'
+import GaleriaTalleresOpen from '../../components/talleres/GaleriaTalleresOpen'
 
 const TalleresOpen = () => {
   return (
-    <div>TalleresOpen</div>
+    <div>
+      <BarraDeBusquedaOpen />
+      <GaleriaTalleresOpen />
+    </div>
   )
 }
 
