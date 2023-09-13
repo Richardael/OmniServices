@@ -19,6 +19,7 @@ import RutaProtegida from "./pages/RutaProtegida";
 import RegistrarServicios from "./pages/admin/RegistrarServicios";
 import TalleresIBM from "./pages/admin/TalleresIBM";
 import TalleresOpen from "./pages/admin/TalleresOpen";
+import RegistrarTalleres from "./pages/admin/RegistrarTalleres";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
             <Route path="servicios-open" element={<ServiciosOPEN />} />
             <Route path="servicios-ibm" element={<ServiciosIBM />} />
             <Route path="registro-servicios" element={<RegistrarServicios />}/>
+            <Route path="registro-talleres" element={<RegistrarTalleres />}/>
             <Route path="talleres-ibm" element={<TalleresIBM />} />
             <Route path="talleres-open" element={<TalleresOpen />} />
           </Route>

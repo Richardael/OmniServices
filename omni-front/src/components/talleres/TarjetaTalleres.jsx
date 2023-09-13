@@ -1,6 +1,9 @@
 import React from 'react'
+import { RiSettings2Fill, RiDatabase2Line,RiShieldCheckLine, RiAdminLine, RiWifiLine, RiTerminalBoxLine,RiCodeLine, RiUserSearchLine, RiMailSendLine } from 'react-icons/ri';
+import { useState } from 'react';
 
-const TarjetaTalleres = ({id_taller,categoria,nombre_taller,tipo_taller,descripcion_taller,publico_taller,pre_conocimientos,temario_talleres,obj_general,duracion_taller,modalidad_taller,cantidad_participantes}) => {
+
+const TarjetaTalleres = ({id_taller,tipo_plataforma,categoria,nombre_taller,tipo_taller,descripcion_taller,publico_taller,pre_conocimientos,temario_taller,obj_general,duracion_taller,modalidad_taller,cantidad_participantes}) => {
     const IconoTalleres = () => {
         if (categoria === "Programacion") {
           return <RiTerminalBoxLine className='mx-auto mb-10 mt-5 h-20 w-20'/>
@@ -39,10 +42,10 @@ className="bg-white flex flex-col max-w-sm mx-auto rounded-lg shadow-xl h-[370px
   </div>
   <div className="px-6 py-4 flex flex-col gap-2">
     <h1 className="text-xl font-semibold text-gray-800 ">
-    {nombre_servicio.split(" ").splice(0,5).join(" ")}
+    {nombre_taller}
     </h1>
     <p className='text-secondary-300 max-sm:sm'>
-    {descripcion_servicio.split(" ").splice(0,8).join(" ")}...
+    {descripcion_taller}
     </p>
     <button onClick={toggleModal} className="bg-primary-300 text-white py-2 px-16 max-sm:px-auto rounded-lg shadow-md hover:bg-primary-200 transition duration-300 ease-in-out absolute bottom-4 right-4 left-4 ">
       Ver más
@@ -58,7 +61,7 @@ className="bg-white flex flex-col max-w-sm mx-auto rounded-lg shadow-xl h-[370px
           {/*header*/}
           <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
             <h3 className="text-2xl font-semibold">
-              {nombre_servicio}
+              {nombre_taller}
             </h3>
             <button
               className="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -82,52 +85,48 @@ className="bg-white flex flex-col max-w-sm mx-auto rounded-lg shadow-xl h-[370px
               </div>
               <div>
               <h1 className='text-xl font-semibold text-primary-300'>Tipo de Servicio</h1>
-                <p className='text-secondary-300'>{tipo_servicio}</p>
+                <p className='text-secondary-300'>{tipo_taller}</p>
               </div>
               <div>
                 <h1 className='text-xl font-semibold text-primary-300'>Industria Atendida</h1>
-                <p className='text-secondary-300'>{industria_atendida}</p>
+                <p className='text-secondary-300'>{publico_taller}</p>
               </div>
               </div>
               <div className='grid grid-cols-4 shadow-md border-2 border-secondary-200 rounded-md p-2 mt-2 text-center mb-5'>
               <div>
                 <h1 className='text-xl font-semibold text-primary-300'>Prioridad</h1>
-                <p className='text-secondary-300'>{prioridad_servicio}</p>
+                <p className='text-secondary-300'>{obj_general}</p>
               </div>
               <div>
                 <h1 className='text-xl font-semibold text-primary-300'>Disponibilidad</h1>
-                <p className='text-secondary-300'>{disponibilidad_servicio}</p>
+                <p className='text-secondary-300'>{modalidad_taller}</p>
               </div>
               <div>
                 <h1 className='text-xl font-semibold text-primary-300'>Pre-Requisitos</h1>
-                <p className='text-secondary-300'>{pre_requisitos}</p>
+                <p className='text-secondary-300'>{pre_conocimientos}</p>
               </div>
               <div>
                 <h1 className='text-xl font-semibold text-primary-300'>Tiempo Estimado</h1>
-                <p className='text-secondary-300'>{tiempo_estimado} <span className=' font-semibold'>Horas</span></p>
+                <p className='text-secondary-300'>{duracion_taller} <span className=' font-semibold'>Horas</span></p>
               </div>
             </div>
             <div className='grid grid-cols-2 shadow-md border-2 border-secondary-200 rounded-md p-2 mt-2 mb-5 text-center'>
               <div>
                 <h1 className='text-xl font-semibold text-primary-300'>Costos</h1>
-                <p className='text-secondary-300'>{costos_servicio}</p>
-              </div>
-              <div className=''>
-                <h1 className='text-xl font-semibold text-primary-300'>Tarifa</h1>
-                <p className='text-secondary-300'>{tarifa_servicio}</p>
+                <p className='text-secondary-300'>{cantidad_participantes}</p>
               </div>
             </div>
             <div className='w-full grid gap-2 grid-cols-2 mb-2'>
               <div>
               <h1 className='text-xl font-semibold text-primary-300 mt-2 text-center'>Descripcion del Servicio</h1>
             <p className="mt-2 text-secondary-300 text-lg leading-relaxed border rounded-md p-2 shadow-md text-justify">
-              {descripcion_servicio}
+              {descripcion_taller}
             </p>
               </div>
               <div>
               <h1 className='text-xl font-semibold text-primary-300 mt-2 text-center'>Descripcion Tecnica del Servicio</h1>
             <p className="mt-2 text-secondary-300 text-lg leading-relaxed border rounded-md p-2 shadow-md text-justify" >
-              {descripciont_servicio}
+              {temario_taller}
             </p>
               </div>
         
