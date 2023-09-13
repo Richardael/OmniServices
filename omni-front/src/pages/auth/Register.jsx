@@ -17,6 +17,7 @@ import {
   RiEyeCloseLine,
   RiUser3Line,
   RiUser4Line,
+  RiUser2Line,
 } from "react-icons/ri";
 
 //Rutas
@@ -34,7 +35,7 @@ const Register = () => {
   const [nombre_completo, setNombre_completo] = useState("");
   const [correo_us, setCorreo_us] = useState("");
   const [password, setPassword] = useState("");
-  const [repeat_password, setRepeat_password] = useState("");
+  const [repeat_password, setRepeat_Password] = useState("");
 
   //Estado Mostrar Contraseña
   const [mostrarContraseña, setMostrarContraseña] = useState(false);
@@ -87,7 +88,7 @@ const Register = () => {
     }
     else {
       try {
-        const response = await axios.post('http://192.168.1.50:8000/registro/', {
+        const response = await axios.post('http://192.168.1.50:8000/usuarios/registro/', {
           nombre_us: nombre_us,
           nombre_completo: nombre_completo,
           correo_us: correo_us,
@@ -132,6 +133,32 @@ const Register = () => {
 
           </div>
           <form onSubmit={handleRegisterSubmit} className="flex flex-col gap-4">
+            <div className="grid grid-cols-2 gap-4">
+            <div className="relative">
+            <RiUser2Line className="absolute top-1/2 -translate-y-1/2 left-2 text-primary-300 w-5 h-5" />
+              <input
+                type="text"
+                autoComplete="off"
+                className="w-full border py-2 px-8 rounded-md outline-none bg-secondary-100 text-secondary-900 group focus:ring-1 focus:ring-primary-300"
+                placeholder="Nombre de Usuario"
+                name="nombre_us"
+                value={nombre_us}
+                onChange={(e) => setNombre_us(e.target.value)}
+              />
+            </div>
+            <div className="relative">
+            <RiUser4Line className="absolute top-1/2 -translate-y-1/2 left-2 text-primary-300 w-5 h-5" />
+              <input
+                type="text"
+                autoComplete="off"
+                className="w-full border py-2 px-8 rounded-md outline-none bg-secondary-100 text-secondary-900 group focus:ring-1 focus:ring-primary-300"
+                placeholder="Nombre Completo"
+                name="nombre_completo"
+                value={nombre_completo}
+                onChange={(e) => setNombre_completo(e.target.value)}
+              />
+            </div>
+            </div>
             <div className="relative">
             <RiMailLine className="absolute top-1/2 -translate-y-1/2 left-2 text-primary-300 w-5 h-5" />
               <input
@@ -163,6 +190,29 @@ const Register = () => {
             ) : (
               <RiEyeCloseLine
                 onClick={() => setMostrarContraseña(!mostrarContraseña)}
+                className="absolute top-1/2 -translate-y-1/2 right-2 hover:cursor-pointer text-primary-300 select-none"
+              />
+            )}
+            </div>
+            <div className="relative">
+            <RiLockLine className="absolute top-1/2 -translate-y-1/2 left-2 text-primary-300 w-5 h-5" />
+              <input
+              type={mostrarConfirmar ? "text" : "password"}
+              autoComplete="off"
+              className="w-full border py-2 px-8 rounded-md outline-none bg-secondary-100 text-secondary-900 group focus:ring-1 focus:ring-primary-300"
+                placeholder="Ingresa tu contraseña"
+                name="password"
+                value={repeat_password}
+                onChange={(e) => setRepeat_Password(e.target.value)}
+              />
+               {mostrarConfirmar ? (
+              <RiEyeLine
+                onClick={() => setMostrarConfirmar(!mostrarConfirmar)}
+                className="absolute top-1/2 -translate-y-1/2 right-2 hover:cursor-pointer text-primary-300 select-none"
+              />
+            ) : (
+              <RiEyeCloseLine
+                onClick={() => setMostrarConfirmar(!mostrarConfirmar)}
                 className="absolute top-1/2 -translate-y-1/2 right-2 hover:cursor-pointer text-primary-300 select-none"
               />
             )}
