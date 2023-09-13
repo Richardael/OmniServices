@@ -37,5 +37,5 @@ app.use('/usuarios', usuariosRoutes);
 //Servidor
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
-  console.log(`Servidor en ejecución en http://172.16.0.76:${PORT}`);
+  console.log(`Servidor en ejecución en http://192.168.1.50:${PORT}`);
 });

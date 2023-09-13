@@ -6,11 +6,11 @@ const UsuariosModel = require('../Modelo/Usuarios'); // Importa el modelo de ser
 router.post('/registro', async (req, res) => {
     try {
       // Obtén los datos del cuerpo de la solicitud
-      const {nombre,username,email,password} = req.body;
+      const {nombre_us,nombre_completo,email_us,password} = req.body;
   
       // Crea una nueva instancia de servicio
       const newUsuario = new UsuariosModel({
-        nombre,username,email,password
+        nombre_us,nombre_completo,email_us,password
       });
   
       // Guarda el servicio en la base de datos
