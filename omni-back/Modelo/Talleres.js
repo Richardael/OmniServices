@@ -7,11 +7,11 @@ const talleresSchema = new mongoose.Schema({
     descripcion_taller: String,
     publico_taller: String,
     pre_conocimientos: String,
-    temario_talleres: String,
+    temario_taller: String,
     obj_general: String,
-    duracion_taller: String,
+    duracion_taller: Number,
     modalidad_taller: String,
-    cantidad_participantes: String,
+    cantidad_participantes: Number,
 });
 
 const TalleresModel = mongoose.model('talleres', talleresSchema);

@@ -28,4 +28,49 @@ router.get('/ibm', async (req, res) => {
   }
 });
 
+// Ruta para registrar un nuevo taller
+router.post('/registro', async (req, res) => {
+  try {
+    // Obtén los datos del cuerpo de la solicitud
+    const {
+      categoria,
+      nombre_taller,
+      tipo_taller,
+      descripcion_taller,
+      publico_taller,
+      pre_conocimientos,
+      temario_taller,
+      obj_general,
+      duracion_taller,
+      modalidad_taller,
+      cantidad_participantes,
+    } = req.body;
+
+    // Crea una nueva instancia de Taller
+    const newTaller = new TalleresModel({
+      categoria,
+      nombre_taller,
+      tipo_taller,
+      descripcion_taller,
+      publico_taller,
+      pre_conocimientos,
+      temario_taller,
+      obj_general,
+      duracion_taller,
+      modalidad_taller,
+      cantidad_participantes,
+    });
+
+    // Guarda el servicio en la base de datos
+    await newTaller.save();
+
+    // Respuesta exitosa
+    res.status(201).json({ message: 'Taller registrado con éxito' });
+    console.log("Registro de taller exitoso");
+  } catch (error) {
+    console.error(error);
+    // Manejo de errores
+    res.status(500).json({ error: 'Hubo un error al registrar el taller' });
+  }
+});
 module.exports = router;

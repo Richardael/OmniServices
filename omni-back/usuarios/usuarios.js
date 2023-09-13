@@ -17,12 +17,12 @@ router.post('/registro', async (req, res) => {
       await newUsuario.save();
   
       // Respuesta exitosa
-      res.status(201).json({ message: 'Servicio registrado con éxito' });
-      console.log("Registro de servicio exitoso");
+      res.status(201).json({ message: 'Usuario registrado con éxito' });
+      console.log("Registro de Usuario exitoso");
     } catch (error) {
       console.error(error);
       // Manejo de errores
-      res.status(500).json({ error: 'Hubo un error al registrar el servicio' });
+      res.status(500).json({ error: 'Hubo un error al registrar el Usuario' });
     }
   });
   
