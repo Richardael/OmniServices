@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const TalleresModel = require('../Modelo/Talleres'); //Importando el modelo de talleres
+
 router.get('/open', async (req, res) => {
   try {
     // Obtén todos los talleres desde la base de datos
