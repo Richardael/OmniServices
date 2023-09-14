@@ -5,6 +5,10 @@ const usuariosSchema = new mongoose.Schema({
     nombre_completo: String,
     correo_us: String,
     password: String,
+    id_rol: {
+        type: Number,
+        default: 4 // Valor predeterminado para id_rol (4 para "vendedor")
+    }
 });
 
 const UsuariosModel = mongoose.model('usuarios', usuariosSchema);

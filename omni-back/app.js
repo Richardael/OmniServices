@@ -5,6 +5,7 @@ const cors = require('cors'); // Importa el módulo 'cors'
 const talleresRoutes = require('./talleres/talleres'); // Asegúrate de ajustar la ruta al archivo talleres.js
 const serviciosRoutes = require('./servicios/servicios'); // Importa la ruta de servicios.js
 const usuariosRoutes = require('./usuarios/usuarios'); // Importa la ruta de usuarios.js
+const loginRoutes = require('./login/login'); // Importa la ruta de login.js
 
 
 app.use(express.json());
@@ -33,9 +34,11 @@ app.use('/talleres', talleresRoutes);
 //Middleware para las rutas de los usuarios 
 app.use('/usuarios', usuariosRoutes);
 
+//Middleware para las rutas de los usuarios 
+app.use('/login', loginRoutes);
 
 //Servidor
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
-  console.log(`Servidor en ejecución en http://192.168.1.50:${PORT}`);
+  console.log(`Servidor en ejecución en http://192.168.0.41:${PORT}`);
 });

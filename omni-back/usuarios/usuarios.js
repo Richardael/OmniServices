@@ -6,18 +6,18 @@ const UsuariosModel = require('../Modelo/Usuarios'); // Importa el modelo de ser
 router.post('/registro', async (req, res) => {
     try {
       // Obtén los datos del cuerpo de la solicitud
-      const {nombre_us,nombre_completo,email_us,password} = req.body;
+      const {nombre_us,nombre_completo,correo_us,password} = req.body;
   
       // Crea una nueva instancia de servicio
       const newUsuario = new UsuariosModel({
-        nombre_us,nombre_completo,email_us,password
+        nombre_us,nombre_completo,correo_us,password
       });
   
       // Guarda el servicio en la base de datos
       await newUsuario.save();
   
       // Respuesta exitosa
-      res.status(201).json({ message: 'Usuario registrado con éxito' });
+      res.status(201).json({ message: 'registrado' });
       console.log("Registro de Usuario exitoso");
     } catch (error) {
       console.error(error);
