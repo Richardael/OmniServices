@@ -88,30 +88,35 @@ const Register = () => {
     }
     else {
       try {
-        const response = await axios.post('http://192.168.1.50:8000/usuarios/registro/', {
+        const response = await axios.post('http://192.168.0.41:8000/usuarios/registro/', {
           nombre_us: nombre_us,
           nombre_completo: nombre_completo,
           correo_us: correo_us,
           password: password,
-          repeat_password: repeat_password
         });
-        const token = response.data["token"];
-        
-        if (token) {
+        //Estoy enviando un json que dice "Token" desde el backend y la clave es message, es una respuesta tras lograr el registro exitoso
+        const registrado = response.data
+        console.log(registrado);
+        if (registrado) {
           setMostrarAlertaBuena(true);
           setTimeout(() => {
             setMostrarAlertaBuena(false);
-          }, 1000); 
-          setAlertaBuena("Registro Exitoso exitoso");
+          }, 1000);
+          setAlertaBuena("Registro exitoso");
+          //Redirigir usuario al Login
+          setTimeout(() => {
+            window.location.href = "/auth/";
+          }, 1000);
         } else {
           setMostrarAlertaMala(true);
           setTimeout(() => {
             setMostrarAlertaMala(false);
-          }, 5000); 
+          }, 5000);
           setAlertaMala("Registro fallido");
         }
-      } catch (error) {
-        console.error("Registro fallido: ", error);
+      }
+      catch (error) {
+        console.error("Error al registrar:", error);
       }
     }
   };

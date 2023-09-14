@@ -1,6 +1,8 @@
 import React from 'react'
 import { useState } from 'react';
 import axios from 'axios'
+import AlertaBuena from '../alertas/AlertaBuena';
+import AlertaMala from '../alertas/AlertaMala';
 
 const FormRegistro = () => {
     const [categoria,setTCategoria] = useState("");
@@ -16,15 +18,27 @@ const FormRegistro = () => {
     const[tipo_plataforma, setTipo_plataforma] = useState("");
     const[descripciont_servicio, setDescripciont_servicio] = useState("");
     const[disponibilidad_servicio, setDisponibilidad_servicio] = useState("");
-  
 
+    const [mostrarAlertaBuena, setMostrarAlertaBuena] = useState(false);
+    const [alertaBuena, setAlertaBuena] = useState("");
+    const [mostrarAlertaMala, setMostrarAlertaMala] = useState(false);
+    const [alertaMala, setAlertaMala] = useState("");
 
     //Registrar por medio de axios
     const handleRegisterServices = async (e) => {
-        e.preventDefault();
-        try {
+      e.preventDefault();
+      //Implementar alertas negativas en caso de tener un campo vacio en mi registro de servicios
+      if (categoria.length === 0 || nombre_servicio.length === 0 || descripcion_servicio.length === 0 || industria_atendida.length === 0 || tiempo_estimado.length === 0 || prioridad_servicio.length === 0 || costos_servicio.length === 0 || pre_requisitos.length === 0 || tarifa_servicio.length === 0 || tipo_servicio.length === 0 || tipo_plataforma.length === 0 || descripciont_servicio.length === 0 || disponibilidad_servicio.length === 0) {
+        setMostrarAlertaMala(true);
+        setTimeout(() => {
+          setMostrarAlertaMala(false);
+        }, 5000); // Ocultar la notificación después de 5000 ms (5 segundos)
+        setAlertaMala("No puede haber campos vacios");
+      } else {
+      //Registrar por medio de axios
+      try {
           const response = await axios.post(
-            "http://192.168.0.35:8000/servicios/registro",
+            "http://192.168.0.41:8000/servicios/registro",
             {
               categoria,
               nombre_servicio,
@@ -41,12 +55,28 @@ const FormRegistro = () => {
               disponibilidad_servicio,
             }
           );
+          const registroservicio = response.data;
+          console.log(registroservicio);
+          //Implementa un tiempo de respuesta esperado de 3s si no, arroja error
+          
+          setMostrarAlertaBuena(true);
+          setTimeout(() => {
+            setMostrarAlertaBuena(false);
+          }, 5000); // Ocultar la notificación después de 5000 ms (5 segundos)
+          setAlertaBuena("Registro de Servicio Exitoso");
           console.log(response);
         } catch (error) {
+          setMostrarAlertaMala(true);
+          setTimeout(() => {
+            setMostrarAlertaMala(false);
+          }, 5000); // Ocultar la notificación después de 5000 ms (5 segundos)
+          setAlertaMala("Registro de Servicio Fallido");
           console.log(error);
       }
       }
+    }
   return (
+    <div>
 <form
 onSubmit={handleRegisterServices}
 >
@@ -56,6 +86,7 @@ onSubmit={handleRegisterServices}
           id="underline_select"
           className="block py-2.5 pl-2 w-full text-secondary-900 bg-transparent border-0 rounded-md border-b-2 border-primary-300 appearance-none focus:outline-none focus:ring-0 focus:border-primary-100 peer"
             onChange={(e) => setTipo_plataforma(e.target.value)}
+            required
         >
           <option disabled selected>
             Tipo de Plataforma
@@ -66,6 +97,7 @@ onSubmit={handleRegisterServices}
         {/* Categoria */}
         <select
           id="underline_select"
+          required
           className="block py-2.5 pl-2 w-full text-secondary-900 bg-transparent border-0 rounded-md border-b-2 border-primary-300 appearance-none focus:outline-none focus:ring-0 focus:border-primary-100 peer"
          onChange={(e) => setTCategoria(e.target.value)}
         >
@@ -104,6 +136,7 @@ onSubmit={handleRegisterServices}
                 {/* Tipo de Servicio */}
                 <select
           id="underline_select"
+          required
           className="block py-2.5 pl-2 w-full text-secondary-900 bg-transparent border-0 rounded-md border-b-2 border-primary-300 appearance-none focus:outline-none focus:ring-0 focus:border-primary-100 peer"
           onChange={(e) => setTipo_servicio(e.target.value)}
         >
@@ -121,6 +154,7 @@ onSubmit={handleRegisterServices}
         {/* Industria Atendida */}
         <select
           id="underline_select"
+          required
           className="block py-2.5 pl-2 w-full text-secondary-900 bg-transparent border-0 rounded-md border-b-2 border-primary-300 appearance-none focus:outline-none focus:ring-0 focus:border-primary-100 peer"
         onChange={(e) => setIndustria_atendida(e.target.value)}
         >
@@ -160,6 +194,7 @@ onSubmit={handleRegisterServices}
           id="underline_select"
           className="block py-2.5 pl-2 w-full text-secondary-900 bg-transparent border-0 rounded-md border-b-2 border-primary-300 appearance-none focus:outline-none focus:ring-0 focus:border-primary-100 peer"
         onChange={(e) => setPrioridad_servicio(e.target.value)}
+        required
         >
           <option disabled selected>
             Prioridad del Servicio
@@ -174,6 +209,7 @@ onSubmit={handleRegisterServices}
         {/* Disponibilidad */}
         <select
           id="underline_select"
+          required
           className="block py-2.5 pl-2 w-full text-secondary-900 bg-transparent border-0 rounded-md border-b-2 border-primary-300 appearance-none focus:outline-none focus:ring-0 focus:border-primary-100 peer"
          onChange={(e) => setDisponibilidad_servicio(e.target.value)}
         >
@@ -264,6 +300,7 @@ onSubmit={handleRegisterServices}
             className="block p-2.5 w-full text-sm text-secondary-900 bg-gray-50 border-2 border-primary-300 appearance-none outline-none focus:border-2 focus:border-primary-100 rounded-md"
             placeholder="Escribe una breve descripcion del servicio"
             onChange={(e) => setDescripcion_servicio(e.target.value)}
+            required
           ></textarea>
         </div>
         {/* Descripcion Tecnica */}
@@ -279,7 +316,8 @@ onSubmit={handleRegisterServices}
             id="message"
             rows="4"
             className="block p-2.5 w-full text-sm text-secondary-900 bg-gray-50 border-2 border-primary-300 appearance-none outline-none focus:border-2 focus:border-primary-100 rounded-md"
-            placeholder="Escribe una breve descripcion tecnica del servicio y el como se lleva a cabo el mismo"
+            placeholder="Escribe una breve descripcion tecnica del servici
+            requiredo y el como se lleva a cabo el mismo"
             onChange={(e) => setDescripciont_servicio(e.target.value)}
           ></textarea>
         </div>
@@ -291,6 +329,16 @@ onSubmit={handleRegisterServices}
       </button>
       </div>
     </form>
+            <AlertaMala
+        mostrarAlertaMala={mostrarAlertaMala}
+        alertaMala={alertaMala}
+      />
+
+      <AlertaBuena
+        mostrarAlertaBuena={mostrarAlertaBuena}
+        alertaBuena={alertaBuena}
+      />
+    </div>
   )
 }
 
