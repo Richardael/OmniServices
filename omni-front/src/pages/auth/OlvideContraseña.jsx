@@ -2,7 +2,7 @@ import {useState} from 'react'
 //Estilos
 import "./../../App.css"
 //Imagenes
-import logo from "./../../assets/Systick.png"
+import logo from "./../../assets/Omniservices.png"
 //Icons
 import {RiMailLine} from "react-icons/ri"
 
@@ -16,9 +16,8 @@ const OlvideContraseña = () => {
     <div className="min-h-screen flex items-center justify-center p-4">
     <div className="max-w-lg">
     <div className="flex relative justify-center items-center px-8 pt-8 pb-5">
-    <img className="w-10 h-10" src={logo} alt="Logo Systick" />
-    <h1 className="text-secondary-900 text-3xl font-medium tracking-widest">
-     ystick
+    <h1 className="text-secondary-200 text-3xl font-medium tracking-widest">
+      OmniServices
     </h1>
   </div>
       <div className="bg-secondary-100 w-full rounded-lg p-8 mb-8">
@@ -47,9 +46,9 @@ const OlvideContraseña = () => {
           </div>
         </form>
       </div>
-      <span className="flex items-center justify-center gap-2 text-gray-500">
+      <span className="flex items-center justify-center gap-2 text-gray-200">
       ¿Recordaste tu contraseña?{" "}
-      <Link to="../" className="text-primary-300 hover:underline decoration-1">
+      <Link to="../" className="text-secondary-200 font-bold hover:underline decoration-1">
         Volver al Login
       </Link>
     </span>

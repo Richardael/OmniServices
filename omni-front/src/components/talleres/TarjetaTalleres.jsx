@@ -84,47 +84,47 @@ className="bg-white flex flex-col max-w-sm mx-auto rounded-lg shadow-xl h-[370px
                 <p className='text-secondary-300'>{categoria}</p>
               </div>
               <div>
-              <h1 className='text-xl font-semibold text-primary-300'>Tipo de Servicio</h1>
+              <h1 className='text-xl font-semibold text-primary-300'>Tipo de Taller</h1>
                 <p className='text-secondary-300'>{tipo_taller}</p>
               </div>
               <div>
-                <h1 className='text-xl font-semibold text-primary-300'>Industria Atendida</h1>
+                <h1 className='text-xl font-semibold text-primary-300'>Publico del Taller</h1>
                 <p className='text-secondary-300'>{publico_taller}</p>
               </div>
               </div>
-              <div className='grid grid-cols-4 shadow-md border-2 border-secondary-200 rounded-md p-2 mt-2 text-center mb-5'>
+              <div className='grid grid-cols-3 shadow-md border-2 border-secondary-200 rounded-md p-2 mt-2 text-center mb-5'>
               <div>
-                <h1 className='text-xl font-semibold text-primary-300'>Prioridad</h1>
+                <h1 className='text-xl font-semibold text-primary-300'>Objetivo General </h1>
                 <p className='text-secondary-300'>{obj_general}</p>
               </div>
               <div>
-                <h1 className='text-xl font-semibold text-primary-300'>Disponibilidad</h1>
+                <h1 className='text-xl font-semibold text-primary-300'>Modalidad del Taller</h1>
                 <p className='text-secondary-300'>{modalidad_taller}</p>
               </div>
               <div>
-                <h1 className='text-xl font-semibold text-primary-300'>Pre-Requisitos</h1>
+                <h1 className='text-xl font-semibold text-primary-300'>Pre-Conocimientos</h1>
                 <p className='text-secondary-300'>{pre_conocimientos}</p>
-              </div>
-              <div>
-                <h1 className='text-xl font-semibold text-primary-300'>Tiempo Estimado</h1>
-                <p className='text-secondary-300'>{duracion_taller} <span className=' font-semibold'>Horas</span></p>
               </div>
             </div>
             <div className='grid grid-cols-2 shadow-md border-2 border-secondary-200 rounded-md p-2 mt-2 mb-5 text-center'>
               <div>
-                <h1 className='text-xl font-semibold text-primary-300'>Costos</h1>
+                <h1 className='text-xl font-semibold text-primary-300'>Cantidad de Participantes</h1>
                 <p className='text-secondary-300'>{cantidad_participantes}</p>
+              </div>
+              <div>
+                <h1 className='text-xl font-semibold text-primary-300'>Duracion del Taller</h1>
+                <p className='text-secondary-300'>{duracion_taller} <span className=' font-semibold'>Horas</span></p>
               </div>
             </div>
             <div className='w-full grid gap-2 grid-cols-2 mb-2'>
               <div>
-              <h1 className='text-xl font-semibold text-primary-300 mt-2 text-center'>Descripcion del Servicio</h1>
+              <h1 className='text-xl font-semibold text-primary-300 mt-2 text-center'>Descripcion del Taller</h1>
             <p className="mt-2 text-secondary-300 text-lg leading-relaxed border rounded-md p-2 shadow-md text-justify">
               {descripcion_taller}
             </p>
               </div>
               <div>
-              <h1 className='text-xl font-semibold text-primary-300 mt-2 text-center'>Descripcion Tecnica del Servicio</h1>
+              <h1 className='text-xl font-semibold text-primary-300 mt-2 text-center'>Temario del Taller</h1>
             <p className="mt-2 text-secondary-300 text-lg leading-relaxed border rounded-md p-2 shadow-md text-justify" >
               {temario_taller}
             </p>
