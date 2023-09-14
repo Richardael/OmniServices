@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const talleresSchema = new mongoose.Schema({
+    tipo_plataforma: String,
     categoria: String,
     nombre_taller: String,
     tipo_taller: String,

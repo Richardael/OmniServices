@@ -5,7 +5,7 @@ const TalleresModel = require('../Modelo/Talleres'); //Importando el modelo de t
 router.get('/open', async (req, res) => {
   try {
     // Obtén todos los talleres desde la base de datos
-    const talleresOpen = await TalleresModel.find();
+    const talleresOpen = await TalleresModel.find({tipo_plataforma: "Open"});
     console.log("Talleres encontrados:", talleresOpen);
     res.json(talleresOpen);
     console.log("Búsqueda talleres OPEN");
@@ -18,7 +18,7 @@ router.get('/open', async (req, res) => {
 router.get('/ibm', async (req, res) => {
   try {
     // Obtén todos los talleres desde la base de datos
-    const talleresIbm = await TalleresModel.find();
+    const talleresIbm = await TalleresModel.find({tipo_plataforma: "IBM"});
     console.log("Talleres encontrados:", talleresIbm);
     res.json(talleresIbm);
     console.log("Búsqueda talleres IBM");
@@ -33,6 +33,7 @@ router.post('/registro', async (req, res) => {
   try {
     // Obtén los datos del cuerpo de la solicitud
     const {
+      tipo_plataforma,
       categoria,
       nombre_taller,
       tipo_taller,
@@ -48,6 +49,7 @@ router.post('/registro', async (req, res) => {
 
     // Crea una nueva instancia de Taller
     const newTaller = new TalleresModel({
+      tipo_plataforma,
       categoria,
       nombre_taller,
       tipo_taller,
