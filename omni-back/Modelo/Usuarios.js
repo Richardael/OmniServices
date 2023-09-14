@@ -7,7 +7,7 @@ const usuariosSchema = new mongoose.Schema({
     password: String,
     id_rol: {
         type: Number,
-        default: 4 // Valor predeterminado para id_rol (4 para "vendedor")
+        default: 5 // Valor predeterminado para id_rol (4 para "vendedor")
     }
 });
 
