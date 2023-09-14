@@ -3,7 +3,7 @@ import { useState } from "react";
 //Quiero una barra de búsqueda que me permita buscar servicios por nombre
 //Quiero que la barra de búsqueda me permita buscar servicios por categoría
 const BarraDeBúsquedaIBM = ({servicios, categoria, setCategoria}) => {
-  const user = localStorage.getItem("user_us");
+  const user = localStorage.getItem("nombre_us");
     const [serviciosFiltrados, setServiciosFiltrados] = useState(servicios);
   // Función para manejar el clic en los botones de categoría
   const handleCategoriaClick = (categoria) => {
