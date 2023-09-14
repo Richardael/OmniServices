@@ -23,7 +23,7 @@ const BarraDeBusquedaOpen = ({ servicios, categoria, setCategoria }) => {
       <div className="px-2 py-2 relative sm:flex">
         <div className="2/5">
           <h1 className="font-semibold text-2xl py-2 max-sm:p-0 pr-24 max-sm:mb-5 max-sm:text-center pl-4">
-            Bienvenido <span className="text-primary-300">RichyPage</span>
+            Bienvenido <span className="text-primary-300">LINDA</span>
           </h1>
         </div>
         <form className="w-3/5 max-sm:ml-3 max-sm:w-4/5 max-md:mb-4" action="">

@@ -24,7 +24,7 @@ const FormRegistro = () => {
         e.preventDefault();
         try {
           const response = await axios.post(
-            "http://192.168.1.50:8000/registro",
+            "http://192.168.0.35:8000/servicios/registro",
             {
               categoria,
               nombre_servicio,
@@ -110,7 +110,13 @@ onSubmit={handleRegisterServices}
           <option disabled selected>
             Tipo de Servicios
           </option>
-          <option value="Recuperacion del Sistema Operativo IBM i">Recuperacion del Sistema Operativo IBM i</option>
+          <option value="Servicio de Soporte">Servicio de Soporte</option>
+          <option value="Servicio de Consultoria-Asesoria">Servicio de Consultoria-Asesoria</option>
+          <option value="Servicio de Capacitacion">Servicio de Capacitacion</option>
+          <option value="Servicio de Instalacion">Servicio de Instalacion</option>
+          <option value="Servicio de Licenciamiento">Servicio de Licenciamiento</option>
+          <option value="Servicio de Ventas">Servicio de Ventas</option>
+          <option value="Servicio de Desarrollo">Servicio de Desarrollo</option>
         </select>
         {/* Industria Atendida */}
         <select
@@ -163,6 +169,7 @@ onSubmit={handleRegisterServices}
           <option value="Media">Media</option>
           <option value="Baja">Baja</option>
           <option value="Muy Baja">Muy Baja</option>
+          <option value="Planificado">Planificado</option>
         </select>
         {/* Disponibilidad */}
         <select
@@ -178,6 +185,8 @@ onSubmit={handleRegisterServices}
           <option value="8/7">8/7</option>
           <option value="8/6">8/6</option>
           <option value="8/4">8/4</option>
+          <option value="9/5">9/5</option>
+          <option value="9/7">9/7</option>
         </select>
         {/* Pre-requisitos */}
         <div>

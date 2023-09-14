@@ -26,7 +26,7 @@ const BarraDeBúsquedaIBM = ({servicios, categoria, setCategoria}) => {
     <div className="mb-10 bg-white p-4 shadow-md">
     <div className="px-2 py-2 relative flex">
     <div className="2/5">
-           <h1 className="font-semibold text-2xl py-2 pr-24 pl-4">Bienvenido <span className="text-primary-300">RichyPage</span></h1> 
+           <h1 className="font-semibold text-2xl py-2 pr-24 pl-4">Bienvenido <span className="text-primary-300">LINDA</span></h1> 
         </div>
       <form className="w-3/5" action="">
         <input
