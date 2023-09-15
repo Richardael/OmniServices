@@ -20,8 +20,10 @@ const LayoutAdmin = () => {
   const [showSubmenu, setShowSubmenu] = useState(false);
   const [showSubmenu2, setShowSubmenu2] = useState(false);
   const cerrarSesion = () => {
-    localStorage.removeItem("refreshToken");
-    localStorage.removeItem("accessToken");
+    localStorage.removeItem("nombre_us"); // Elimina el nombre de usuario del localStorage
+    localStorage.removeItem("accessToken"); // Elimina el token de acceso del localStorage
+    localStorage.removeItem("refreshToken"); // Elimina el token de refresco del localStorage
+    localStorage.removeItem("id_rol"); // Elimina el id_rol del localStorage
     window.location.href = "/auth"; // Redirige al usuario a la dirección /auth
   };
   const toggleMenu = () => {

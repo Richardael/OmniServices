@@ -5,7 +5,6 @@ const AuthContext = createContext({
     setIsAuthenticated: () => {},
     getAccessToken: () => {},
     saveUser: (userData) => {},
-    rol: "", // Agregar el campo "rol" al contexto
 });
 
 const AuthProvider = ({ children }) => {
@@ -20,7 +19,6 @@ const AuthProvider = ({ children }) => {
         setAccessToken(userData.accessToken);
         localStorage.setItem("accessToken", JSON.stringify(userData.accessToken));
         setIsAuthenticated(true);
-        setRol(userData.rol); // Agregar esta línea para guardar el rol
     }
 
     useEffect(() => {

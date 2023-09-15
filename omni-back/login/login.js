@@ -24,10 +24,10 @@ router.post('/login', async (req, res) => {
   // En este punto, el inicio de sesión fue exitoso
 
   // Genera un token JWT
-  const token = jwt.sign({ correo_us: usuario.correo_us, rol: usuario.rol }, jwtSecret);
+  const token = jwt.sign({ correo_us: usuario.correo_us, rol: usuario.id_rol }, jwtSecret);
 
   // Devuelve el token y el rol como respuesta
-  res.status(200).json({ message: 'Inicio de sesión exitoso', token, rol: usuario.rol });
+  res.status(200).json({ message: 'Inicio de sesión exitoso', token, nombre_us: usuario.nombre_us, id_rol: usuario.id_rol });
 });
 
 module.exports = router;

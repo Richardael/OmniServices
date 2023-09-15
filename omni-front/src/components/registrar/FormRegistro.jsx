@@ -38,7 +38,7 @@ const FormRegistro = () => {
       //Registrar por medio de axios
       try {
           const response = await axios.post(
-            "http://192.168.0.41:8000/servicios/registro",
+            "http://192.168.1.50:8000/servicios/registro",
             {
               categoria,
               nombre_servicio,

@@ -62,7 +62,7 @@ const Login = () => {
     //Login Completo
     else {
       try {
-        const response = await axios.post("http://192.168.0.41:8000/login/login", {
+        const response = await axios.post("http://192.168.1.50:8000/login/login", {
           correo_us: correo_us,
           password: password,
         });
@@ -71,9 +71,13 @@ const Login = () => {
         if (token) {
           setMostrarAlertaBuena(true);
           setTimeout(() => {
-              setMostrarAlertaBuena(false);
-              auth.saveUser({ accessToken: token, rol: response.data.rol }); // Agregar el rol
-              localStorage.setItem("nombre_us", response.data["nombre_us"]);
+            setMostrarAlertaBuena(false);
+            // Almacena el token en el contexto de autenticación
+            console.log (token);
+            auth.saveUser({ accessToken: token });
+            //Almacena el nombre_us que viene del token
+            localStorage.setItem("id_rol", response.data["rol"]);
+            localStorage.setItem("nombre_us", response.data["nombre_us"]);
           }, 1000);
           setAlertaBuena("Inicio de sesión exitoso");
         } else {

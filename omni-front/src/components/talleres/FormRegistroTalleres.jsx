@@ -20,7 +20,7 @@ const FormRegistroTalleres = () => {
         e.preventDefault();
         try {
           const response = await axios.post(
-            "http://192.168.0.35:8000/talleres/registro",
+            "http://192.168.1.50:8000/talleres/registro",
             {
               tipo_plataforma,
               categoria,
