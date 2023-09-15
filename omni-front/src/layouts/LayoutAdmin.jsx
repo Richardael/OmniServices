@@ -15,7 +15,7 @@ import {
 
 const LayoutAdmin = () => {
   const location = useLocation();
-  const [admin, setAdmin] = useState(true); // [false, () => {}
+  const [rol, setRol] = useState(localStorage.getItem("id_rol"));
   const [showMenu, setShowMenu] = useState(false);
   const [showSubmenu, setShowSubmenu] = useState(false);
   const [showSubmenu2, setShowSubmenu2] = useState(false);
@@ -158,7 +158,7 @@ const LayoutAdmin = () => {
             </div>
 
             {/* Admin Registro */}
-            {admin ? (
+            {rol === "1" ? (
               <Link
                 to="/registro-servicios"
                 className={`flex items-center gap-4 text-xl pl-4 py-4 hover:text-gray-200 transition-colors ${
@@ -181,7 +181,7 @@ const LayoutAdmin = () => {
               </Link>
             )}
                         {/* Admin Registro Talleres */}
-                        {admin ? (
+                        {rol === "1" ? (
               <Link
                 to="/registro-talleres"
                 className={`flex items-center gap-4 text-xl pl-4 py-4 hover:text-gray-200 transition-colors ${

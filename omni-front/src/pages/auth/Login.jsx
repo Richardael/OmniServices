@@ -76,7 +76,7 @@ const Login = () => {
             console.log (token);
             auth.saveUser({ accessToken: token });
             //Almacena el nombre_us que viene del token
-            localStorage.setItem("id_rol", response.data["rol"]);
+            localStorage.setItem("id_rol", response.data["id_rol"]);
             localStorage.setItem("nombre_us", response.data["nombre_us"]);
           }, 1000);
           setAlertaBuena("Inicio de sesión exitoso");
