@@ -20,6 +20,7 @@ import RegistrarServicios from "./pages/admin/RegistrarServicios";
 import TalleresIBM from "./pages/admin/TalleresIBM";
 import TalleresOpen from "./pages/admin/TalleresOpen";
 import RegistrarTalleres from "./pages/admin/RegistrarTalleres";
+import ListaServicios from "./pages/admin/ListaServicios";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
             <Route path="registro-talleres" element={<RegistrarTalleres />}/>
             <Route path="talleres-ibm" element={<TalleresIBM />} />
             <Route path="talleres-open" element={<TalleresOpen />} />
+            <Route path="lista-servicios" element={<ListaServicios />} />
           </Route>
         </Route>
 

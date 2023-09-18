@@ -157,19 +157,19 @@ const LayoutAdmin = () => {
               </ul>
             </div>
 
-            {/* Admin Registro */}
+            {/* Admin Lista Servicios */}
             {rol === "1" ? (
               <Link
-                to="/registro-servicios"
+                to="/lista-servicios"
                 className={`flex items-center gap-4 text-xl pl-4 py-4 hover:text-gray-200 transition-colors ${
-                  location.pathname === "/registro-servicios"
+                  location.pathname === "/lista-servicios"
                     ? "text-primary-300"
                     : "text-gray-400"
                 }`}
               >
                 <RiAdminLine />
                 <span className="flex-1 flex items-center justify-between gap-4">
-                  Registrar Servicios
+                  Lista Servicios
                 </span>
               </Link>
             ) : (
@@ -203,6 +203,7 @@ const LayoutAdmin = () => {
                 </span>
               </Link>
             )}
+            
           </nav>
         </div>
         {/* Logout */}
