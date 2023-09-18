@@ -60,8 +60,7 @@ router.post('/registro', async (req, res) => {
       obj_general,
       duracion_taller,
       modalidad_taller,
-      cantidad_participantes,
-      fecha_talleres,
+      cantidad_participantes
     });
 
     // Guarda el servicio en la base de datos
