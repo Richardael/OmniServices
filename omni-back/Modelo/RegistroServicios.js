@@ -52,6 +52,10 @@ const registroServiciosSchema = new mongoose.Schema({
   industria_atendida: {
     type: String,
     required:true,
+  },
+  fecha_servicio: {
+    type: Date,
+    default: Date.now
   }
 });
 

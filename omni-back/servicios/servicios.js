@@ -46,7 +46,7 @@ router.post('/registro', async (req, res) => {
     const newServicio = new RegistroServiciosModel({
       categoria, nombre_servicio, descripcion_servicio, tiempo_estimado,
       prioridad_servicio, costos_servicio, pre_requisitos, tarifa_servicio,
-      tipo_servicio, tipo_plataforma, descripciont_servicio, disponibilidad_servicio, industria_atendida
+      tipo_servicio, tipo_plataforma, descripciont_servicio, disponibilidad_servicio, industria_atendida, fecha_servicio
     });
 
     // Guarda el servicio en la base de datos

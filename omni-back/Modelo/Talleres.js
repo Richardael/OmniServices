@@ -13,6 +13,10 @@ const talleresSchema = new mongoose.Schema({
     duracion_taller: Number,
     modalidad_taller: String,
     cantidad_participantes: Number,
+    fecha_talleres: {
+        type: Date,
+        default: Date.now // Configura la fecha actual como valor predeterminado
+    }
 });
 
 const TalleresModel = mongoose.model('talleres', talleresSchema);

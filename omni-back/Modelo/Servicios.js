@@ -5,6 +5,10 @@ const serviciosSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  fecha_servicio: {
+    type: Date,
+    default: Date.now
+  },
   descripcion_servicio: {
     type: String,
     required: true,
