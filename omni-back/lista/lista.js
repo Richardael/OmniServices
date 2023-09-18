@@ -1,29 +1,33 @@
 const express = require('express');
 const router = express.Router();
-const TalleresModel = require('../Modelo/RegistroServicios'); // Importa el modelo de Talleres
-const RegistroServiciosModel = require('../Modelo/Talleres'); // Importa el modelo de Servicios
+const RegistroServiciosModel = require('../Modelo/RegistroServicios'); // Importa el modelo de Talleres
+const TalleresModel = require('../Modelo/Talleres'); //Importando el modelo de talleres
 
-// Ruta para listar talleres y servicios
-router.get('/lista', async (req, res) => {
+// Ruta para listar servicios
+router.get('/servicios', async (req, res) => {
   try {
-    // Consulta para obtener todos los talleres
-    const talleres = await TalleresModel.find({});
-
     // Consulta para obtener todos los servicios
     const servicios = await RegistroServiciosModel.find({});
-
-    // Combina los resultados en una respuesta única
-    const lista = {
-      talleres,
-      servicios
-    };
-
     // Envía la respuesta al cliente
-    res.status(200).json(lista);
+    res.status(200).json(servicios);
   } catch (error) {
     console.error(error);
     // Manejo de errores
-    res.status(500).json({ error: 'Hubo un error al listar talleres y servicios' });
+    res.status(500).json({ error: 'Hubo un error al listar servicios' });
+  }
+});
+
+// Ruta para listar talleres y servicios
+router.get('/talleres', async (req, res) => {
+  try {
+    // Consulta para obtener todos los servicios
+    const talleres = await TalleresModel.find({});
+    // Envía la respuesta al cliente
+    res.status(200).json(talleres);
+  } catch (error) {
+    console.error(error);
+    // Manejo de errores
+    res.status(500).json({ error: 'Hubo un error al listar talleres' });
   }
 });
 
