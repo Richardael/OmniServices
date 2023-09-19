@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const RegistroServiciosModel = require('../Modelo/RegistroServicios'); // Importa el modelo de Servicios
 const TalleresModel = require('../Modelo/Talleres'); //Importando el modelo de talleres
+const { ObjectId } = require('mongodb');
 
 // Ruta para listar servicios
 router.get('/servicios', async (req, res) => {
@@ -53,34 +54,38 @@ router.get('/modificar/:id', async (req, res) => {
   }
 });
 
-// Ruta para eliminar un recurso por ID (puede ser de talleres o servicios)
+// Ruta para Eliminar un taller o Servicio por ID usando ObjectId
+
 router.delete('/eliminar/:id', async (req, res) => {
   try {
     const { id } = req.params; // Obtén el ID de la URL
 
-    // Intenta buscar el ID en la colección de Talleres
-    const taller = await TalleresModel.deleteOne({_id: id});
+    //Declarar object id con new
 
-    if (taller) {
-      // Si se encuentra en Talleres, responde con un mensaje de éxito
-      return res.status(200).json({ message: 'Taller eliminado con éxito' });
+    const idObject = new ObjectId(id);
+
+    // Busca el taller por ID
+    const taller = await TalleresModel.findById({_id: ObjectId(id)});
+    const servicio = await RegistroServiciosModel.findById({_id: ObjectId(id)});
+    if (!taller) {
+      return res.status(404).json({ message: 'Taller no encontrado' });
     }
-
-    // Si no se encuentra en Talleres, busca en la colección de Servicios
-    const servicio = await RegistroServiciosModel.deleteOne({_id: id});
-
-    if (servicio) {
-      // Si se encuentra en Servicios, responde con un mensaje de éxito
-      return res.status(200).json({ message: 'Servicio eliminado con éxito' });
+    if (!servicio) {
+      return res.status(404).json({ message: 'Servicio no encontrado' });
     }
-
-    // Si no se encuentra en ninguna de las colecciones, responde con un mensaje de error
-    res.status(404).json({ message: 'Recurso no encontrado' });
+    // Elimina el taller
+    await taller.remove();
+    await servicio.remove();
+    // Responde con los datos del taller eliminado
+    res.status(200).json({ message: 'Taller eliminado' });
+    res.status(200).json({ message: 'Servicio eliminado' });
   } catch (error) {
     console.error(error);
     // Manejo de errores
-    res.status(500).json({ error: 'Hubo un error al eliminar el recurso' });
+    res.status(500).json({ error: 'Hubo un error al eliminar el taller' });
+    res.status(500).json({ error: 'Hubo un error al eliminar el servicio' });
   }
-});
+}
+);
 
 module.exports = router;

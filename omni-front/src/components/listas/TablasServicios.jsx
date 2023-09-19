@@ -73,16 +73,18 @@ const TablasServicios = (servicios) => {
         setModalRegistro(true)
       }
         const handleEliminar = (id) => {
-            axios.delete(`http://192.168.1.50/lista/eliminar/${id}`)
+            axios.delete(`http://192.168.1.50:8000/lista/eliminar/${id}`)
             .then(res => {
               console.log(res.data)
             })
             .catch(err => {
               console.log(err)
+
             })
             }
+            
+            
 
-      
       
       
   return (
