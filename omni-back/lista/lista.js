@@ -59,7 +59,7 @@ router.delete('/eliminar/:id', async (req, res) => {
     const { id } = req.params; // Obtén el ID de la URL
 
     // Intenta buscar el ID en la colección de Talleres
-    const taller = await TalleresModel.findByIdAndDelete(id);
+    const taller = await TalleresModel.deleteOne({_id: id});
 
     if (taller) {
       // Si se encuentra en Talleres, responde con un mensaje de éxito
@@ -67,7 +67,7 @@ router.delete('/eliminar/:id', async (req, res) => {
     }
 
     // Si no se encuentra en Talleres, busca en la colección de Servicios
-    const servicio = await RegistroServiciosModel.findByIdAndDelete(id);
+    const servicio = await RegistroServiciosModel.deleteOne({_id: id});
 
     if (servicio) {
       // Si se encuentra en Servicios, responde con un mensaje de éxito
