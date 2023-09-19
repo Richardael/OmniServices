@@ -54,38 +54,36 @@ router.get('/modificar/:id', async (req, res) => {
   }
 });
 
-// Ruta para Eliminar un taller o Servicio por ID usando ObjectId
-
+// Ruta para eliminar un recurso por ID (puede ser de talleres o servicios)
 router.delete('/eliminar/:id', async (req, res) => {
   try {
     const { id } = req.params; // Obtén el ID de la URL
 
-    //Declarar object id con new
+    // Intenta buscar el ID en la colección de Talleres
+    const taller = await TalleresModel.findById(id);
 
-    const idObject = new ObjectId(id);
+    if (taller) {
+      // Si se encuentra en Talleres, elimina el taller
+      await TalleresModel.findByIdAndDelete(id);
+      return res.status(200).json({ message: 'Taller eliminado con éxito' });
+    }
 
-    // Busca el taller por ID
-    const taller = await TalleresModel.findById({_id: ObjectId(id)});
-    const servicio = await RegistroServiciosModel.findById({_id: ObjectId(id)});
-    if (!taller) {
-      return res.status(404).json({ message: 'Taller no encontrado' });
+    // Si no se encuentra en Talleres, busca en la colección de Servicios
+    const servicio = await RegistroServiciosModel.findById(id);
+
+    if (servicio) {
+      // Si se encuentra en Servicios, elimina el servicio
+      await RegistroServiciosModel.findByIdAndDelete(id);
+      return res.status(200).json({ message: 'Servicio eliminado con éxito' });
     }
-    if (!servicio) {
-      return res.status(404).json({ message: 'Servicio no encontrado' });
-    }
-    // Elimina el taller
-    await taller.remove();
-    await servicio.remove();
-    // Responde con los datos del taller eliminado
-    res.status(200).json({ message: 'Taller eliminado' });
-    res.status(200).json({ message: 'Servicio eliminado' });
+
+    // Si no se encuentra en ninguna de las colecciones, responde con un mensaje de error
+    res.status(404).json({ message: 'Recurso no encontrado' });
   } catch (error) {
     console.error(error);
     // Manejo de errores
-    res.status(500).json({ error: 'Hubo un error al eliminar el taller' });
-    res.status(500).json({ error: 'Hubo un error al eliminar el servicio' });
+    res.status(500).json({ error: 'Hubo un error al eliminar el recurso' });
   }
-}
-);
+});
 
 module.exports = router;
