@@ -183,16 +183,16 @@ const LayoutAdmin = () => {
                         {/* Admin Registro Talleres */}
                         {rol === "1" ? (
               <Link
-                to="/registro-talleres"
+                to="/lista-talleres"
                 className={`flex items-center gap-4 text-xl pl-4 py-4 hover:text-gray-200 transition-colors ${
-                  location.pathname === "/registro-talleres"
+                  location.pathname === "/lista-talleres"
                     ? "text-primary-300"
                     : "text-gray-400"
                 }`}
               >
                 <RiAdminLine />
                 <span className="flex-1 flex items-center justify-between gap-4">
-                  Registrar Talleres
+                  Lista Talleres
                 </span>
               </Link>
             ) : (
