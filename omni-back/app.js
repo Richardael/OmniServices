@@ -39,10 +39,10 @@ app.use('/usuarios', usuariosRoutes);
 app.use('/login', loginRoutes);
 
 //Middleware para las rutas de la lista 
-app.use('/lista', usuariosRoutes);
+app.use('/lista', listaRoutes);
 
 //Servidor
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
-  console.log(`Servidor en ejecución en http://192.168.1.43:${PORT}`);
+  console.log(`Servidor en ejecución en http://192.168.1.50:${PORT}`);
 });

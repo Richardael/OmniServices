@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const RegistroServiciosModel = require('../Modelo/RegistroServicios'); // Importa el modelo de Talleres
+const RegistroServiciosModel = require('../Modelo/RegistroServicios'); // Importa el modelo de Servicios
 const TalleresModel = require('../Modelo/Talleres'); //Importando el modelo de talleres
 
 // Ruta para listar servicios
