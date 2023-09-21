@@ -116,7 +116,7 @@ router.delete('/eliminar/:id', async (req, res) => {
       });
 
       await auditoria.save();
-
+      console.log('Auditoría de eliminación registrada con éxito');
       // Elimina el taller
       await TalleresModel.findByIdAndDelete(id);
       return res.status(200).json({ message: 'Taller eliminado con éxito' });
@@ -145,7 +145,7 @@ router.delete('/eliminar/:id', async (req, res) => {
       });
 
       await auditoria.save();
-
+      console.log('Auditoría de eliminación registrada con éxito');
       // Elimina el servicio
       await RegistroServiciosModel.findByIdAndDelete(id);
       return res.status(200).json({ message: 'Servicio eliminado con éxito' });
