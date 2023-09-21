@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const RegistroServiciosModel = require('../Modelo/RegistroServicios'); // Importa el modelo de Servicios
 const TalleresModel = require('../Modelo/Talleres'); //Importando el modelo de talleres
-
+const AuditoriaModel = require('../Modelo/Auditoria'); //Importo el modelo de auditoria
 // Ruta para listar servicios
 router.get('/servicios', async (req, res) => {
   try {
@@ -97,7 +97,27 @@ router.delete('/eliminar/:id', async (req, res) => {
     const taller = await TalleresModel.findById(id);
 
     if (taller) {
-      // Si se encuentra en Talleres, elimina el taller
+      // Si se encuentra en Talleres, registra una auditoría de eliminación
+      const usuario = req.user; // Supongo que tienes el usuario autenticado en req.user
+      const accion = 'Eliminación';
+      const tipoDocumento = 'Talleres';
+      const documentoAfectado = taller._id;
+      const nombreDocumento = taller.nombre_taller;
+      const detalles = `Eliminación de Taller con ID ${taller._id}`;
+
+      // Crea una nueva instancia de Auditoria y guárdala en la base de datos
+      const auditoria = new AuditoriaModel({
+        usuario,
+        accion,
+        tipoDocumento,
+        documentoAfectado,
+        nombreDocumento,
+        detalles,
+      });
+
+      await auditoria.save();
+
+      // Elimina el taller
       await TalleresModel.findByIdAndDelete(id);
       return res.status(200).json({ message: 'Taller eliminado con éxito' });
     }
@@ -106,7 +126,27 @@ router.delete('/eliminar/:id', async (req, res) => {
     const servicio = await RegistroServiciosModel.findById(id);
 
     if (servicio) {
-      // Si se encuentra en Servicios, elimina el servicio
+      // Si se encuentra en Servicios, registra una auditoría de eliminación
+      const usuario = req.user; // Supongo que tienes el usuario autenticado en req.user
+      const accion = 'Eliminación';
+      const tipoDocumento = 'registroservicios';
+      const documentoAfectado = servicio._id;
+      const nombreDocumento = servicio.nombre_servicio;
+      const detalles = `Eliminación de Servicio con ID ${servicio._id}`;
+
+      // Crea una nueva instancia de Auditoria y guárdala en la base de datos
+      const auditoria = new AuditoriaModel({
+        usuario,
+        accion,
+        tipoDocumento,
+        documentoAfectado,
+        nombreDocumento,
+        detalles,
+      });
+
+      await auditoria.save();
+
+      // Elimina el servicio
       await RegistroServiciosModel.findByIdAndDelete(id);
       return res.status(200).json({ message: 'Servicio eliminado con éxito' });
     }
