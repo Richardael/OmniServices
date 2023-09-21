@@ -98,7 +98,8 @@ router.delete('/eliminar/:id', async (req, res) => {
 
     if (taller) {
       // Si se encuentra en Talleres, registra una auditoría de eliminación
-      const usuario = req.usuario.nombre_us; // Supongo que tienes el usuario autenticado en req.user
+      //Obtener usuario del body de la solicitud
+      const user = req.body.nombre_us;
       const accion = 'Eliminación';
       const tipoDocumento = 'Talleres';
       const documentoAfectado = taller._id;
@@ -127,7 +128,8 @@ router.delete('/eliminar/:id', async (req, res) => {
 
     if (servicio) {
       // Si se encuentra en Servicios, registra una auditoría de eliminación
-      const usuario = req.usuario.nombre_us; // Supongo que tienes el usuario autenticado en req.user
+      //Obtener usuario del body de la solicitud
+      const usuario = req.body.nombre_us;
       const accion = 'Eliminación';
       const tipoDocumento = 'registroservicios';
       const documentoAfectado = servicio._id;
@@ -159,5 +161,4 @@ router.delete('/eliminar/:id', async (req, res) => {
     res.status(500).json({ error: 'Hubo un error al eliminar el recurso' });
   }
 });
-
 module.exports = router;

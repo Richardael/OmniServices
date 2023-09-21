@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const auditoriaSchema = new mongoose.Schema({
     usuario: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Usuario', // Suponiendo que tienes un modelo de Usuarios
+      type: String,
+      ref: 'usuarios', // Suponiendo que tienes un modelo de Usuarios
     },
     accion: String, // Aquí puedes registrar la acción realizada
     tipoDocumento: String,
