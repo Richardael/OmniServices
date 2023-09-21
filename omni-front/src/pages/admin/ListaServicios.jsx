@@ -9,6 +9,7 @@ import axios from 'axios'
 
 const ListaServicios = () => {
   const [servicioss, setServicioss] = useState([]);
+  const [updateCount, setUpdateCount] = useState(0);
 
   useEffect(() => {
     //Obtengo los servicios desde mi backend y los almaceno en mi estado de servicios
@@ -18,7 +19,7 @@ const ListaServicios = () => {
     }
     obtenerServicios();
   }
-    , [])
+    , [updateCount])
 
   const servicios = servicioss.map((servicios) => {
     return {
@@ -53,7 +54,7 @@ const ListaServicios = () => {
       </Link>
       </div>
       </div>
-      <TablasServicios servicios={servicios} />
+      <TablasServicios servicios={servicios} updateCount={updateCount} setUpdateCount={setUpdateCount} />
     </div>
   )
 }

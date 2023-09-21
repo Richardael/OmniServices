@@ -74,7 +74,7 @@ const Login = () => {
             setMostrarAlertaBuena(false);
             // Almacena el token en el contexto de autenticación
             console.log (token);
-            auth.saveUser({ accessToken: token });
+            auth.saveUser({ accessToken: response.data["token"] });
             //Almacena el nombre_us que viene del token
             localStorage.setItem("id_rol", response.data["id_rol"]);
             localStorage.setItem("nombre_us", response.data["nombre_us"]);
