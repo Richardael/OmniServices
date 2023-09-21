@@ -98,7 +98,7 @@ router.delete('/eliminar/:id', async (req, res) => {
 
     if (taller) {
       // Si se encuentra en Talleres, registra una auditoría de eliminación
-      const usuario = req.user; // Supongo que tienes el usuario autenticado en req.user
+      const usuario = req.usuario.nombre_us; // Supongo que tienes el usuario autenticado en req.user
       const accion = 'Eliminación';
       const tipoDocumento = 'Talleres';
       const documentoAfectado = taller._id;
@@ -127,7 +127,7 @@ router.delete('/eliminar/:id', async (req, res) => {
 
     if (servicio) {
       // Si se encuentra en Servicios, registra una auditoría de eliminación
-      const usuario = req.user; // Supongo que tienes el usuario autenticado en req.user
+      const usuario = req.usuario.nombre_us; // Supongo que tienes el usuario autenticado en req.user
       const accion = 'Eliminación';
       const tipoDocumento = 'registroservicios';
       const documentoAfectado = servicio._id;
