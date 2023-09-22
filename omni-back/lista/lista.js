@@ -52,6 +52,45 @@ router.put('/modificar/:id', async (req, res) => {
         modalidad_taller: req.body.modalidad_taller,
         cantidad_participantes: req.body.cantidad_participantes,
       },{ new: true });
+
+      //----------------AUDITORIA TALLERES-------------------------------
+
+      // Registra una auditoría de modificación
+      const usuario = req.usuario.nombre_us; // Obtén el nombre de usuario desde la solicitud
+      const accion = 'Modificación';
+      const tipoDocumento = 'Talleres';
+      const documentoAfectado = taller._id;
+      const nombreDocumento = taller.nombre_taller;
+      const detalles = `Modificación de Taller con ID ${taller._id}`;
+
+      // Compara los datos antiguos con los nuevos para identificar cambios
+      const cambios = {};
+
+      for (const key in tallerAntiguo.toObject()) {
+        if (tallerAntiguo[key] !== req.body[key]) {
+          cambios[key] = {
+            anterior: tallerAntiguo[key],
+            nuevo: req.body[key],
+          };
+        }
+      }
+
+      // Crea una nueva instancia de Auditoria y guárdala en la base de datos
+      const auditoria = new AuditoriaModel({
+        usuario,
+        accion,
+        tipoDocumento,
+        documentoAfectado,
+        nombreDocumento,
+        detalles,
+        datosCambiados: cambios,
+      });
+
+      await auditoria.save();
+
+      //------------FIN AUDITORIA-----------------------------------------------
+
+
       return res.status(200).json({ message: 'Taller actualizado con éxito' });
     } else {
       // Si no se encuentra en Talleres, intenta buscar en Servicios
@@ -73,6 +112,45 @@ router.put('/modificar/:id', async (req, res) => {
           descripciont_servicio: req.body.descripciont_servicio,
           disponibilidad_servicio: req.body.disponibilidad_servicio,
         },{ new: true });
+
+        //-------------------AUDITORIA DE SERVICIOS--------------------
+
+        // Registra una auditoría de modificación
+        const usuario = req.usuario.nombre_us; // Obtén el nombre de usuario desde la solicitud
+        const accion = 'Modificación';
+        const tipoDocumento = 'registroservicios';
+        const documentoAfectado = servicio._id;
+        const nombreDocumento = servicio.nombre_servicio;
+        const detalles = `Modificación de Servicio con ID ${servicio._id}`;
+
+        // Compara los datos antiguos con los nuevos para identificar cambios
+        const cambios = {};
+
+        for (const key in servicioAntiguo.toObject()) {
+          if (servicioAntiguo[key] !== req.body[key]) {
+            cambios[key] = {
+              anterior: servicioAntiguo[key],
+              nuevo: req.body[key],
+            };
+          }
+        }
+
+        // Crea una nueva instancia de Auditoria y guárdala en la base de datos
+        const auditoria = new AuditoriaModel({
+          usuario,
+          accion,
+          tipoDocumento,
+          documentoAfectado,
+          nombreDocumento,
+          detalles,
+          datosCambiados: cambios,
+        });
+
+        await auditoria.save();
+
+        //-------------------FIN AUDITORIA--------------------------------
+
+        
         return res.status(200).json({ message: 'Servicio actualizado con éxito' });
       } else {
         // Si no se encuentra en ninguna de las colecciones, responde con un mensaje de error
