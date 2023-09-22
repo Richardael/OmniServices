@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const ServiciosModel = require('../Modelo/Servicios'); // Importa el modelo de servicios
 const RegistroServiciosModel = require('../Modelo/RegistroServicios'); // Importa el modelo de registro de servicio
-
+const AuditoriaModel = require('../Modelo/Auditoria'); //Importa el modelo audotoria
 // Rutas para servicios IBM
 router.get('/ibm', async (req, res) => {
   try {
@@ -52,6 +52,22 @@ router.post('/registro', async (req, res) => {
     // Guarda el servicio en la base de datos
     await newServicio.save();
 
+    // Registra una auditoría de registro de servicio
+    const usuario = req.body.nombre_us;
+    const accion = 'Registro de Servicio';
+    const detalles = `Se ha registrado un nuevo servicio con nombre: ${nombre_servicio} por el usuario ${usuario}`;
+    const tipoDocumento = 'Servicio'
+    const auditoria = new AuditoriaModel({
+      usuario,
+      accion,
+      detalles,
+      tipoDocumento,
+      documentoAfectado: newServicio._id, // Aquí asignamos el ID del servicio registrado
+      nombreDocumento: nombre_servicio, // Aquí asignamos el nombre del servicio registrado
+    });
+
+    await auditoria.save();
+
     // Respuesta exitosa
     res.status(201).json({ message: 'Servicio registrado con éxito' });
     console.log("Registro de servicio exitoso");
@@ -61,5 +77,6 @@ router.post('/registro', async (req, res) => {
     res.status(500).json({ error: 'Hubo un error al registrar el servicio' });
   }
 });
+
 
 module.exports = router;

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const TalleresModel = require('../Modelo/Talleres'); //Importando el modelo de talleres
+const AuditoriaModel = require('../Modelo/Auditoria'); //Importo el modelo de auditoria
 
 router.get('/open', async (req, res) => {
   try {
@@ -62,6 +63,22 @@ router.post('/registro', async (req, res) => {
       modalidad_taller,
       cantidad_participantes
     });
+
+      // Registra una auditoría de registro de servicio
+    const usuario = req.body.nombre_us;
+    const accion = 'Registro de Servicio';
+    const detalles = `Se ha registrado un nuevo taller con nombre: ${nombre_servicio} por el usuario ${usuario}`;
+    const tipoDocumento = 'Taller'
+    const auditoria = new AuditoriaModel({
+      usuario,
+      accion,
+      detalles,
+      tipoDocumento,
+      documentoAfectado: newServicio._id, // Aquí asignamos el ID del servicio registrado
+      nombreDocumento: nombre_servicio, // Aquí asignamos el nombre del servicio registrado
+    });
+
+    await auditoria.save();
 
     // Guarda el servicio en la base de datos
     await newTaller.save();
