@@ -42,7 +42,7 @@ app.use('/login', loginRoutes);
 app.use('/lista', listaRoutes);
 
 //Middleware para las rutas del historial 
-app.use('/lista', historialRoutes);
+app.use('/historial', historialRoutes);
 
 //Servidor
 const PORT = process.env.PORT || 8000;
