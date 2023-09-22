@@ -64,26 +64,22 @@ router.post('/registro', async (req, res) => {
       cantidad_participantes
     });
 
-      //Obtener usuario del body de la solicitud para la auditoria
-      const usuario = req.body.nombre_us;
-      const accion = 'Registro';
-      const tipo_documento = 'Taller';
-      const documento_registrado = servicio._id;
-      const nombreDocumento = servicio.nombre_servicio;
-      const detalles = `Registro de Taller con ID: ${servicio._id} por parte del usuario: ${usuario}`;
+      // Registra una auditoría de registro de servicio
+    const usuario = req.body.nombre_us;
+    const accion = 'Registro de Servicio';
+    const detalles = `Se ha registrado un nuevo taller con nombre: ${nombre_servicio} por el usuario ${usuario}`;
+    const tipoDocumento = 'Taller'
+    const auditoria = new AuditoriaModel({
+      usuario,
+      accion,
+      detalles,
+      tipoDocumento,
+      documentoAfectado: newServicio._id, // Aquí asignamos el ID del servicio registrado
+      nombreDocumento: nombre_servicio, // Aquí asignamos el nombre del servicio registrado
+    });
 
-      // Crea una nueva instancia de Auditoria y guárdala en la base de datos
-      const auditoria = new AuditoriaModel({
-        usuario,
-        accion,
-        tipo_documento,
-        documento_registrado,
-        nombreDocumento,
-        detalles,
-      });
+    await auditoria.save();
 
-      await auditoria.save();
-      console.log('Auditoría de Registro con éxito');
     // Guarda el servicio en la base de datos
     await newTaller.save();
 
