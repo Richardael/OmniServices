@@ -3,6 +3,8 @@ const express = require('express');
 const router = express.Router();
 const ServiciosModel = require('../Modelo/Servicios'); // Importa el modelo de servicios
 const RegistroServiciosModel = require('../Modelo/RegistroServicios'); // Importa el modelo de registro de servicio
+const AuditoriaModel = require('../Modelo/Auditoria'); //Importo el modelo de auditoria
+
 
 // Rutas para servicios IBM
 router.get('/ibm', async (req, res) => {
@@ -48,6 +50,27 @@ router.post('/registro', async (req, res) => {
       prioridad_servicio, costos_servicio, pre_requisitos, tarifa_servicio,
       tipo_servicio, tipo_plataforma, descripciont_servicio, disponibilidad_servicio, industria_atendida
     });
+
+      //Obtener usuario del body de la solicitud para la auditoria
+      const usuario = req.body.nombre_us;
+      const accion = 'Registro';
+      const tipo_documento = 'Servicios';
+      const documento_registrado = servicio._id;
+      const nombreDocumento = servicio.nombre_servicio;
+      const detalles = `Registro de Servicio con ID: ${servicio._id} por parte del usuario: ${usuario}`;
+
+      // Crea una nueva instancia de Auditoria y guárdala en la base de datos
+      const auditoria = new AuditoriaModel({
+        usuario,
+        accion,
+        tipo_documento,
+        documento_registrado,
+        nombreDocumento,
+        detalles,
+      });
+
+      await auditoria.save();
+      console.log('Auditoría de eliminación registrada con éxito');
 
     // Guarda el servicio en la base de datos
     await newServicio.save();
