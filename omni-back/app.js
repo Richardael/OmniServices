@@ -6,8 +6,8 @@ const talleresRoutes = require('./talleres/talleres'); // Asegúrate de ajustar 
 const serviciosRoutes = require('./servicios/servicios'); // Importa la ruta de servicios.js
 const usuariosRoutes = require('./usuarios/usuarios'); // Importa la ruta de usuarios.js
 const loginRoutes = require('./login/login'); // Importa la ruta de login.js
-const listaRoutes = require('./lista/lista'); // Importa la ruta de login.js
-
+const listaRoutes = require('./lista/lista'); // Importa la ruta de lista.js
+const historialRoutes = require('./historial/historial')
 
 app.use(express.json());
 app.use(cors());
@@ -40,6 +40,9 @@ app.use('/login', loginRoutes);
 
 //Middleware para las rutas de la lista 
 app.use('/lista', listaRoutes);
+
+//Middleware para las rutas del historial 
+app.use('/lista', historialRoutes);
 
 //Servidor
 const PORT = process.env.PORT || 8000;
