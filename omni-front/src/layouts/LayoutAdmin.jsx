@@ -203,6 +203,29 @@ const LayoutAdmin = () => {
                 </span>
               </Link>
             )}
+            {/* Admin Historial */}
+            {rol === "1" ? (
+              <Link
+                to="/historial"
+                className={`flex items-center gap-4 text-xl pl-4 py-4 hover:text-gray-200 transition-colors ${
+                  location.pathname === "/historial"
+                    ? "text-primary-300"
+                    : "text-gray-400"
+                }`}
+              >
+                <RiAdminLine />
+                <span className="flex-1 flex items-center justify-between gap-4">
+                  Historial
+                </span>
+              </Link>
+            ) : (
+              <Link to="/registro-talleres" className={`hidden`}>
+                <RiAdminLine />
+                <span className="flex-1 flex items-center justify-between gap-4">
+                  Registro de Talleres
+                </span>
+              </Link>
+            )}
             
           </nav>
         </div>

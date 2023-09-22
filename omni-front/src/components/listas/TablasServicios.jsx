@@ -119,7 +119,9 @@ const [nombre_servicio, setNombre_servicio] = useState("");
         username: username,
     }
     axios
-      .delete(`http://192.168.1.50:8000/lista/eliminar/${id}`, user)
+    .delete(`http://192.168.1.50:8000/lista/eliminar/${id}`, {
+      data: { nombre_us: localStorage.getItem("nombre_us") }, // Agrega nombre_us al cuerpo de la solicitud
+    })
       .then((res) => {
         console.log(username)
         console.log(res.data);

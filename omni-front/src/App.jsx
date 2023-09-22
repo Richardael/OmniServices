@@ -22,6 +22,7 @@ import TalleresOpen from "./pages/admin/TalleresOpen";
 import RegistrarTalleres from "./pages/admin/RegistrarTalleres";
 import ListaServicios from "./pages/admin/ListaServicios";
 import ListaTalleres from "./pages/admin/ListaTalleres";
+import Historial from "./pages/admin/Historial";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
             <Route path="talleres-open" element={<TalleresOpen />} />
             <Route path="lista-servicios" element={<ListaServicios />} />
             <Route path="lista-talleres" element={<ListaTalleres />} />
+            <Route path="historial" element={<Historial />} />
           </Route>
         </Route>
 

@@ -40,6 +40,7 @@ const FormRegistro = () => {
           const response = await axios.post(
             "http://192.168.1.50:8000/servicios/registro",
             {
+              nombre_us: localStorage.getItem("nombre_us"),
               categoria,
               nombre_servicio,
               industria_atendida,
