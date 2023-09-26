@@ -17,16 +17,16 @@ const Home = () => {
       </div>
       <div className='grid '>
         <h1 className='text-3xl font-extrabold text-center text-primary-900 mb-10'>
-          Contadores
+          Graficas
         </h1>
-        <Contador />
+        Aca van graficas
       </div>
       <div className='grid grid-cols-2 mt-10'>
         <div>
         <h1 className='text-3xl font-extrabold text-center text-primary-900 mb-10'>
-          Graficas
+          Contadores
         </h1>
-        <span>Aca van graficas</span>
+        <Contador />
         </div>
         <div>
         <h1 className='text-3xl font-extrabold text-center text-primary-900 mb-10'>
