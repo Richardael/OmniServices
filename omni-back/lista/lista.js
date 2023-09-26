@@ -55,38 +55,6 @@ router.put('/modificar/:id', async (req, res) => {
 
       //----------------AUDITORIA TALLERES-------------------------------
 
-      // Registra una auditoría de modificación
-      const usuario = req.usuario.nombre_us; // Obtén el nombre de usuario desde la solicitud
-      const accion = 'Modificación';
-      const tipoDocumento = 'Talleres';
-      const documentoAfectado = taller._id;
-      const nombreDocumento = taller.nombre_taller;
-      const detalles = `Modificación de Taller con ID ${taller._id}`;
-
-      // Compara los datos antiguos con los nuevos para identificar cambios
-      const cambios = {};
-
-      for (const key in tallerAntiguo.toObject()) {
-        if (tallerAntiguo[key] !== req.body[key]) {
-          cambios[key] = {
-            anterior: tallerAntiguo[key],
-            nuevo: req.body[key],
-          };
-        }
-      }
-
-      // Crea una nueva instancia de Auditoria y guárdala en la base de datos
-      const auditoria = new AuditoriaModel({
-        usuario,
-        accion,
-        tipoDocumento,
-        documentoAfectado,
-        nombreDocumento,
-        detalles,
-        datosCambiados: cambios,
-      });
-
-      await auditoria.save();
 
       //------------FIN AUDITORIA-----------------------------------------------
 
@@ -113,43 +81,25 @@ router.put('/modificar/:id', async (req, res) => {
           disponibilidad_servicio: req.body.disponibilidad_servicio,
         },{ new: true });
 
-        //-------------------AUDITORIA DE SERVICIOS--------------------
+        //AUDITORIA MODIFICAR
 
-        // Registra una auditoría de modificación
-        const usuario = req.usuario.nombre_us; // Obtén el nombre de usuario desde la solicitud
-        const accion = 'Modificación';
-        const tipoDocumento = 'registroservicios';
-        const documentoAfectado = servicio._id;
-        const nombreDocumento = servicio.nombre_servicio;
-        const detalles = `Modificación de Servicio con ID ${servicio._id}`;
+          // Registra una auditoría de registro de servicio
+          const usuario = req.body.nombre_us;
+          const accion = 'Modificación de servicios';
+          const detalles = `Se ha modificado un nuevo servicio con nombre: ${servicio.nombre_servicio} por el usuario ${usuario}`;
+          const tipoDocumento = 'Servicio'
+          const auditoria = new AuditoriaModel({
+            usuario,
+            accion,
+            detalles,
+            tipoDocumento,
+            documentoAfectado: servicio._id, // Aquí asignamos el ID del servicio registrado
+            nombreDocumento: servicio.nombre_servicio, // Aquí asignamos el nombre del servicio registrado
+          });
 
-        // Compara los datos antiguos con los nuevos para identificar cambios
-        const cambios = {};
+          await auditoria.save();
 
-        for (const key in servicioAntiguo.toObject()) {
-          if (servicioAntiguo[key] !== req.body[key]) {
-            cambios[key] = {
-              anterior: servicioAntiguo[key],
-              nuevo: req.body[key],
-            };
-          }
-        }
-
-        // Crea una nueva instancia de Auditoria y guárdala en la base de datos
-        const auditoria = new AuditoriaModel({
-          usuario,
-          accion,
-          tipoDocumento,
-          documentoAfectado,
-          nombreDocumento,
-          detalles,
-          datosCambiados: cambios,
-        });
-
-        await auditoria.save();
-
-        //-------------------FIN AUDITORIA--------------------------------
-
+        
         
         return res.status(200).json({ message: 'Servicio actualizado con éxito' });
       } else {
