@@ -5,7 +5,6 @@ const FormRegistroTalleres = () => {
     const [tipo_plataforma, setTipo_plataforma] = useState("");
     const [categoria, setCategoria] = useState("");
     const [nombre_taller, setNombre_taller] = useState("");
-    const [tipo_taller, setTipo_taller] = useState("");
     const [descripcion_taller, setDescripcion_taller] = useState("");
     const [publico_taller, setPublico_taller] = useState("");
     const [pre_conocimientos, setPre_conocimientos] = useState("");
@@ -25,7 +24,6 @@ const FormRegistroTalleres = () => {
               tipo_plataforma,
               categoria,
               nombre_taller,
-              tipo_taller,
               descripcion_taller,
               publico_taller,
               pre_conocimientos,
@@ -46,7 +44,7 @@ const FormRegistroTalleres = () => {
 <form
 onSubmit={handleRegisterTalleres}
 >
-      <div className="grid grid-cols-4 gap-8 my-4 bg-white p-4 rounded-md shadow-md">
+      <div className="grid grid-cols-3 gap-8 my-4 bg-white p-4 rounded-md shadow-md">
         {/* Tipo de Plataforma */}
         <select
           id="underline_select"
@@ -97,18 +95,7 @@ onSubmit={handleRegisterTalleres}
             </optgroup>
           )}
         </select>
-                {/* Tipo de Servicio */}
-                <select
-          id="underline_select"
-          className="block py-2.5 pl-2 w-full text-secondary-900 bg-transparent border-0 rounded-md border-b-2 border-primary-300 appearance-none focus:outline-none focus:ring-0 focus:border-primary-100 peer"
-          onChange={(e) => setTipo_taller(e.target.value)}
-        >
-          <option disabled selected>
-            Tipo de Servicios
-          </option>
-          <option value="Recuperacion del Sistema Operativo IBM i">Recuperacion del Sistema Operativo IBM i</option>
-        </select>
-        {/* Industria Atendida */}
+        {/* Publico Taller */}
         <select
           id="underline_select"
           className="block py-2.5 pl-2 w-full text-secondary-900 bg-transparent border-0 rounded-md border-b-2 border-primary-300 appearance-none focus:outline-none focus:ring-0 focus:border-primary-100 peer"
@@ -154,11 +141,8 @@ onSubmit={handleRegisterTalleres}
           <option disabled selected>
             Modalidad Taller
           </option>
-          <option value="Muy Alta">Muy Alta</option>
-          <option value="Alta">Alta</option>
-          <option value="Media">Media</option>
-          <option value="Baja">Baja</option>
-          <option value="Muy Baja">Muy Baja</option>
+          <option value="Presencial">Presencial</option>
+          <option value="Online">Online</option>
         </select>
         {/* Pre-requisitos */}
         <div>
@@ -235,7 +219,7 @@ onSubmit={handleRegisterTalleres}
             id="message"
             rows="4"
             className="block p-2.5 w-full text-sm text-secondary-900 bg-gray-50 border-2 border-primary-300 appearance-none outline-none focus:border-2 focus:border-primary-100 rounded-md"
-            placeholder="Escribe una breve descripcion tecnica del servicio y el como se lleva a cabo el mismo"
+            placeholder="Escribe una breve descripcion del taller"
             onChange={(e) => setDescripcion_taller(e.target.value)}
           ></textarea>
         </div>
@@ -252,15 +236,15 @@ onSubmit={handleRegisterTalleres}
             id="message"
             rows="4"
             className="block p-2.5 w-full text-sm text-secondary-900 bg-gray-50 border-2 border-primary-300 appearance-none outline-none focus:border-2 focus:border-primary-100 rounded-md"
-            placeholder="Escribe el temario del taller"
+            placeholder="Escribe el temario del taller detalladamente"
             onChange={(e) => setTemario_taller(e.target.value)}
           ></textarea>
       </div>
       </div>
       <div className='text-center'>
       <button
-      className="bg-primary-300 py-2 px-4 text-white rounded-md hover:bg-primary-200 transition-colors">
-        Registrar Servicios
+      className="bg-primary-300 py-2 px-4 mt-5 text-white rounded-md hover:bg-primary-200 transition-colors">
+        Registrar Taller
       </button>
       </div>
     </form>
