@@ -42,7 +42,6 @@ router.put('/modificar/:id', async (req, res) => {
         tipo_plataforma: req.body.tipo_plataforma,
         categoria: req.body.categoria,
         nombre_taller: req.body.nombre_taller,
-        tipo_taller: req.body.tipo_taller,
         descripcion_taller: req.body.descripcion_taller,
         publico_taller: req.body.publico_taller,
         pre_conocimientos: req.body.pre_conocimientos,
@@ -89,7 +88,8 @@ router.put('/modificar/:id', async (req, res) => {
           const detalles = `Se ha modificado un nuevo servicio con nombre: ${servicio.nombre_servicio} por el usuario ${usuario}`;
           const tipoDocumento = 'Servicio'
           const auditoria = new AuditoriaModel({
-            usuario,
+            usuario
+            ,
             accion,
             detalles,
             tipoDocumento,

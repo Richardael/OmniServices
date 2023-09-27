@@ -37,7 +37,6 @@ router.post('/registro', async (req, res) => {
       tipo_plataforma,
       categoria,
       nombre_taller,
-      tipo_taller,
       descripcion_taller,
       publico_taller,
       pre_conocimientos,
@@ -53,7 +52,6 @@ router.post('/registro', async (req, res) => {
       tipo_plataforma,
       categoria,
       nombre_taller,
-      tipo_taller,
       descripcion_taller,
       publico_taller,
       pre_conocimientos,
@@ -68,9 +66,9 @@ router.post('/registro', async (req, res) => {
       const usuario = req.body.nombre_us;
       const accion = 'Registro';
       const tipo_documento = 'Taller';
-      const documento_registrado = servicio._id;
-      const nombreDocumento = servicio.nombre_servicio;
-      const detalles = `Registro de Taller con ID: ${servicio._id} por parte del usuario: ${usuario}`;
+      const documento_registrado = newTaller._id;
+      const nombreDocumento = newTaller.nombre_taller;
+      const detalles = `Registro de Taller con ID: ${newTaller._id} por parte del usuario: ${usuario}`;
 
       // Crea una nueva instancia de Auditoria y guárdala en la base de datos
       const auditoria = new AuditoriaModel({

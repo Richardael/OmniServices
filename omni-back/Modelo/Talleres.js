@@ -4,7 +4,6 @@ const talleresSchema = new mongoose.Schema({
     tipo_plataforma: String,
     categoria: String,
     nombre_taller: String,
-    tipo_taller: String,
     descripcion_taller: String,
     publico_taller: String,
     pre_conocimientos: String,
