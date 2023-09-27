@@ -14,10 +14,6 @@ const auditoriaSchema = new mongoose.Schema({
   nombreDocumento: String,
   fechaHora: { type: Date, default: Date.now },
   detalles: String,
-  datosCambiados: {
-    type: Object, // Objeto JavaScript para almacenar los cambios
-    default: null, // Puedes establecer un valor predeterminado como nulo si no se proporciona
-  },
 });
 
   const AuditoriaModel = mongoose.model('auditoria', auditoriaSchema);
