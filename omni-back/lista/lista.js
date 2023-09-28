@@ -127,7 +127,7 @@ router.delete('/eliminar/:id', async (req, res) => {
     if (taller) {
       // Si se encuentra en Talleres, registra una auditoría de eliminación
       //Obtener usuario del body de la solicitud
-      const user = req.body.nombre_us;
+      const usuario = req.body.nombre_us;
       const accion = 'Eliminación';
       const tipoDocumento = 'Talleres';
       const documentoAfectado = taller._id;
