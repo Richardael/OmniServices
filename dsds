@@ -1,0 +1,50 @@
+[33m62235f3[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{0}: reset: moving to HEAD
+[33m62235f3[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{1}: pull: Fast-forward
+[33m9c38d39[m HEAD@{2}: commit: Modificando errores de talleres
+[33m9e2e06e[m HEAD@{3}: pull: Fast-forward
+[33m381639a[m HEAD@{4}: pull: Fast-forward
+[33m2d5ad34[m HEAD@{5}: reset: moving to HEAD
+[33m2d5ad34[m HEAD@{6}: commit: Modificando la auditoria de modificar, a espera de TEST
+[33m57a16df[m HEAD@{7}: commit: Modificando el modelo de auditoria.js para la auditoria de modificar
+[33m6435940[m HEAD@{8}: pull: Fast-forward
+[33m2b76929[m HEAD@{9}: commit: Implementacion de la auditoria de registro mejorado 2.0
+[33meb54397[m HEAD@{10}: commit: Auditoria de registro para talleres y servicios
+[33mc6861ad[m HEAD@{11}: commit: Implementando el modulo historial 2.0
+[33m546065d[m HEAD@{12}: commit: Implementando el modulo historial
+[33m7608375[m HEAD@{13}: pull: Fast-forward
+[33mcf773cb[m HEAD@{14}: reset: moving to HEAD
+[33mcf773cb[m HEAD@{15}: pull: Fast-forward
+[33me6449a0[m HEAD@{16}: pull: Fast-forward
+[33m6aa7c68[m HEAD@{17}: commit: Cambios pertinentes para la visualizacion de que usuarios hacen la modificacion
+[33m36c0af5[m HEAD@{18}: commit: Implementando el modelo y las modificaciones pertinentes de auditoria
+[33meeac0e7[m HEAD@{19}: pull: Fast-forward
+[33m07caa80[m HEAD@{20}: reset: moving to HEAD
+[33m07caa80[m HEAD@{21}: commit: Terminado el endpoint eliminar
+[33m7a1d59b[m HEAD@{22}: pull: Fast-forward
+[33m39140ab[m HEAD@{23}: reset: moving to HEAD
+[33m39140ab[m HEAD@{24}: pull: Fast-forward
+[33m9f9528b[m HEAD@{25}: reset: moving to HEAD
+[33m9f9528b[m HEAD@{26}: pull: Fast-forward
+[33m3d42b49[m HEAD@{27}: pull: Merge made by the 'ort' strategy.
+[33m2b99dd2[m HEAD@{28}: commit: Implementando la ruta de eliminar
+[33m15a3149[m HEAD@{29}: commit: Modificando el endpoint para talleres y servicios (separado)
+[33m7f8584b[m HEAD@{30}: commit: Creando el endpoint de listar servicios y talleres
+[33me238e4d[m HEAD@{31}: commit: Modificacion a la modificacion de la fecha, ahora sì optimizado
+[33mc655f97[m HEAD@{32}: commit: Implementando fecha en servicios y talleres
+[33md6de35b[m HEAD@{33}: pull: Fast-forward
+[33m7d38179[m HEAD@{34}: pull: Fast-forward
+[33m135a619[m HEAD@{35}: commit: Correccion para que los usuarios queden como vendedores
+[33mdffcd22[m HEAD@{36}: pull: Fast-forward
+[33m5c79e1e[m HEAD@{37}: pull: Merge made by the 'ort' strategy.
+[33m2b86b02[m HEAD@{38}: commit: Implementando el JWT, login, logica, falta la logica del JWT
+[33m73200a7[m HEAD@{39}: pull: Fast-forward
+[33m4c7cd21[m HEAD@{40}: reset: moving to HEAD
+[33m4c7cd21[m HEAD@{41}: pull: Fast-forward
+[33m5b9242a[m HEAD@{42}: reset: moving to HEAD
+[33m5b9242a[m HEAD@{43}: pull: Fast-forward
+[33m7407114[m HEAD@{44}: pull: Merge made by the 'ort' strategy.
+[33m83cf629[m HEAD@{45}: reset: moving to HEAD
+[33m83cf629[m HEAD@{46}: commit: Modificando appServicios.js
+[33m279550f[m HEAD@{47}: commit (merge): Resolviendo conflictos de merge
+[33mda7cadd[m HEAD@{48}: commit: Implementando el modelo talleres para el registro de talleres, además comenzando a implementar el endpoint busqueda de IBM
+[33mb422f59[m HEAD@{49}: clone: from https://github.com/Richardael/OmniServices.git
