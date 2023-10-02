@@ -8,6 +8,10 @@ const usuariosSchema = new mongoose.Schema({
     id_rol: {
         type: Number,
         default: 5 // Valor predeterminado para id_rol (4 para "vendedor")
+    }, 
+    verificado: {
+        type: Boolean,
+        default: false // Valor predeterminado para verificado
     }
 });
 

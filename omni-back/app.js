@@ -47,5 +47,5 @@ app.use('/historial', historialRoutes);
 //Servidor
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
-  console.log(`Servidor en ejecución en http://192.168.1.50:${PORT}`);
+  console.log(`Servidor en ejecución en http://192.168.1.43:${PORT}`);
 });
