@@ -8,6 +8,7 @@ const usuariosRoutes = require('./usuarios/usuarios'); // Importa la ruta de usu
 const loginRoutes = require('./login/login'); // Importa la ruta de login.js
 const listaRoutes = require('./lista/lista'); // Importa la ruta de lista.js
 const historialRoutes = require('./historial/historial')
+const contadorRoutes = require('./contador/contador')
 
 app.use(express.json());
 app.use(cors());
@@ -43,6 +44,8 @@ app.use('/lista', listaRoutes);
 
 //Middleware para las rutas del historial 
 app.use('/historial', historialRoutes);
+
+app.use('/contador', contadorRoutes);
 
 //Servidor
 const PORT = process.env.PORT || 8000;
