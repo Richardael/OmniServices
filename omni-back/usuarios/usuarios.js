@@ -34,7 +34,7 @@ router.post('/registro', async (req, res) => {
       from: 'jhoynners.santaella15@gmail.com', // Cambia esto por tu dirección de correo
       to: correo_us,
       subject: 'Verifica tu correo electrónico',
-      text: `Por favor, haz clic en el siguiente enlace para verificar tu correo electrónico: http://192.168.1.43:8000/usuarios/verificar/${newUsuario._id}`,
+      text: `Por favor, haz clic en el siguiente enlace para verificar tu correo electrónico: http://192.168.1.50:8000/usuarios/verificar/${newUsuario._id}`,
     };
 
     // Envía el correo de verificación
@@ -72,7 +72,7 @@ router.get('/verificar/:id', async (req, res) => {
       await usuario.save();
 
       // Redirige al usuario a la página de inicio de sesión
-      res.redirect('http://192.168.1.43:1111/auth/');
+      res.redirect('http://192.168.1.56.1:1111/auth/');
 
   } catch (error) {
       console.error(error);
