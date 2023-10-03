@@ -8,12 +8,12 @@ const UsuariosModel = require('../Modelo/Usuarios'); //Importo el modelo de usua
 router.get('/contador', async (req, res) => {
     try {
       // Contar los servicios por tipo "open"
-      const cantidadServiciosOpen = await RegistroServiciosModel.countDocuments({ tipo_plataforma: 'open' });
+      const cantidadServiciosOpen = await RegistroServiciosModel.countDocuments({ tipo_plataforma: 'Open' });
       // Contar los servicios por tipo "IBM"
       const cantidadServiciosIBM = await RegistroServiciosModel.countDocuments({ tipo_plataforma: 'IBM' });
   
       // Contar los talleres por tipo "open"
-      const cantidadTalleresOpen = await TalleresModel.countDocuments({ tipo_plataforma: 'open' });
+      const cantidadTalleresOpen = await TalleresModel.countDocuments({ tipo_plataforma: 'Open' });
   
       // Contar los talleres por tipo "IBM"
       const cantidadTalleresIBM = await TalleresModel.countDocuments({ tipo_plataforma: 'IBM' });

@@ -84,12 +84,11 @@ router.put('/modificar/:id', async (req, res) => {
 
           // Registra una auditoría de registro de servicio
           const usuario = req.body.nombre_us;
-          const accion = 'Modificación de servicios';
-          const detalles = `Se ha modificado un nuevo servicio con nombre: ${servicio.nombre_servicio} por el usuario ${usuario}`;
+          const accion = 'Modificación de servicio';
+          const detalles = `Se ha modificado un nuevo servicio con nombre: ${servicio.nombre_servicio}`;
           const tipoDocumento = 'Servicio'
           const auditoria = new AuditoriaModel({
-            usuario
-            ,
+            usuario,
             accion,
             detalles,
             tipoDocumento,

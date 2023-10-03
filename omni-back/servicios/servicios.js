@@ -55,7 +55,7 @@ router.post('/registro', async (req, res) => {
     // Registra una auditoría de registro de servicio
     const usuario = req.body.nombre_us;
     const accion = 'Registro de Servicio';
-    const detalles = `Se ha registrado un nuevo servicio con nombre: ${nombre_servicio} por el usuario ${usuario}`;
+    const detalles = `Se ha registrado un nuevo servicio con nombre: ${nombre_servicio}`;
     const tipoDocumento = 'Servicio'
     const auditoria = new AuditoriaModel({
       usuario,
