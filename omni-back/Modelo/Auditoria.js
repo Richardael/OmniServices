@@ -12,10 +12,16 @@ const auditoriaSchema = new mongoose.Schema({
     refPath: 'tipoDocumento', // Referencia dinámica a la colección (Servicios o Talleres)
   },
   nombreDocumento: String,
-  fechaHora: { type: Date, default: Date.now },
+  fechaHora: {
+    type: Date,
+    default: Date.now,
+    get: function () {
+      return this.fechaHora.toLocaleString(); // Formato personalizado (dd/mm/yyyy, hh:mm:ss)
+    },
+  },
   detalles: String,
 });
 
-  const AuditoriaModel = mongoose.model('auditoria', auditoriaSchema);
+const AuditoriaModel = mongoose.model('auditoria', auditoriaSchema);
 
-  module.exports = AuditoriaModel;
+module.exports = AuditoriaModel;
