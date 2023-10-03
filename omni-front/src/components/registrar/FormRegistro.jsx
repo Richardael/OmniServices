@@ -18,7 +18,6 @@ const FormRegistro = () => {
     const[tipo_plataforma, setTipo_plataforma] = useState("");
     const[descripciont_servicio, setDescripciont_servicio] = useState("");
     const[disponibilidad_servicio, setDisponibilidad_servicio] = useState("");
-
     const [mostrarAlertaBuena, setMostrarAlertaBuena] = useState(false);
     const [alertaBuena, setAlertaBuena] = useState("");
     const [mostrarAlertaMala, setMostrarAlertaMala] = useState(false);
@@ -66,6 +65,21 @@ const FormRegistro = () => {
           }, 5000); // Ocultar la notificación después de 5000 ms (5 segundos)
           setAlertaBuena("Registro de Servicio Exitoso");
           console.log(response);
+          //Limpiar formulario
+          setTCategoria("");
+          setNombre_servicio("");
+          setDescripcion_servicio("");
+          setIndustria_atendida("");
+          setTiempo_estimado("");
+          setPrioridad_servicio("");
+          setCostos_servicio("");
+          setPre_requisitos("");
+          setTarifa_servicio("");
+          setTipo_servicio("");
+          setTipo_plataforma("");
+          setDescripciont_servicio("");
+          setDisponibilidad_servicio("");
+          
         } catch (error) {
           setMostrarAlertaMala(true);
           setTimeout(() => {

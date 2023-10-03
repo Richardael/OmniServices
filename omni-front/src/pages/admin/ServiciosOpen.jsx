@@ -1,12 +1,12 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import TarjetaServicios from '../../components/servicios/TarjetaServicios'
 import GaleriaServiciosOpen from '../../components/servicios/GaleriaServiciosOpen'
 import BarraDeBusquedaOpen from '../../components/servicios/BarraDeBusquedaOpen'
 
 const ServiciosOpen = () => {
   const [servicioss, setServicioss] = useState([]);
+  const [busqueda, setBusqueda] = useState('');
   const [categoria, setCategoria] = useState(""); // Nuevo estado para la categoría // Nuevo estado para la categoría
   useEffect(() => {
     //Obtengo los servicios desde mi backend y los almaceno en mi estado de servicios
@@ -38,8 +38,8 @@ const ServiciosOpen = () => {
       })
   return (
     <div>
-    <BarraDeBusquedaOpen categoria={categoria} setCategoria={setCategoria} />
-    <GaleriaServiciosOpen servicios={servicios} categoria={categoria} />
+    <BarraDeBusquedaOpen categoria={categoria} setCategoria={setCategoria} busqueda={busqueda} setBusqueda={setBusqueda}/>
+    <GaleriaServiciosOpen servicios={servicios} categoria={categoria} busqueda={busqueda}/>
     </div>
   )
 }

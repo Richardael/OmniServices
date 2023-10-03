@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 
 const TalleresOpen = () => {
   const [talleress, setTalleress] = useState([]);
+  const [busqueda, setBusqueda] = useState('');
   const [categoria, setCategoria] = useState(""); // Nuevo estado para la categoría // Nuevo estado para la categoría
   useEffect(() => {
     //Obtengo los servicios desde mi backend y los almaceno en mi estado de servicios
@@ -21,9 +22,9 @@ const TalleresOpen = () => {
           return {
             id: talleres.id_taller,
             categoria: talleres.categoria,
+            tipo_plataforma: talleres.tipo_plataforma,
             nombre_taller: talleres.nombre_taller,
             descripcion_taller: talleres.descripcion_taller,
-            tipo_taller: talleres.tipo_taller,
             publico_taller: talleres.publico_taller,
             pre_conocimientos: talleres.pre_conocimientos,
             temario_taller: talleres.temario_taller,
@@ -35,8 +36,8 @@ const TalleresOpen = () => {
         })
   return (
     <div>
-      <BarraDeBusquedaOpen categoria={categoria} setCategoria={setCategoria}/>
-      <GaleriaTalleresOpen talleres={talleres} categoria={categoria} />
+      <BarraDeBusquedaOpen categoria={categoria} setCategoria={setCategoria} busqueda={busqueda} setBusqueda={setBusqueda}/>
+      <GaleriaTalleresOpen talleres={talleres} categoria={categoria} busqueda={busqueda}/>
     </div>
   )
 }

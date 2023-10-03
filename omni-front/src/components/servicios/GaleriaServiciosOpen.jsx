@@ -3,24 +3,31 @@ import axios from 'axios'
 import TarjetaServicios from './TarjetaServicios'
 
 
-const GaleriaServiciosOpen = ({servicios,categoria}) => {
+const GaleriaServiciosOpen = ({servicios,categoria, busqueda}) => {
  // Filtra los servicios basados en la categoría seleccionada
  const serviciosFiltrados = categoria
  ? servicios.filter((servicio) => servicio.categoria === categoria)
- : servicios;    
+ : servicios;  
+ 
+   // Filtra los servicios basados en la búsqueda
+   const serviciosFiltradosPorBusqueda = serviciosFiltrados.filter((servicio) => {
+    return servicio.nombre_servicio.toLowerCase().includes(busqueda.toLowerCase());
+  });
+
   return (
     <div>
-     {/* Si Hay Servicios */}
+            {/* Si Hay servicios */}
             {/* Quiero que muestre los servicios filtrados */}
-            {serviciosFiltrados.length ? (
+            {serviciosFiltradosPorBusqueda.length ? (
         <>
           <div className='grid grid-cols-4 gap-4 max-sm:grid-cols-1'>
-          {serviciosFiltrados.map((servicio) => (
-              <TarjetaServicios key={servicio.id} {...servicio} />
+          {serviciosFiltradosPorBusqueda.map((servicio) => (
+              <TarjetaServicios key={servicio.id } {...servicio} />
             ))}
             </div>
         </>
-      ) : (
+      )
+       : (
         <>
         <div>
         <h2 className="font-black text-4xl text-center grid col-span-4">

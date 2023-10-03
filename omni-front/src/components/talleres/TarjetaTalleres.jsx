@@ -3,7 +3,7 @@ import { RiSettings2Fill, RiDatabase2Line,RiShieldCheckLine, RiAdminLine, RiWifi
 import { useState } from 'react';
 
 
-const TarjetaTalleres = ({id_taller,tipo_plataforma,categoria,nombre_taller,tipo_taller,descripcion_taller,publico_taller,pre_conocimientos,temario_taller,obj_general,duracion_taller,modalidad_taller,cantidad_participantes}) => {
+const TarjetaTalleres = ({id_taller,tipo_plataforma,categoria,nombre_taller,descripcion_taller,publico_taller,pre_conocimientos,temario_taller,obj_general,duracion_taller,modalidad_taller,cantidad_participantes}) => {
     const IconoTalleres = () => {
         if (categoria === "Programacion") {
           return <RiTerminalBoxLine className='mx-auto mb-10 mt-5 h-20 w-20'/>
@@ -42,10 +42,10 @@ className="bg-white flex flex-col max-w-sm mx-auto rounded-lg shadow-xl h-[370px
   </div>
   <div className="px-6 py-4 flex flex-col gap-2">
     <h1 className="text-xl font-semibold text-gray-800 ">
-    {nombre_taller}
+    {nombre_taller.split(' ').slice(0, 3).join(' ')}
     </h1>
     <p className='text-secondary-300 max-sm:sm'>
-    {descripcion_taller}
+    {descripcion_taller.split(' ').slice(0, 8).join(' ')}
     </p>
     <button onClick={toggleModal} className="bg-primary-300 text-white py-2 px-16 max-sm:px-auto rounded-lg shadow-md hover:bg-primary-200 transition duration-300 ease-in-out absolute bottom-4 right-4 left-4 ">
       Ver más
@@ -74,7 +74,7 @@ className="bg-white flex flex-col max-w-sm mx-auto rounded-lg shadow-xl h-[370px
           </div>
           {/*body*/}
           <div className="relative px-6 py-2 flex-auto">
-            <div className='grid grid-cols-4 shadow-md border-2 border-secondary-200 rounded-md p-2 mt-2 text-center mb-5'>
+            <div className='grid grid-cols-3 shadow-md border-2 border-secondary-200 rounded-md p-2 mt-2 text-center mb-5'>
               <div>
                 <h1 className='text-xl font-semibold text-primary-300'>Tipo de Plataforma</h1>
                 <p className='text-secondary-300'>{tipo_plataforma}</p>
@@ -82,10 +82,6 @@ className="bg-white flex flex-col max-w-sm mx-auto rounded-lg shadow-xl h-[370px
               <div>
               <h1 className='text-xl font-semibold text-primary-300'>Categoria</h1>
                 <p className='text-secondary-300'>{categoria}</p>
-              </div>
-              <div>
-              <h1 className='text-xl font-semibold text-primary-300'>Tipo de Taller</h1>
-                <p className='text-secondary-300'>{tipo_taller}</p>
               </div>
               <div>
                 <h1 className='text-xl font-semibold text-primary-300'>Publico del Taller</h1>

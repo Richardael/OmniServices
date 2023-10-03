@@ -101,12 +101,8 @@ const Register = () => {
           setMostrarAlertaBuena(true);
           setTimeout(() => {
             setMostrarAlertaBuena(false);
-          }, 1000);
-          setAlertaBuena("Registro exitoso");
-          //Redirigir usuario al Login
-          setTimeout(() => {
-            window.location.href = "/auth/";
-          }, 1000);
+          }, 5000);
+          setAlertaBuena(`Se ha enviado un correo de confirmación a su correo electronico: ${correo_us}`);
         } else {
           setMostrarAlertaMala(true);
           setTimeout(() => {

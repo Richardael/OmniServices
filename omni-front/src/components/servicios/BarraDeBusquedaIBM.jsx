@@ -2,9 +2,11 @@ import React from "react";
 import { useState } from "react";
 //Quiero una barra de búsqueda que me permita buscar servicios por nombre
 //Quiero que la barra de búsqueda me permita buscar servicios por categoría
-const BarraDeBúsquedaIBM = ({servicios, categoria, setCategoria}) => {
+const BarraDeBúsquedaIBM = ({servicios, categoria, setCategoria, busqueda, setBusqueda}) => {
   const user = localStorage.getItem("nombre_us");
     const [serviciosFiltrados, setServiciosFiltrados] = useState(servicios);
+    const [serviciosFiltradosPorBusqueda, setServiciosFiltradosPorBusqueda] = useState(serviciosFiltrados);
+
   // Función para manejar el clic en los botones de categoría
   const handleCategoriaClick = (categoria) => {
     //Si servicios filtrados es igual a categoria, setcategoria sera ""
@@ -18,6 +20,13 @@ const BarraDeBúsquedaIBM = ({servicios, categoria, setCategoria}) => {
     }
 
   };
+  // Función para manejar el cambio en el campo de búsqueda
+  const handleInputChange = (e) => {
+    setBusqueda(e.target.value);
+  };
+
+  
+
 
 
 
@@ -28,9 +37,10 @@ const BarraDeBúsquedaIBM = ({servicios, categoria, setCategoria}) => {
     <div className="2/5">
            <h1 className="font-semibold text-2xl py-2 pr-24 pl-4">Bienvenido <span className="text-primary-300">{user}</span></h1> 
         </div>
-      <form className="w-3/5" action="">
+      <form onSubmit={e => e.preventDefault()} className="w-3/5 max-sm:ml-3 max-sm:w-4/5 max-md:mb-4">
         <input
         className="w-full px-4 py-3 rounded-lg ring-1 focus:outline-none focus:ring-1 ring-gray-300 focus:ring-primary-300"
+        onChange={handleInputChange}
         type="text" placeholder="Buscar en IBM" />
         <button className="absolute bg-primary-300 ring-1 ring-primary-300 text-secondary-100 rounded-r-md py-3 px-4 right-5 hover:bg-primary-200">Buscar</button>
       </form>

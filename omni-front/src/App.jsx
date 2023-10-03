@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useAuth } from "./controladores/auth/AuthProvider";
+import { useState } from "react";
+
 import "./App.css";
 //Layouts
 import LayoutAdmin from "./layouts/LayoutAdmin";
@@ -25,6 +27,7 @@ import ListaTalleres from "./pages/admin/ListaTalleres";
 import Historial from "./pages/admin/Historial";
 
 function App() {
+  const [updateCount, setUpdateCount] = useState(0);
   return (
     <BrowserRouter>
       <Routes>
@@ -33,15 +36,16 @@ function App() {
         <Route path="/" element={<RutaProtegida />}>
           {/* Rutas Dashboard Admin */}
           <Route path="/" element={<LayoutAdmin />}>
-            <Route index element={<Home />} />
+            {/* Quiero agregarle updateCount */}
+            <Route index element={<Home   />} />
             <Route path="servicios-open" element={<ServiciosOPEN />} />
             <Route path="servicios-ibm" element={<ServiciosIBM />} />
-            <Route path="registro-servicios" element={<RegistrarServicios />}/>
-            <Route path="registro-talleres" element={<RegistrarTalleres />}/>
+            <Route path="registro-servicios" element={<RegistrarServicios />} />
+            <Route path="registro-talleres" element={<RegistrarTalleres   />} />
             <Route path="talleres-ibm" element={<TalleresIBM />} />
             <Route path="talleres-open" element={<TalleresOpen />} />
             <Route path="lista-servicios" element={<ListaServicios />} />
-            <Route path="lista-talleres" element={<ListaTalleres />} />
+            <Route path="lista-talleres" element={<ListaTalleres /> } />
             <Route path="historial" element={<Historial />} />
           </Route>
         </Route>

@@ -4,7 +4,7 @@ import { RiArrowDropUpLine, RiArrowDropDownLine } from "react-icons/ri";
 import AlertaBuena from "../alertas/AlertaBuena";
 import AlertaMala from "../alertas/AlertaMala";
 
-const TablasServicios = (servicios) => {
+const TablasServicios = ({servicios,updateCount,setUpdateCount}) => {
   const [plataformaServicio, setPlataformaServicio] = useState(false);
   const [categoriaServicio, setCategoriaServicio] = useState(false);
   const [prioridadServicio, setPrioridadServicio] = useState(false);
@@ -22,7 +22,6 @@ const TablasServicios = (servicios) => {
   const [tipo_plataforma, setTipo_plataforma] = useState("");
   const [descripciont_servicio, setDescripciont_servicio] = useState("");
   const [disponibilidad_servicio, setDisponibilidad_servicio] = useState("");
-  const [username, setUsername] = useState(localStorage.getItem("nombre_us"));
 
   const [selectedServiceId, setSelectedServiceId] = useState(null); // Nueva variable de estado para almacenar el ID del servicio seleccionado
 
@@ -33,14 +32,14 @@ const TablasServicios = (servicios) => {
 
   const ordenPlataforma = () => {
     if (plataformaServicio) {
-      servicios.servicios.sort((IBM, Open) =>
+      servicios.sort((IBM, Open) =>
         IBM.tipo_plataforma.localeCompare(Open.tipo_plataforma)
       );
       setPlataformaServicio(!plataformaServicio);
       setCategoriaServicio(false);
       setPrioridadServicio(false);
     } else {
-      servicios.servicios.sort((IBM, Open) =>
+      servicios.sort((IBM, Open) =>
         Open.tipo_plataforma.localeCompare(IBM.tipo_plataforma)
       );
       setPlataformaServicio(!plataformaServicio);
@@ -52,14 +51,14 @@ const TablasServicios = (servicios) => {
     //Quiero que se ordenen los servicios por categoria de forma ascendente y descendente
     //El Orden de las categorias debe ser abecedario
     if (categoriaServicio) {
-      servicios.servicios.sort((a, b) =>
+      servicios.sort((a, b) =>
         b.categoria.localeCompare(a.categoria)
       );
       setCategoriaServicio(!categoriaServicio);
       setPrioridadServicio(false);
       setPlataformaServicio(false);
     } else {
-      servicios.servicios.sort((a, b) =>
+      servicios.sort((a, b) =>
         a.categoria.localeCompare(b.categoria)
       );
       setCategoriaServicio(!categoriaServicio);
@@ -78,7 +77,7 @@ const TablasServicios = (servicios) => {
   const ordenPrioridad = () => {
     if (prioridadServicio) {
       // Orden ascendente
-      servicios.servicios.sort((a, b) => {
+      servicios.sort((a, b) => {
         return (
           prioridadOrden[b.prioridad_servicio] -
           prioridadOrden[a.prioridad_servicio]
@@ -86,7 +85,7 @@ const TablasServicios = (servicios) => {
       });
     } else {
       // Orden descendente
-      servicios.servicios.sort((a, b) => {
+      servicios.sort((a, b) => {
         return (
           prioridadOrden[a.prioridad_servicio] -
           prioridadOrden[b.prioridad_servicio]
@@ -100,7 +99,7 @@ const TablasServicios = (servicios) => {
   };
 
   const handleEditar = (servicio) => {
-    setSelectedServiceId(servicio.id); // Al hacer clic en Editar, establece el ID del servicio seleccionado
+    setSelectedServiceId(servicio._id); // Al hacer clic en Editar, establece el ID del servicio seleccionado
     setNombre_servicio(servicio.nombre_servicio);
     setDescripcion_servicio(servicio.descripcion_servicio);
     setIndustria_atendida(servicio.industria_atendida);
@@ -117,18 +116,14 @@ const TablasServicios = (servicios) => {
     setModalEditar(true);
   };
   const handleEliminar = (id) => {
-    const user = {
-      username: username,
-    };
     axios
       .delete(`http://192.168.1.50:8000/lista/eliminar/${id}`, {
         data: { nombre_us: localStorage.getItem("nombre_us") }, // Agrega nombre_us al cuerpo de la solicitud
       })
       .then((res) => {
-        console.log(username);
         console.log(res.data);
         // Incrementa el contador de actualización
-        servicios.setUpdateCount(servicios.updateCount + 1);
+        setUpdateCount(updateCount + 1);
       })
       .catch((err) => {
         console.log(err);
@@ -168,7 +163,7 @@ const TablasServicios = (servicios) => {
         }, 5000); // Ocultar la notificación después de 5000 ms (5 segundos)
         setAlertaBuena("Servicio editado correctamente");
         // Incrementa el contador de actualización
-        servicios.setUpdateCount(servicios.updateCount + 1);
+        setUpdateCount(updateCount + 1);
         setModalEditar(false);
       })
       .catch((err) => {
@@ -245,8 +240,8 @@ const TablasServicios = (servicios) => {
           </tr>
         </thead>
         <tbody>
-          {servicios.servicios.map((servicio) => (
-            <tr key={servicio.id} className="bg-gray-50">
+          {servicios.map((servicio) => (
+            <tr key={servicio._id} className="bg-gray-50">
               <td className="px-4 py-4 whitespace-nowrap">
                 <div className="text-sm font-medium text-gray-900">
                   {servicio.nombre_servicio.split(" ").splice(0, 8).join(" ")}
@@ -269,7 +264,7 @@ const TablasServicios = (servicios) => {
               </td>
               <td className="px-2 py-4 text-semibold font-medium text-right flex">
                 <button
-                  onClick={() => handleEliminar(servicio.id)}
+                  onClick={() => handleEliminar(servicio._id)}
                   className="text-secondary-300 hover:underline mx-4"
                 >
                   Eliminar
@@ -290,12 +285,12 @@ const TablasServicios = (servicios) => {
       {modalEditar ? (
         <>
           <div className=" flex overflow-x-hidden fixed inset-0 z-50 outline-none focus:outline-none">
-            {servicios.servicios.map(
+            {servicios.map(
               (servicio) =>
                 // Mostrar el modalEditar solo para el servicio con el ID coincidente
-                selectedServiceId === servicio.id && (
+                selectedServiceId === servicio._id && (
                   <div
-                    key={servicio.id}
+                    key={servicio._id}
                     className="relative w-auto my-6 mx-auto max-w-5xl"
                   >
                     {/*content*/}

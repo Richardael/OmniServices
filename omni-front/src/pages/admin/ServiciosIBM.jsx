@@ -6,6 +6,7 @@ import GaleriaServiciosIBM from '../../components/servicios/GaleriaServiciosIBM'
 
 const ServiciosIBM = () => {
   const [servicioss, setServicioss] = useState([]);
+  const [busqueda, setBusqueda] = useState('');
   const [categoria, setCategoria] = useState(""); // Nuevo estado para la categoría // Nuevo estado para la categoría
   useEffect(() => {
     //Obtengo los servicios desde mi backend y los almaceno en mi estado de servicios
@@ -35,10 +36,11 @@ const ServiciosIBM = () => {
           industria_atendida: servicios.industria_atendida,
         }
       })
+
   return (
     <div>
-    <BarraDeBúsquedaIBM categoria={categoria} setCategoria={setCategoria}/>
-    <GaleriaServiciosIBM servicios={servicios} categoria={categoria} />
+    <BarraDeBúsquedaIBM categoria={categoria} setCategoria={setCategoria} busqueda={busqueda} setBusqueda={setBusqueda}/>
+    <GaleriaServiciosIBM servicios={servicios} categoria={categoria} busqueda={busqueda}/>
     </div>
   )
 }

@@ -78,17 +78,22 @@ const Login = () => {
             //Almacena el nombre_us que viene del token
             localStorage.setItem("id_rol", response.data["id_rol"]);
             localStorage.setItem("nombre_us", response.data["nombre_us"]);
-          }, 1000);
+          }, 3000);
           setAlertaBuena("Inicio de sesión exitoso");
         } else {
           setMostrarAlertaMala(true);
           setTimeout(() => {
             setMostrarAlertaMala(false);
           }, 5000);
-          setAlertaMala("Inicio de sesión fallido");
+          setAlertaMala(error.response.data.message);
         }
       } catch (error) {
         console.error("Error al iniciar sesión:", error);
+        setMostrarAlertaMala(true);
+        setTimeout(() => {
+          setMostrarAlertaMala(false);
+        }, 5000);
+        setAlertaMala(error.response.data.message);
       }
     }
   };

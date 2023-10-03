@@ -7,7 +7,7 @@ const RegistrarTalleres = () => {
               <h1 className="text-3xl font-extrabold text-center text-primary-900">
         Registrar <span className="text-primary-300"> Talleres</span>
       </h1>
-      <FormRegistroTalleres />
+      <FormRegistroTalleres/>
     </div>
   )
 }

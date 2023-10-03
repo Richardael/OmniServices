@@ -1,6 +1,9 @@
 import React from 'react'
 import axios from 'axios'; // Importo axios
 import { useState } from 'react'; // Importo el useState para poder usarlo
+import AlertaBuena from '../alertas/AlertaBuena';
+import AlertaMala from '../alertas/AlertaMala';
+
 const FormRegistroTalleres = () => {
     const [tipo_plataforma, setTipo_plataforma] = useState("");
     const [categoria, setCategoria] = useState("");
@@ -13,14 +16,27 @@ const FormRegistroTalleres = () => {
     const [duracion_taller, setDuracion_taller] = useState("");
     const [modalidad_taller, setModalidad_taller] = useState("");
     const [cantidad_participantes, setCantidad_participantes] = useState("");
+    const [mostrarAlertaBuena, setMostrarAlertaBuena] = useState(false);
+    const [alertaBuena, setAlertaBuena] = useState("");
+    const [mostrarAlertaMala, setMostrarAlertaMala] = useState(false);
+    const [alertaMala, setAlertaMala] = useState("");
+    const [contador, setContador] = useState(0); // Nuevo estado para el contador
 
     //Registrar por medio de axios
     const handleRegisterTalleres = async (e) => {
         e.preventDefault();
+        if (categoria.length === 0 || nombre_taller.length === 0 || descripcion_taller.length === 0 || publico_taller.length === 0 || pre_conocimientos.length === 0 || temario_taller.length === 0 || obj_general.length === 0 || duracion_taller.length === 0 || modalidad_taller.length === 0 || cantidad_participantes.length === 0) {
+          setMostrarAlertaMala(true);
+          setTimeout(() => {
+            setMostrarAlertaMala(false);
+          }, 5000); // Ocultar la notificación después de 5000 ms (5 segundos)
+          setAlertaMala("No puede haber campos vacios");
+        } else {
         try {
           const response = await axios.post(
             "http://192.168.1.50:8000/talleres/registro",
             {
+              nombre_us: localStorage.getItem("nombre_us"),
               tipo_plataforma,
               categoria,
               nombre_taller,
@@ -32,15 +48,43 @@ const FormRegistroTalleres = () => {
               duracion_taller,
               modalidad_taller,
               cantidad_participantes,
-            }
+            } // Datos que voy a enviar por axios en formato JSON
+            //Limpiar el formulario
+
             );
-            console.log(response);
+
+            setMostrarAlertaBuena(true);
+          setTimeout(() => {
+            setMostrarAlertaBuena(false);
+          }, 5000); // Ocultar la notificación después de 5000 ms (5 segundos)
+          setAlertaBuena("Registro de Taller Exitoso");
+          console.log(response);
+          //Para limpiar el formulario
+          setTipo_plataforma("");
+          setCategoria("");
+          setNombre_taller("");
+          setDescripcion_taller("");
+          setPublico_taller("");
+          setPre_conocimientos("");
+          setTemario_taller("");
+          setObj_general("");
+          setDuracion_taller("");
+          setModalidad_taller("");
+          setCantidad_participantes("");
         }
         catch (error) {
+          setMostrarAlertaMala(true);
+          setTimeout(() => {
+            setMostrarAlertaMala(false);
+          }, 5000); // Ocultar la notificación después de 5000 ms (5 segundos)
+          setAlertaMala("Registro de Servicio Fallido");
           console.log(error);
         }
         }
+      }
+
   return (
+    <div>
 <form
 onSubmit={handleRegisterTalleres}
 >
@@ -76,7 +120,7 @@ onSubmit={handleRegisterTalleres}
               <option value="Operaciones">Operaciones</option>
               <option value="Administracion">Administración</option>
               <option value="Programacion">Programación</option>
-              <option value="BaseDeDatos">Base de datos</option>
+              <option value="Base de datos">Base de datos</option>
               <option value="Seguridad">Seguridad</option>
               <option value="Comunicaciones">Comunicaciones</option>
             </optgroup>
@@ -248,6 +292,16 @@ onSubmit={handleRegisterTalleres}
       </button>
       </div>
     </form>
+                  <AlertaMala
+        mostrarAlertaMala={mostrarAlertaMala}
+        alertaMala={alertaMala}
+      />
+
+      <AlertaBuena
+        mostrarAlertaBuena={mostrarAlertaBuena}
+        alertaBuena={alertaBuena}
+      />
+    </div>
   )
 }
 

@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 //Quiero una barra de busqueda que me permita buscar servicios por nombre
 //Quiero que la barra de busqueda me permita buscar servicios por categoria
-const BarraDeBusquedaOpen = ({ servicios, categoria, setCategoria }) => {
+const BarraDeBusquedaOpen = ({ servicios, categoria, setCategoria, busqueda, setBusqueda}) => {
   const user = localStorage.getItem("nombre_us");
   const [serviciosFiltrados, setServiciosFiltrados] = useState(servicios);
   // Función para manejar el clic en los botones de categoría
@@ -18,6 +18,11 @@ const BarraDeBusquedaOpen = ({ servicios, categoria, setCategoria }) => {
     }
   };
 
+    // Función para manejar el cambio en el campo de búsqueda
+    const handleInputChange = (e) => {
+      setBusqueda(e.target.value);
+    };
+
   return (
     <div className="mb-10 bg-white p-4 shadow-md">
       <div className="px-2 py-2 relative sm:flex">
@@ -30,6 +35,7 @@ const BarraDeBusquedaOpen = ({ servicios, categoria, setCategoria }) => {
           <input
             className="w-full px-4 py-3 rounded-lg ring-1 focus:outline-none focus:ring-1 ring-gray-300 focus:ring-primary-300"
             type="text"
+            onChange={handleInputChange}
             placeholder="Buscar en Open"
           />
           <button className="absolute bg-primary-300 ring-1 ring-primary-300 text-secondary-100 rounded-r-md py-3 px-4 right-5 hover:bg-primary-200">
