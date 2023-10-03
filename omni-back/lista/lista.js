@@ -132,7 +132,7 @@ router.delete('/eliminar/:id', async (req, res) => {
       const tipoDocumento = 'Talleres';
       const documentoAfectado = taller._id;
       const nombreDocumento = taller.nombre_taller;
-      const detalles = `Eliminación de Taller con ID ${taller._id}`;
+      const detalles = `Eliminación del Taller ${taller.nombre_taller}`;
 
       // Crea una nueva instancia de Auditoria y guárdala en la base de datos
       const auditoria = new AuditoriaModel({
@@ -162,7 +162,7 @@ router.delete('/eliminar/:id', async (req, res) => {
       const tipoDocumento = 'registroservicios';
       const documentoAfectado = servicio._id;
       const nombreDocumento = servicio.nombre_servicio;
-      const detalles = `Eliminación de Servicio con ID ${servicio._id}`;
+      const detalles = `Eliminación del Servicio ${servicio.nombre_servicio}`;
 
       // Crea una nueva instancia de Auditoria y guárdala en la base de datos
       const auditoria = new AuditoriaModel({
