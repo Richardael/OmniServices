@@ -42,7 +42,6 @@ router.put('/modificar/:id', async (req, res) => {
         tipo_plataforma: req.body.tipo_plataforma,
         categoria: req.body.categoria,
         nombre_taller: req.body.nombre_taller,
-        tipo_taller: req.body.tipo_taller,
         descripcion_taller: req.body.descripcion_taller,
         publico_taller: req.body.publico_taller,
         pre_conocimientos: req.body.pre_conocimientos,
@@ -85,8 +84,8 @@ router.put('/modificar/:id', async (req, res) => {
 
           // Registra una auditoría de registro de servicio
           const usuario = req.body.nombre_us;
-          const accion = 'Modificación de servicios';
-          const detalles = `Se ha modificado un nuevo servicio con nombre: ${servicio.nombre_servicio} por el usuario ${usuario}`;
+          const accion = 'Modificación de servicio';
+          const detalles = `Se ha modificado un nuevo servicio con nombre: ${servicio.nombre_servicio}`;
           const tipoDocumento = 'Servicio'
           const auditoria = new AuditoriaModel({
             usuario,
@@ -127,12 +126,12 @@ router.delete('/eliminar/:id', async (req, res) => {
     if (taller) {
       // Si se encuentra en Talleres, registra una auditoría de eliminación
       //Obtener usuario del body de la solicitud
-      const user = req.body.nombre_us;
+      const usuario = req.body.nombre_us;
       const accion = 'Eliminación';
       const tipoDocumento = 'Talleres';
       const documentoAfectado = taller._id;
       const nombreDocumento = taller.nombre_taller;
-      const detalles = `Eliminación de Taller con ID ${taller._id}`;
+      const detalles = `Eliminación del Taller ${taller.nombre_taller}`;
 
       // Crea una nueva instancia de Auditoria y guárdala en la base de datos
       const auditoria = new AuditoriaModel({
@@ -162,7 +161,7 @@ router.delete('/eliminar/:id', async (req, res) => {
       const tipoDocumento = 'registroservicios';
       const documentoAfectado = servicio._id;
       const nombreDocumento = servicio.nombre_servicio;
-      const detalles = `Eliminación de Servicio con ID ${servicio._id}`;
+      const detalles = `Eliminación del Servicio ${servicio.nombre_servicio}`;
 
       // Crea una nueva instancia de Auditoria y guárdala en la base de datos
       const auditoria = new AuditoriaModel({
