@@ -7,7 +7,7 @@ const Notificaciones = () => {
 
   useEffect(() => {
     axios
-      .get("http://192.168.1.50:8000/historial/notificacion")
+      .get("http://192.168.1.50:8000/historial/notificacion/")
       .then((response) => {
         console.log(response.data);
         setNotificaciones(response.data);
@@ -28,7 +28,7 @@ const Notificaciones = () => {
         <table className="w-full text-sm text-left text-secondary-500">
           <tbody className="bg-white">
             {notificaciones.map((notificacion) => (
-              <tr key={notificacion.id}>
+              <tr key={notificacion._id}>
                 <td className="px-3 py-3 text-sm">
                   <p className="font-semibold">{notificacion.usuario}</p>
                 </td>
@@ -53,8 +53,9 @@ const Notificaciones = () => {
                 <td className="px-1 py-3 text-xs">
                   <p className="font-semibold">{notificacion.detalles}</p>
                 </td>
-                <td className="px-1 py-3 text-xs">
-                  <p className="font-semibold">{notificacion.fechaHora}</p>
+                <td className="px-1 py-3 text-xs"> 
+                {/* Quiero que me muestre solo 10 caracteres de fecha y Hora */}
+                  <p className="font-semibold">{notificacion.fechaHora.slice(3,25)}</p>
                 </td>
               </tr>
             ))}
