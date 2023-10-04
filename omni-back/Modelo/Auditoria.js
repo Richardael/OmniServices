@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const format = require('date-fns/format'); // Importa la función de formateo de fecha de date-fns
 
 const auditoriaSchema = new mongoose.Schema({
   usuario: {
@@ -14,10 +13,11 @@ const auditoriaSchema = new mongoose.Schema({
   },
   nombreDocumento: String,
   fechaHora: {
-    type: Date,
-    default: Date.now,
-    get: function () {
-      return format(this.fechaHora, 'dd/MM/yyyy'); // Formato personalizado (dd/MM/yyyy)
+    type: String, // Cambia el tipo a String
+    default: function () {
+      const now = new Date();
+      const formattedDate = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}:${now.getHours()}/${now.getMinutes()}/${now.getSeconds()}`;
+      return formattedDate;
     },
   },
   detalles: String,

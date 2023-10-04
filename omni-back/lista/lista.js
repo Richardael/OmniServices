@@ -3,6 +3,8 @@ const router = express.Router();
 const RegistroServiciosModel = require('../Modelo/RegistroServicios'); // Importa el modelo de Servicios
 const TalleresModel = require('../Modelo/Talleres'); //Importando el modelo de talleres
 const AuditoriaModel = require('../Modelo/Auditoria'); //Importo el modelo de auditoria
+const format = require('date-fns/format'); // Importa la función de formateo de fecha de date-fns
+
 // Ruta para listar servicios
 router.get('/servicios', async (req, res) => {
   try {
@@ -53,7 +55,26 @@ router.put('/modificar/:id', async (req, res) => {
       },{ new: true });
 
       //----------------AUDITORIA TALLERES-------------------------------
+        //AUDITORIA MODIFICAR TALLER
+          // Formatea la fecha y hora en el formato deseado "DD/MM/YY:HH/MM/SS"
+          const fechaHoraFormatted = format(new Date(), 'dd/MM/yy:HH/mm/ss', { timeZone: 'America/Caracas' });
 
+          // Registra una auditoría de registro de servicio
+          const usuario = req.body.nombre_us;
+          const accion = 'Modificación de Taller';
+          const detalles = `Se ha modificado un Taller con nombre: ${taller.nombre_taller}`;
+          const tipoDocumento = 'Taller'
+          const auditoria = new AuditoriaModel({
+            usuario,
+            accion,
+            detalles,
+            tipoDocumento,
+            documentoAfectado: taller._id, // Aquí asignamos el ID del servicio registrado
+            nombreDocumento: taller.nombre_taller, // Aquí asignamos el nombre del servicio registrado
+            fechaHora: fechaHoraFormatted, // Utiliza la cadena formateada directamente
+          });
+
+          await auditoria.save();
 
       //------------FIN AUDITORIA-----------------------------------------------
 
@@ -80,8 +101,11 @@ router.put('/modificar/:id', async (req, res) => {
           disponibilidad_servicio: req.body.disponibilidad_servicio,
         },{ new: true });
 
-        //AUDITORIA MODIFICAR
+        //AUDITORIA MODIFICAR SERVICIO
+          // Formatea la fecha y hora en el formato deseado "DD/MM/YY:HH/MM/SS"
+          const fechaHoraFormatted = format(new Date(), 'dd/MM/yy:HH/mm/ss', { timeZone: 'America/Caracas' });
 
+          
           // Registra una auditoría de registro de servicio
           const usuario = req.body.nombre_us;
           const accion = 'Modificación de servicio';
@@ -94,6 +118,7 @@ router.put('/modificar/:id', async (req, res) => {
             tipoDocumento,
             documentoAfectado: servicio._id, // Aquí asignamos el ID del servicio registrado
             nombreDocumento: servicio.nombre_servicio, // Aquí asignamos el nombre del servicio registrado
+            fechaHora: fechaHoraFormatted, // Utiliza la cadena formateada directamente
           });
 
           await auditoria.save();

@@ -68,7 +68,7 @@ router.post('/registro', async (req, res) => {
       const tipo_documento = 'Taller';
       const documento_registrado = newTaller._id;
       const nombreDocumento = newTaller.nombre_taller;
-      const detalles = `Registro del Taller ${newTaller.nombre_taller}`;
+      const detalles = `Registro de Taller con nombre ${newTaller.nombre_taller}`;
 
       // Crea una nueva instancia de Auditoria y guárdala en la base de datos
       const auditoria = new AuditoriaModel({

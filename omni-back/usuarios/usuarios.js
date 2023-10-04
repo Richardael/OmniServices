@@ -72,7 +72,7 @@ router.get('/verificar/:id', async (req, res) => {
       await usuario.save();
 
       // Redirige al usuario a la página de inicio de sesión
-      res.redirect('http://192.168.1.56.1:1111/auth/');
+      res.redirect('http://192.168.1.16:1111/auth/');
 
   } catch (error) {
       console.error(error);
@@ -82,7 +82,7 @@ router.get('/verificar/:id', async (req, res) => {
 });
 
 // 2. Verificación de correo electrónico
-router.post('/recuperar-contrasena', async (req, res) => {
+router.post('/recuperar-password', async (req, res) => {
   try {
     const { correo_us } = req.body;
 
@@ -93,19 +93,30 @@ router.post('/recuperar-contrasena', async (req, res) => {
       return res.status(404).json({ message: 'Usuario no encontrado' });
     }
 
-    // 3. Envío de correo de recuperación de contraseña
-    const token = generarTokenUnico(); // Genera un token único y temporal
-    usuario.tokenRecuperacion = token; // Almacena el token en el usuario
-    await usuario.save();
+        // Genera un token único y temporal
+        const token = crypto.randomBytes(20).toString('hex');
+        usuario.tokenRecuperacion = token; // Almacena el token en el usuario
+        await usuario.save();
+    
 
-    const transporter = crearTransportadorCorreo(); // Crea un transportador de correo
+        // Configura el transportador de nodemailer con la clave de API
+        const transporter = nodemailer.createTransport({
+          service: 'Gmail',
+          auth: {
+            type: 'OAuth2',
+            user: 'jhoynners.santaella15@gmail.com', // Cambia esto por tu dirección de correo
+            clientId: '108455970368-045d01o8k2ioi4ajh3vcqjqbasjqev6n.apps.googleusercontent.com', // Cambia esto por tu ID de cliente de OAuth
+            clientSecret: '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', // Cambia esto por tu secreto de cliente de OAuth
+            refreshToken: '1//04gtOKqw-1HndCgYIARAAGAQSNwF-L9Irwq10gTvMBTG-3mPKxNFNEBQ9uwuzxrE1BNIX-V1jNwAfzRr6Oe3PE7p1tjcLWdyTVmw', // Cambia esto por tu token de actualización de OAuth
+          }
+        });
 
     // Configura el correo electrónico de recuperación de contraseña
     const mailOptions = {
       from: 'jhoynners.santaella15@gmail.com',
       to: correo_us,
       subject: 'Recuperación de Contraseña',
-      text: `Para restablecer tu contraseña, haz clic en el siguiente enlace: http://192.168.1.43:8000/usuarios/recuperar-contrasena/${token}`,
+      text: `Para restablecer tu contraseña, haz clic en el siguiente enlace: http://192.168.1.16:1111/auth/olvide-validado/${token}`,
     };
 
     await transporter.sendMail(mailOptions);
@@ -118,18 +129,10 @@ router.post('/recuperar-contrasena', async (req, res) => {
   }
 });
 
-// 4. Página de Cambio de Contraseña
-router.get('/recuperar-contrasena/:token', (req, res) => {
+// 5. Actualización de Contraseña
+router.post('/reset-password/:token', async (req, res) => {
   const { token } = req.params;
-
-  // Renderiza una página donde el usuario puede ingresar una nueva contraseña y enviarla al servidor
-  res.render('pagina_recuperacion_contrasena', { token });
-});
-
-// 6. Actualización de Contraseña
-router.post('/recuperar-contrasena/:token', async (req, res) => {
-  const { token } = req.params;
-  const { nueva_contrasena } = req.body;
+  const { nuevo_password } = req.body;
 
   try {
     // Verifica si el token es válido y no ha expirado
@@ -140,7 +143,7 @@ router.post('/recuperar-contrasena/:token', async (req, res) => {
     }
 
     // Actualiza la contraseña del usuario en la base de datos
-    usuario.password = nueva_contrasena;
+    usuario.password = nuevo_password;
     usuario.tokenRecuperacion = null; // Limpia el token de recuperación
     await usuario.save();
 
