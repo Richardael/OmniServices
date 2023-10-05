@@ -11,6 +11,7 @@ import LayoutAuth from "./layouts/LayoutAuth";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import OlvideContraseña from "./pages/auth/OlvideContraseña";
+import OlvideValidado from "./pages/auth/OlvideValidado";
 
 //Pages Admin
 import Error404 from "./pages/Error404";
@@ -55,6 +56,9 @@ function App() {
           <Route index element={<Login />} />
           <Route path="olvide-contraseña" element={<OlvideContraseña />} />
           <Route path="registro-user" element={<Register />} />
+          {/* Creame una ruta dinamica para el olvide validado, que tome el token de la url que le es enviado al correo en forma de token */}
+          {/* Un ejemplo de la direccion es esta http://192.168.1.16:1111/auth/olvide-validado/5c40f9d1941bc21c234ced92c6063807b1bd435c*/}
+          <Route path="olvide-validado/:token" element={<OlvideValidado />} />
         </Route>
 
         {/* Ruta 404 */}

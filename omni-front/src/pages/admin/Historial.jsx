@@ -8,6 +8,7 @@ const Historial = () => {
     const obtenerHistorial = async () => {
         const response = await axios.get('http://192.168.1.50:8000/historial/historial')
         const historial = response.data
+        console.log(historial)
         setHistorial(historial)
     }
     useEffect(() => {

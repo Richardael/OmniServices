@@ -10,7 +10,7 @@ const Error404 = () => {
 				<span className="sr-only">Error</span>404
 			</h2>
 			<p className="text-2xl font-semibold md:text-3xl">Lo Siento esta pagina no existe</p>
-			<p className="mt-4 mb-8 dark:text-gray-400">Pero no te preocupes, ¡Puedes voler a la pagina de inicio!</p>
+			<p className="mt-4 mb-8 dark:text-gray-400">Pero no te preocupes, ¡Puedes volver a la pagina de inicio!</p>
 			<Link to="/" className="px-4 py-2 font-semibold text-secondary-200 transition-colors duration-200 transform bg-primary-300 rounded-md hover:bg-primary-200 focus:outline-none focus:bg-primary-200">Volver a la pagina de inicio</Link>
 		</div>
 	</div>
