@@ -13,10 +13,10 @@ const auditoriaSchema = new mongoose.Schema({
   },
   nombreDocumento: String,
   fechaHora: {
-    type: String, // Cambia el tipo a String
+    type: String, 
     default: function () {
       const now = new Date();
-      const formattedDate = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}:${now.getHours()}/${now.getMinutes()}/${now.getSeconds()}`;
+      const formattedDate = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}:${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
       return formattedDate;
     },
   },

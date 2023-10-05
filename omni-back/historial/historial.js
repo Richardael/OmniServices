@@ -21,9 +21,8 @@ router.get('/notificacion', async (req, res) => {
   try {
     // Consulta para obtener los últimos 3 registros de auditoria
     const notificacion = await AuditoriaModel.find({})
-      .sort({ fechaHora: -1 }) // Ordena por fechaHora en orden descendente (los más recientes primero)
+      .sort({ _id: -1 }) // Ordena por fechaHora en orden descendente (los más recientes primero)
       .limit(3); // Limita la cantidad de resultados a 3
-
     // Envía la respuesta al cliente
     res.status(200).json(notificacion);
   } catch (error) {

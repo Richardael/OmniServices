@@ -56,9 +56,6 @@ router.put('/modificar/:id', async (req, res) => {
 
       //----------------AUDITORIA TALLERES-------------------------------
         //AUDITORIA MODIFICAR TALLER
-          // Formatea la fecha y hora en el formato deseado "DD/MM/YY:HH/MM/SS"
-          const fechaHoraFormatted = format(new Date(), 'dd/MM/yy:HH/mm/ss', { timeZone: 'America/Caracas' });
-
           // Registra una auditoría de registro de servicio
           const usuario = req.body.nombre_us;
           const accion = 'Modificación de Taller';
@@ -69,9 +66,9 @@ router.put('/modificar/:id', async (req, res) => {
             accion,
             detalles,
             tipoDocumento,
-            documentoAfectado: taller._id, // Aquí asignamos el ID del servicio registrado
-            nombreDocumento: taller.nombre_taller, // Aquí asignamos el nombre del servicio registrado
-            fechaHora: fechaHoraFormatted, // Utiliza la cadena formateada directamente
+            documentoAfectado: taller._id,
+            nombreDocumento: taller.nombre_taller, 
+            fechaHora: fechaHoraFormatted, 
           });
 
           await auditoria.save();
