@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
 const UsuariosModel = require('../Modelo/Usuarios');
+const crypto = require('crypto');
+
 
 // Ruta para registrar un nuevo servicio
 router.post('/registro', async (req, res) => {
@@ -90,8 +92,9 @@ router.post('/recuperar-password', async (req, res) => {
     const usuario = await UsuariosModel.findOne({ correo_us });
 
     if (!usuario) {
-      return res.status(404).json({ message: 'Usuario no encontrado' });
+      return res.status(404).json({ message: 'No se encontró una cuenta con esta dirección de correo electrónico' });
     }
+
 
         // Genera un token único y temporal
         const token = crypto.randomBytes(20).toString('hex');
@@ -132,7 +135,7 @@ router.post('/recuperar-password', async (req, res) => {
 // 5. Actualización de Contraseña
 router.post('/reset-password/:token', async (req, res) => {
   const { token } = req.params;
-  const { nuevo_password } = req.body;
+  const { nuevo_password} = req.body;
 
   try {
     // Verifica si el token es válido y no ha expirado

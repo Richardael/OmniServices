@@ -65,8 +65,8 @@ router.post('/registro', async (req, res) => {
       //Obtener usuario del body de la solicitud para la auditoria
       const usuario = req.body.nombre_us;
       const accion = 'Registro de Taller';
-      const tipo_documento = 'Taller';
-      const documento_registrado = newTaller._id;
+      const tipoDocumento = 'Taller';
+      const documentoAfectado = newTaller._id;
       const nombreDocumento = newTaller.nombre_taller;
       const detalles = `Registro de Taller con nombre ${newTaller.nombre_taller}`;
 
@@ -74,8 +74,8 @@ router.post('/registro', async (req, res) => {
       const auditoria = new AuditoriaModel({
         usuario,
         accion,
-        tipo_documento,
-        documento_registrado,
+        tipoDocumento,
+        documentoAfectado,
         nombreDocumento,
         detalles,
       });
