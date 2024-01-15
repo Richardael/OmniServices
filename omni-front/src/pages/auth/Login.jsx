@@ -31,7 +31,7 @@ const Login = () => {
   const [mostrarContraseña, setMostrarContraseña] = useState(false);
 
   //Estados Login User
-  const [correo_us, setCorreo_us] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   //Verificar si estas Logeado
@@ -44,7 +44,7 @@ const Login = () => {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     //User Vacio de React
-    if (correo_us.length === 0) {
+    if (email.length === 0) {
       setMostrarAlertaMala(true);
       setTimeout(() => {
         setMostrarAlertaMala(false);
@@ -62,8 +62,8 @@ const Login = () => {
     //Login Completo
     else {
       try {
-        const response = await axios.post("http://192.168.1.50:8000/login/login", {
-          correo_us: correo_us,
+        const response = await axios.post("http://192.168.1.10:8000/login/login", {
+          email: email,
           password: password,
         });
         const token = response.data;
@@ -78,6 +78,7 @@ const Login = () => {
             //Almacena el nombre_us que viene del token
             localStorage.setItem("id_rol", response.data["id_rol"]);
             localStorage.setItem("nombre_us", response.data["nombre_us"]);
+            localStorage.setItem("id_usuario", response.data["id_usuario"]);
           }, 3000);
           setAlertaBuena("Inicio de sesión exitoso");
         } else {
@@ -111,7 +112,7 @@ const Login = () => {
             <div className="flex flex-col items-center gap-1 mb-4">
               <h1 className="text-xl text-gray-900">Bienvenido a<span className="text-primary-300 font-semibold"> OmniServices</span></h1>
               <p className="text-gray-400 text-sm">
-                Ingresa con tu correo electrónico y tu contraseña
+                Ingresa con tu correo electrónico y tu contraseñcorreo_uSetsa
               </p>
 
             </div>
@@ -123,9 +124,9 @@ const Login = () => {
                   autoComplete="off"
                   className="w-full border py-2 px-8 rounded-md outline-none bg-secondary-100 text-secondary-900 group focus:ring-1 focus:ring-primary-300"
                   placeholder="Ingresa tu correo"
-                  name="correo_us"
-                  value={correo_us}
-                  onChange={(e) => setCorreo_us(e.target.value)}
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="relative">
