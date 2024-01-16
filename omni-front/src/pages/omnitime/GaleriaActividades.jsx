@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import TarjetaActividad from './TarjetaActividad'
 
 const GaleriaActividades = () => {
-    const [actividadesObtenidas, setActividadesObtenidas] = React.useState([]);
+    const [actividadesObtenidas, setActividadesObtenidas] = useState([]);
       //Estados de crear Actividad
-  const [nombreActividad, setNombreActividad] = React.useState("");
+  const [nombreActividad, setNombreActividad] = useState("");
 
 
     //Obtener el usuario actual
@@ -20,6 +21,11 @@ const GaleriaActividades = () => {
       console.log(error)
     }
   }
+
+  //Ejecutar la funcion para obtener las actividades
+  useEffect(() => {
+    obtenerActividades()
+  }, [])
 
   console.log(actividadesObtenidas)
 
@@ -54,36 +60,42 @@ const GaleriaActividades = () => {
     }
             
   return (
-    //Mostrar Actividades obtenidas en formato json
-    <div className="flex flex-col items-center justify-center">
-      <h1 className="text-2xl font-bold text-gray-700">Actividades</h1>
-      <button
-    className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
-      onClick={obtenerActividades}>Obtener Actividades</button>
-      <ul>
-        {
-          actividadesObtenidas.map((actividad) => {
-            return (
-              <li key={actividad.id_actividad}>
-                {actividad.nombre_actividad}
-              </li>
-            )
-          })
-        }
-      </ul>
-      {/* Registrar Actividad */}
-      <div className="flex flex-col items-center justify-center">
-        <h1 className="text-2xl font-bold text-gray-700">Registrar Actividad</h1>
+    <div className='m-4 items-center justify-center'>
+    <div className='flex-1'>
+    {actividadesObtenidas.length ? (
+<>
+      {/* Barra de Busqueda */}
+      <div className="flex flex-col items-center justify-center my-5">
         <input
           type="text"
-          placeholder="Nombre de la actividad"
-          onChange={(e) => setNombreActividad(e.target.value)}
+          placeholder="Buscar Actividad"
+          className="border-gray-200 rounded-lg px-4 py-2 w-full max-w-lg focus:outline-none"
         />
-        <button
-          className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
-          onClick={crearActividad}>Crear Actividad</button>
       </div>
+  <div className='grid grid-cols-3 gap-4 max-sm:grid-cols-1'>
+  {actividadesObtenidas.map((actividad) => (
+      <TarjetaActividad key={actividad.id_actividad } {...actividad} />
+    ))}
     </div>
+</>
+)
+: (
+<>
+<div className='flex flex-col items-center justify-center'>
+<h2 className="font-black text-4xl text-center grid col-span-3">
+    No tienes ninguna actividad registrada
+  </h2>
+  <p className="text-xl mt-5 mb-10 text-center">
+    Registra tus {""}
+    <span className="text-violet-600 font-bold">
+      Actividades
+    </span>
+  </p>
+</div>
+</>
+)}
+</div>
+</div>
   )
 }
 

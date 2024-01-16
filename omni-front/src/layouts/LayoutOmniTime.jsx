@@ -14,7 +14,7 @@ const LayoutOmniTime = () => {
 
   return (
     <>
-      <div className="w-full bg-[#1E1F24] p-4 flex flex-col gap-4 items-center justify-center md:justify-between">
+      <div className="w-full bg-[#1E1F24] p-2 flex flex-col gap-4 items-center justify-center md:justify-between">
         <h1 className="text-white uppercase font-bold text-4xl text-center tracking-[4px]">
           Omni<span className="text-violet-600">Time</span>
         </h1>
