@@ -5,57 +5,92 @@ const UsuariosModel = require('../Modelo/Usuarios');
 const crypto = require('crypto');
 
 
+// Función para obtener un nuevo token de acceso OAuth2
+const refreshAccessToken = (accountTransport, callback) => {
+  const oauth2Client = new google.auth.OAuth2(
+      accountTransport.auth.clientId,
+      accountTransport.auth.clientSecret,
+      'https://developers.google.com/oauthplayground'
+  );
+
+  oauth2Client.setCredentials({
+      refresh_token: accountTransport.auth.refreshToken,
+      tls: {
+          rejectUnauthorized: false
+      }
+  });
+  
+  oauth2Client.getAccessToken((err, token) => {
+      if (err)
+          return console.log(err);
+      accountTransport.auth.accessToken = token;
+      callback(nodemailer.createTransport(accountTransport));
+  });
+};
+
 // Ruta para registrar un nuevo servicio
 router.post('/registro', async (req, res) => {
   try {
-    // Obtén los datos del cuerpo de la solicitud
-    const { nombre_us, nombre, apellido, email, password } = req.body;
+      // Obtén los datos del cuerpo de la solicitud
+      const { nombre_us, nombre, apellido, email, password } = req.body;
 
-    // Crea una nueva instancia de servicio
-    const newUsuario = new UsuariosModel({
-      nombre_us, nombre, apellido, email, password
-    });
+      // Crea una nueva instancia de servicio
+      const newUsuario = new UsuariosModel({
+          nombre_us, nombre, apellido, email, password
+      });
 
-    // Guarda el servicio en la base de datos
-    await newUsuario.save();
+      // Guarda el servicio en la base de datos
+      await newUsuario.save();
 
-    // Configura el transportador de nodemailer con la clave de API
-    const transporter = nodemailer.createTransport({
-      service: 'Gmail',
-      auth: {
-        type: 'OAuth2',
-        user: 'omnitetgroup02@gmail.com',
-        clientId: '90212183396-n4lrg3ofnc7jf0s2k1le2vvvr38ubnhp.apps.googleusercontent.com',
-        clientSecret: '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',
-        refreshToken: '1//04VpH0rVdfOpeCgYIARAAGAQSNwF-L9Ir-rkyH8yhpTxCz5DPgu7_dPvmSk5MtSc_BEaPxib0qiSt9Hdzyh0T9rxVOcAnpfcrGrQ',
+      // Configura el transportador de nodemailer con la clave de API
+      const transporter = nodemailer.createTransport({
+          service: 'Gmail',
+          auth: {
+              type: 'OAuth2',
+              user: 'omnitetgroup02@gmail.com',
+              clientId: '222422112546-retmmnii6840v9lt8sqpj3jjd5abunk9.apps.googleusercontent.com',
+              clientSecret: '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',
+              refreshToken: '1//04EAQcmTOkW5sCgYIARAAGAQSNwF-L9Irluw_XZdSXa5kd3Dwe-vZ8bgvmWdQOVbWSRpJceS2kq9mdSpf0--wCt4Vlu3qW7xr83w',
+          }
+      });
+
+      // Configura el correo electrónico de verificación
+      const mailOptions = {
+          from: 'omnitetgroup02@gmail.com',
+          to: email,
+          subject: 'Verifica tu correo electrónico',
+          text: `Por favor, haz clic en el siguiente enlace para verificar tu correo electrónico: http://192.168.1.50:8000/usuarios/verificar/${newUsuario._id}`,
+      };
+
+      // Intenta enviar el correo de verificación
+      try {
+          const info = await transporter.sendMail(mailOptions);
+          console.log('Correo de verificación enviado: ' + info.response);
+          // Respuesta exitosa
+          res.status(201).json({ message: 'Registro exitoso. Se ha enviado un correo de verificación.' });
+          console.log("Registro de Usuario exitoso");
+      } catch (authError) {
+          // Captura y maneja errores de autenticación
+          console.error('Error de autenticación al enviar el correo de verificación:', authError);
+          
+          // Intenta refrescar el token y enviar el correo nuevamente
+          refreshAccessToken(transporter, async (newTransporter) => {
+              try {
+                  const newInfo = await newTransporter.sendMail(mailOptions);
+                  console.log('Correo de verificación enviado después de refrescar el token: ' + newInfo.response);
+                  res.status(201).json({ message: 'Registro exitoso. Se ha enviado un correo de verificación.' });
+                  console.log("Registro de Usuario exitoso después de refrescar el token");
+              } catch (newAuthError) {
+                  // Si aún hay un error, devuelve el error original
+                  console.error('Error de autenticación al enviar el correo de verificación después de refrescar el token:', newAuthError);
+                  res.status(500).json({ error: 'Hubo un error al registrar el Usuario. Verifica la configuración del correo electrónico.' });
+              }
+          });
       }
-    });
-
-    // Configura el correo electrónico de verificación
-    const mailOptions = {
-      from: 'omnitetgroup02@gmail.com',
-      to: email,
-      subject: 'Verifica tu correo electrónico',
-      text: `Por favor, haz clic en el siguiente enlace para verificar tu correo electrónico: http://192.168.1.50:8000/usuarios/verificar/${newUsuario._id}`,
-    };
-
-    // Intenta enviar el correo de verificación
-    try {
-      const info = await transporter.sendMail(mailOptions);
-      console.log('Correo de verificación enviado: ' + info.response);
-      // Respuesta exitosa
-      res.status(201).json({ message: 'Registro exitoso. Se ha enviado un correo de verificación.' });
-      console.log("Registro de Usuario exitoso");
-    } catch (authError) {
-      // Captura y maneja errores de autenticación
-      console.error('Error de autenticación al enviar el correo de verificación:', authError);
-      res.status(500).json({ error: 'Hubo un error al registrar el Usuario. Verifica la configuración del correo electrónico.' });
-    }
-
   } catch (error) {
-    console.error(error);
-    // Manejo de errores
-    res.status(500).json({ error: 'Hubo un error al registrar el Usuario' });
+      console.error(error);
+      // Manejo de errores
+      res.status(500).json({ error: 'Hubo un error al registrar el Usuario' });
   }
 });
 
