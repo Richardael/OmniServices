@@ -23,8 +23,8 @@ const usuariosSchema = new mongoose.Schema({
         default: null // Valor predeterminado para tokenRecuperacion (null si no se ha solicitado)
     },
     fecha_registro: {
-        type: Date,
-        default: Date.now
+        type: String,
+        require: true,
       },
       rol: {
         type: mongoose.Schema.Types.ObjectId,
