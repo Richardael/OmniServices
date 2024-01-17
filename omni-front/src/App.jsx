@@ -6,6 +6,7 @@ import "./App.css";
 //Layouts
 import LayoutAdmin from "./layouts/LayoutAdmin";
 import LayoutAuth from "./layouts/LayoutAuth";
+import LayoutOmniTime from "./layouts/LayoutOmniTime";
 
 //Pages Auth
 import Login from "./pages/auth/Login";
@@ -26,6 +27,12 @@ import RegistrarTalleres from "./pages/admin/RegistrarTalleres";
 import ListaServicios from "./pages/admin/ListaServicios";
 import ListaTalleres from "./pages/admin/ListaTalleres";
 import Historial from "./pages/admin/Historial";
+
+//Pages OmniTime
+import GaleriaActividades from "./pages/omnitime/GaleriaActividades";
+import GaleriaProyectos from "./pages/omnitime/GaleriaProyectos";
+import ListaClientes from "./pages/omnitime/ListaClientes";
+import Resumen from "./pages/omnitime/Resumen";
 
 function App() {
   const [updateCount, setUpdateCount] = useState(0);
@@ -48,6 +55,13 @@ function App() {
             <Route path="lista-servicios" element={<ListaServicios />} />
             <Route path="lista-talleres" element={<ListaTalleres /> } />
             <Route path="historial" element={<Historial />} />
+          </Route>
+          {/* Rutas Dashboard OmniTime */}
+          <Route path="/omnitime" element={<LayoutOmniTime />}>
+            <Route path="galeria-actividades" element={<GaleriaActividades />} />
+            <Route path="galeria-proyectos" element={<GaleriaProyectos />} />
+            <Route path="lista-clientes" element={<ListaClientes />} />
+            <Route path="resumen" element={<Resumen />} />
           </Route>
         </Route>
 

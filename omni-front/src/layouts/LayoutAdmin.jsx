@@ -11,6 +11,12 @@ import {
   RiAdminLine,
   RiArrowRightSLine,
   RiGroupLine,
+  RiFolder2Line,
+  RiFileSearchLine,
+  RiFileList2Line,
+  RiGroup2Line,
+  RiTimeLine,
+  RiExternalLinkLine,
 } from "react-icons/ri";
 
 const LayoutAdmin = () => {
@@ -19,11 +25,13 @@ const LayoutAdmin = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [showSubmenu, setShowSubmenu] = useState(false);
   const [showSubmenu2, setShowSubmenu2] = useState(false);
+  const [showSubmenu3, setShowSubmenu3] = useState(false);
   const cerrarSesion = () => {
     localStorage.removeItem("nombre_us"); // Elimina el nombre de usuario del localStorage
     localStorage.removeItem("accessToken"); // Elimina el token de acceso del localStorage
     localStorage.removeItem("refreshToken"); // Elimina el token de refresco del localStorage
     localStorage.removeItem("id_rol"); // Elimina el id_rol del localStorage
+    localStorage.removeItem("id_usuario"); // Elimina el id_usuario del localStorage
     window.location.href = "/auth"; // Redirige al usuario a la dirección /auth
   };
   const toggleMenu = () => {
@@ -42,7 +50,7 @@ const LayoutAdmin = () => {
         <div>
           {/* Logo */}
           <div className="mb-8 flex">
-            <h1 className="text-white uppercase font-bold text-2xl tracking-[4px]">
+            <h1 className="text-white uppercase font-bold text-2xl text-center tracking-[4px]">
               Omni<span className="text-primary-300">Services</span>
             </h1>
           </div>
@@ -60,9 +68,12 @@ const LayoutAdmin = () => {
             <div>
               <button
                 onClick={() => setShowSubmenu(!showSubmenu)}
-                className="w-full flex items-center justify-between py-4 pr-2 pl-12 rounded-lg hover:text-secondary-100"
+                className="w-full flex items-center justify-between py-4 pr-2 pl-3 rounded-lg hover:text-secondary-100"
               >
-                <span className="flex items-center text-xl text-gray-400  gap-4">Servicios</span>
+                <span className="flex items-center text-xl text-gray-400  gap-4">
+                  <RiFileList2Line />
+                  Servicios
+                </span>
                 <RiArrowRightSLine
                   className={`mt-1 text-2xl text-gray-300 ${
                     showSubmenu && "rotate-90"
@@ -110,9 +121,12 @@ const LayoutAdmin = () => {
             <div>
               <button
                 onClick={() => setShowSubmenu2(!showSubmenu2)}
-                className="w-full flex items-center justify-between py-4 pr-2 pl-12 rounded-lg hover:text-secondary-100"
+                className="w-full flex items-center justify-between py-4 pr-2 pl-3 rounded-lg hover:text-secondary-100"
               >
-                <span className="flex items-center text-xl text-gray-400  gap-4">Talleres</span>
+                <span className="flex items-center text-xl text-gray-400  gap-4">
+                  <RiGroup2Line />
+                  Talleres
+                </span>
                 <RiArrowRightSLine
                   className={`mt-1 text-2xl text-gray-300 ${
                     showSubmenu2 && "rotate-90"
@@ -157,78 +171,88 @@ const LayoutAdmin = () => {
               </ul>
             </div>
 
-            {/* Admin Lista Servicios */}
+            {/* Admin */}
             {rol === "1" ? (
-              <Link
-                to="/lista-servicios"
-                className={`flex items-center gap-4 text-xl pl-4 py-4 hover:text-gray-200 transition-colors ${
-                  location.pathname === "/lista-servicios"
-                    ? "text-primary-300"
-                    : "text-gray-400"
-                }`}
-              >
-                <RiAdminLine />
-                <span className="flex-1 flex items-center justify-between gap-4">
-                  Lista Servicios
-                </span>
-              </Link>
-            ) : (
-              <Link to="/registro-servicios" className={`hidden`}>
-                <RiAdminLine />
-                <span className="flex-1 flex items-center justify-between gap-4">
-                  Registro de Servicios
-                </span>
-              </Link>
-            )}
-                        {/* Admin Registro Talleres */}
-                        {rol === "1" ? (
-              <Link
-                to="/lista-talleres"
-                className={`flex items-center gap-4 text-xl pl-4 py-4 hover:text-gray-200 transition-colors ${
-                  location.pathname === "/lista-talleres"
-                    ? "text-primary-300"
-                    : "text-gray-400"
-                }`}
-              >
-                <RiAdminLine />
-                <span className="flex-1 flex items-center justify-between gap-4">
-                  Lista Talleres
-                </span>
-              </Link>
-            ) : (
-              <Link to="/registro-talleres" className={`hidden`}>
-                <RiAdminLine />
-                <span className="flex-1 flex items-center justify-between gap-4">
-                  Registro de Talleres
-                </span>
-              </Link>
-            )}
-            {/* Admin Historial */}
-            {rol === "1" ? (
-              <Link
-                to="/historial"
-                className={`flex items-center gap-4 text-xl pl-4 py-4 hover:text-gray-200 transition-colors ${
-                  location.pathname === "/historial"
-                    ? "text-primary-300"
-                    : "text-gray-400"
-                }`}
-              >
-                <RiAdminLine />
-                <span className="flex-1 flex items-center justify-between gap-4">
-                  Historial
-                </span>
-              </Link>
-            ) : (
-              <Link to="/registro-talleres" className={`hidden`}>
-                <RiAdminLine />
-                <span className="flex-1 flex items-center justify-between gap-4">
-                  Registro de Talleres
-                </span>
-              </Link>
-            )}
-            
+              <div>
+                <button
+                  onClick={() => setShowSubmenu3(!showSubmenu3)}
+                  className="w-full flex items-center justify-between py-4 pr-2 pl-3 rounded-lg hover:text-secondary-100"
+                >
+                  <span className="flex items-center text-xl text-gray-400  gap-4">
+                    <RiAdminLine />
+                    Panel Admin{" "}
+                  </span>
+                  <RiArrowRightSLine
+                    className={`mt-1 text-2xl text-gray-300 ${
+                      showSubmenu3 && "rotate-90"
+                    } transition-all`}
+                  />
+                </button>
+                <ul
+                  className={` ${
+                    showSubmenu3 ? "h-[174px]" : "h-0"
+                  } overflow-y-hidden transition-all`}
+                >
+                  <li>
+                    <Link
+                      to="/lista-servicios"
+                      className={`flex items-center gap-4 text-xl p-4 hover:text-gray-200 transition-colors ${
+                        location.pathname === "/lista-servicios"
+                          ? "text-primary-300"
+                          : "text-gray-400"
+                      }`}
+                    >
+                      <RiFolder2Line />
+                      <span className="flex-1 flex items-center justify-between gap-4">
+                        Lista Servicios
+                      </span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/lista-talleres"
+                      className={`flex items-center gap-4 text-xl p-4 hover:text-gray-200 transition-colors ${
+                        location.pathname === "/lista-talleres"
+                          ? "text-primary-300"
+                          : "text-gray-400"
+                      }`}
+                    >
+                      <RiFolder2Line />
+                      <span className="flex-1 flex items-center justify-between gap-4">
+                        Lista Talleres
+                      </span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/historial"
+                      className={`flex items-center gap-4 text-xl p-4 hover:text-gray-200 transition-colors ${
+                        location.pathname === "/historial"
+                          ? "text-primary-300"
+                          : "text-gray-400"
+                      }`}
+                    >
+                      <RiFileSearchLine />
+                      <span className="flex-1 flex items-center justify-between gap-4">
+                        Historial
+                      </span>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            ) : null}
           </nav>
         </div>
+        {/* OmniTime */}
+        <Link
+          to="/omnitime/galeria-actividades"
+          className="flex items-center gap-4 text-xl p-4"
+        >
+          <h1 className="text-gray-400 flex items-center gap-2 uppercase font-bold text-2xl text-center tracking-[4px] hover:text-violet-600 transition-colors">
+          <RiExternalLinkLine />
+            OmniTime
+          </h1>
+        </Link>
         {/* Logout */}
         <div>
           <a
