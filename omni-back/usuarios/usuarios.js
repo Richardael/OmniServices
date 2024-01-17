@@ -27,7 +27,7 @@ router.post('/registro', async (req, res) => {
         user: 'omnitetgroup02@gmail.com',
         clientId: '90212183396-n4lrg3ofnc7jf0s2k1le2vvvr38ubnhp.apps.googleusercontent.com',
         clientSecret: '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',
-        refreshToken: '1//04R4IksXHwN-wCgYIARAAGAQSNwF-L9Ir1YqvzxM-P74yUcpazRYZ4bEhq_-TPY203YBUt8oEP7WdtrT0FBTS_idmnETns-wQx5A',
+        refreshToken: '1//04VpH0rVdfOpeCgYIARAAGAQSNwF-L9Ir-rkyH8yhpTxCz5DPgu7_dPvmSk5MtSc_BEaPxib0qiSt9Hdzyh0T9rxVOcAnpfcrGrQ',
       }
     });
 
