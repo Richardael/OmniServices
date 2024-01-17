@@ -9,11 +9,11 @@ const crypto = require('crypto');
 router.post('/registro', async (req, res) => {
   try {
     // Obtén los datos del cuerpo de la solicitud
-    const { nombre_us, nombre_completo, correo_us, password } = req.body;
+    const { nombre_us, nombre, apellido, email, password } = req.body;
 
     // Crea una nueva instancia de servicio
     const newUsuario = new UsuariosModel({
-      nombre_us, nombre_completo, correo_us, password
+      nombre_us, nombre, apellido, email, password
     });
 
     // Guarda el servicio en la base de datos
@@ -24,35 +24,41 @@ router.post('/registro', async (req, res) => {
       service: 'Gmail',
       auth: {
         type: 'OAuth2',
-        user: 'jhoynners.santaella15@gmail.com', // Cambia esto por tu dirección de correo
-        clientId: '108455970368-045d01o8k2ioi4ajh3vcqjqbasjqev6n.apps.googleusercontent.com', // Cambia esto por tu ID de cliente de OAuth
-        clientSecret: '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', // Cambia esto por tu secreto de cliente de OAuth
-        refreshToken: '1//04gtOKqw-1HndCgYIARAAGAQSNwF-L9Irwq10gTvMBTG-3mPKxNFNEBQ9uwuzxrE1BNIX-V1jNwAfzRr6Oe3PE7p1tjcLWdyTVmw', // Cambia esto por tu token de actualización de OAuth
+        user: 'omnitetgroup02@gmail.com',
+        clientId: '90212183396-n4lrg3ofnc7jf0s2k1le2vvvr38ubnhp.apps.googleusercontent.com',
+        clientSecret: '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',
+        refreshToken: '1//04R4IksXHwN-wCgYIARAAGAQSNwF-L9Ir1YqvzxM-P74yUcpazRYZ4bEhq_-TPY203YBUt8oEP7WdtrT0FBTS_idmnETns-wQx5A',
       }
     });
 
     // Configura el correo electrónico de verificación
     const mailOptions = {
-      from: 'jhoynners.santaella15@gmail.com', // Cambia esto por tu dirección de correo
-      to: correo_us,
+      from: 'omnitetgroup02@gmail.com',
+      to: email,
       subject: 'Verifica tu correo electrónico',
       text: `Por favor, haz clic en el siguiente enlace para verificar tu correo electrónico: http://192.168.1.50:8000/usuarios/verificar/${newUsuario._id}`,
     };
 
-    // Envía el correo de verificación
-    const info = await transporter.sendMail(mailOptions);
+    // Intenta enviar el correo de verificación
+    try {
+      const info = await transporter.sendMail(mailOptions);
+      console.log('Correo de verificación enviado: ' + info.response);
+      // Respuesta exitosa
+      res.status(201).json({ message: 'Registro exitoso. Se ha enviado un correo de verificación.' });
+      console.log("Registro de Usuario exitoso");
+    } catch (authError) {
+      // Captura y maneja errores de autenticación
+      console.error('Error de autenticación al enviar el correo de verificación:', authError);
+      res.status(500).json({ error: 'Hubo un error al registrar el Usuario. Verifica la configuración del correo electrónico.' });
+    }
 
-    console.log('Correo de verificación enviado: ' + info.response);
-    
-    // Respuesta exitosa
-    res.status(201).json({ message: 'Registro exitoso. Se ha enviado un correo de verificación.' });
-    console.log("Registro de Usuario exitoso");
   } catch (error) {
     console.error(error);
     // Manejo de errores
     res.status(500).json({ error: 'Hubo un error al registrar el Usuario' });
   }
 });
+
 
 // Ruta para verificar el correo electrónico
 router.get('/verificar/:id', async (req, res) => {
@@ -86,10 +92,10 @@ router.get('/verificar/:id', async (req, res) => {
 // 2. Verificación de correo electrónico
 router.post('/recuperar-password', async (req, res) => {
   try {
-    const { correo_us } = req.body;
+    const { email } = req.body;
 
     // Verifica si la dirección de correo existe en la base de datos
-    const usuario = await UsuariosModel.findOne({ correo_us });
+    const usuario = await UsuariosModel.findOne({ email });
 
     if (!usuario) {
       return res.status(404).json({ message: 'No se encontró una cuenta con esta dirección de correo electrónico' });
@@ -98,7 +104,7 @@ router.post('/recuperar-password', async (req, res) => {
 
         // Genera un token único y temporal
         const token = crypto.randomBytes(20).toString('hex');
-        usuario.tokenRecuperacion = token; // Almacena el token en el usuario
+        usuario.token_recuperacion = token; // Almacena el token en el usuario
         await usuario.save();
     
 
@@ -117,7 +123,7 @@ router.post('/recuperar-password', async (req, res) => {
     // Configura el correo electrónico de recuperación de contraseña
     const mailOptions = {
       from: 'jhoynners.santaella15@gmail.com',
-      to: correo_us,
+      to: email,
       subject: 'Recuperación de Contraseña',
       text: `Para restablecer tu contraseña, haz clic en el siguiente enlace: http://192.168.1.16:1111/auth/olvide-validado/${token}`,
     };
@@ -139,7 +145,7 @@ router.post('/reset-password/:token', async (req, res) => {
 
   try {
     // Verifica si el token es válido y no ha expirado
-    const usuario = await UsuariosModel.findOne({ tokenRecuperacion: token });
+    const usuario = await UsuariosModel.findOne({ token_recuperacion: token });
 
     if (!usuario) {
       return res.status(401).json({ message: 'Token de recuperación de contraseña no válido' });
@@ -147,7 +153,7 @@ router.post('/reset-password/:token', async (req, res) => {
 
     // Actualiza la contraseña del usuario en la base de datos
     usuario.password = nuevo_password;
-    usuario.tokenRecuperacion = null; // Limpia el token de recuperación
+    usuario.token_recuperacion = null; // Limpia el token de recuperación
     await usuario.save();
 
     // Notifica al usuario que la contraseña se ha cambiado correctamente

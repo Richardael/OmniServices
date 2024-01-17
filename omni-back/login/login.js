@@ -7,10 +7,10 @@ const jwtSecret = config.jwtSecret;
 
 // Ruta para iniciar sesión
 router.post('/login', async (req, res) => {
-  const { correo_us, password } = req.body;
+  const { email, password } = req.body;
 
   // Busca el usuario por correo_us
-  const usuario = await UsuariosModel.findOne({ correo_us });
+  const usuario = await UsuariosModel.findOne({ email });
 
   if (!usuario) {
     return res.status(401).json({ message: 'Usuario no encontrado' });
@@ -29,10 +29,10 @@ router.post('/login', async (req, res) => {
   // En este punto, el inicio de sesión fue exitoso
 
   // Genera un token JWT
-  const token = jwt.sign({ correo_us: usuario.correo_us, rol: usuario.id_rol, usuario: usuario.nombre_us }, jwtSecret);
+  const token = jwt.sign({ email: usuario.email, rol: usuario.id_rol, usuario: usuario.nombre_us }, jwtSecret);
 
   // Devuelve el token y el rol como respuesta
-  res.status(200).json({ message: 'Inicio de sesión exitoso', token, nombre_us: usuario.nombre_us, id_rol: usuario.id_rol });
+  res.status(200).json({ message: 'Inicio de sesión exitoso', token, nombre_us: usuario.nombre_us, id_rol: usuario.id_rol, id_usuario: usuario._id,  });
 });
 
 module.exports = router;
