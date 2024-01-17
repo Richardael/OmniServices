@@ -318,35 +318,34 @@ router.post('/recuperar-password', async (req, res) => {
 
 
 
-      // Intenta enviar el correo de verificación
-      try {
-        const info = await transporter.sendMail(mailOptions);
-        console.log('Correo de verificación enviado: ' + info.response);
-        // Respuesta exitosa
-        res.status(201).json({ message: 'Registro exitoso. Se ha enviado un correo de verificación.' });
-        console.log("Registro de Usuario exitoso");
-    } catch (authError) {
-        // Captura y maneja errores de autenticación
-        console.error('Error de autenticación al enviar el correo de verificación:', authError);
-        
-        // Intenta refrescar el token y enviar el correo nuevamente
-        refreshAccessToken(transporter, async (newTransporter) => {
-            try {
-                const newInfo = await newTransporter.sendMail(mailOptions);
-                console.log('Correo de verificación enviado después de refrescar el token: ' + newInfo.response);
-                res.status(201).json({ message: 'Registro exitoso. Se ha enviado un correo de verificación.' });
-                console.log("Registro de Usuario exitoso después de refrescar el token");
-            } catch (newAuthError) {
-                // Si aún hay un error, devuelve el error original
-                console.error('Error de autenticación al enviar el correo de verificación después de refrescar el token:', newAuthError);
-                res.status(500).json({ error: 'Hubo un error al registrar el Usuario. Verifica la configuración del correo electrónico.' });
-            }
-        });
-    }
+    try {
+      const info = await transporter.sendMail(mailOptions);
+      console.log('Correo de verificación enviado: ' + info.response);
+      // Respuesta exitosa
+      res.status(201).json({ message: 'Envío de correo exitoso. Se ha enviado un correo de a su email.' });
+      console.log("Envío de correo enviado");
+  } catch (authError) {
+      // Captura y maneja errores de autenticación
+      console.error('Error de autenticación al enviar el correo de verificación:', authError);
+      
+      // Intenta refrescar el token y enviar el correo nuevamente
+      refreshAccessToken(transporter, async (newTransporter) => {
+          try {
+              const newInfo = await newTransporter.sendMail(mailOptions);
+              console.log('Correo de verificación enviado después de refrescar el token: ' + newInfo.response);
+              res.status(201).json({ message: 'Envío de correo exitoso. Se ha enviado un correo de verificación.' });
+              console.log("Enviado de correo exitoso después de refrescar el token");
+          } catch (newAuthError) {
+              // Si aún hay un error, devuelve el error original
+              console.error('Error de autenticación al enviar el correo de verificación después de refrescar el token:', newAuthError);
+              res.status(500).json({ error: 'Hubo un error al enviar el correo. Verifica la configuración del correo electrónico.' });
+          }
+      });
+  }
 } catch (error) {
-    console.error(error);
-    // Manejo de errores
-    res.status(500).json({ error: 'Hubo un error al registrar el Usuario' });
+  console.error(error);
+  // Manejo de errores
+  res.status(500).json({ error: 'Hubo un error al Enviar el correo' });
 }
 });
 
