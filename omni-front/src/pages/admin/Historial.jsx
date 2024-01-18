@@ -6,7 +6,7 @@ const Historial = () => {
     const [historial, setHistorial] = useState([])
     const [tipoRegistro, setTipoRegistro] = useState('')
     const obtenerHistorial = async () => {
-        const response = await axios.get('http://192.168.1.50:8000/historial/historial')
+        const response = await axios.get('https://omniservices.onrender.com/historial/historial')
         const historial = response.data
         console.log(historial)
         setHistorial(historial)

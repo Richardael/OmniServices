@@ -117,7 +117,7 @@ const TablasServicios = ({servicios,updateCount,setUpdateCount}) => {
   };
   const handleEliminar = (id) => {
     axios
-      .delete(`http://192.168.1.50:8000/lista/eliminar/${id}`, {
+      .delete(`https://omniservices.onrender.com/lista/eliminar/${id}`, {
         data: { nombre_us: localStorage.getItem("nombre_us") }, // Agrega nombre_us al cuerpo de la solicitud
       })
       .then((res) => {
@@ -151,7 +151,7 @@ const TablasServicios = ({servicios,updateCount,setUpdateCount}) => {
     };
     axios
       .put(
-        `http://192.168.1.50:8000/lista/modificar/${selectedServiceId}`,
+        `https://omniservices.onrender.com/lista/modificar/${selectedServiceId}`,
         servicio
       )
       .then((res) => {

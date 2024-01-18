@@ -13,7 +13,7 @@ const ListaTalleres = () => {
   useEffect(() => {
     // Obtengo los servicios desde mi backend y los almaceno en mi estado de servicios
     const obtenerTalleres = async () => {
-      const { data } = await axios.get('http://192.168.1.50:8000/lista/talleres');
+      const { data } = await axios.get('https://omniservices.onrender.com/lista/talleres');
       setTalleress(data);
     };
     obtenerTalleres();

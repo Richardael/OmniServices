@@ -62,7 +62,7 @@ const Login = () => {
     //Login Completo
     else {
       try {
-        const response = await axios.post("http://192.168.1.10:8000/login/login", {
+        const response = await axios.post("https://omniservices.onrender.com/login/login", {
           email: email,
           password: password,
         });

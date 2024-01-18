@@ -23,7 +23,7 @@ const OlvideContraseña = () => {
     e.preventDefault();
     try {
     const response = await axios.post(
-      "http://192.168.1.50:8000/usuarios/recuperar-password",
+      "https://omniservices.onrender.com/usuarios/recuperar-password",
       {
         correo_us: correo_us,
       }

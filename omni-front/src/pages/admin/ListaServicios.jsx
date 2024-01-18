@@ -15,7 +15,7 @@ const ListaServicios = () => {
   useEffect(() => {
     //Obtengo los servicios desde mi backend y los almaceno en mi estado de servicios
     const obtenerServicios = async () => {
-      const { data } = await axios.get('http://192.168.1.50:8000/lista/servicios');
+      const { data } = await axios.get('https://omniservices.onrender.com/lista/servicios');
       setServicioss(data);
     }
     obtenerServicios();

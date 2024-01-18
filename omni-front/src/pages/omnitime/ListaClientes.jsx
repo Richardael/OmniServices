@@ -1,6 +1,59 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const ListaClientes = () => {
+  const [clientes, setClientes] = useState([]);
+  //Estados de crear Cliente
+  const [nombreCliente, setNombreCliente] = React.useState("");
+  const [descripcionCliente, setDescripcionCliente] = React.useState("");
+
+  //Obtener el usuario actual
+  const id_usuario = localStorage.getItem("id_usuario");
+
+  //Crear Clientes
+  const crearCliente = async () => {
+    try {
+      if (nombreCliente === "") {
+        Alert.alert("Error", "El nombre del cliente es obligatorio");
+        return;
+      }
+      const cliente = {
+        nombre_cliente: nombreCliente,
+        descripcion_cliente: descripcionCliente,
+        id_usuario: id_usuario,
+      };
+      const response = await axios.post(
+        "https://clockigenial2.onrender.com/cliente/registro-cliente",
+        cliente
+      );
+      console.log(response.data);
+      Alert.alert("Cliente creado", "El cliente se ha creado correctamente");
+      setContadorActualizacion(contadorActualizacion + 1);
+      setVisible(false);
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+
+  //ObtenerClientes
+  const obtenerClientes = async () => {
+    try {
+      const { data } = await axios.get(
+        `https://clockigenial2.onrender.com/lista/clientes-por-usuario/${id_usuario}`
+      );
+      setClientes(data.clientesUsuario);
+      console.log(data.clientesUsuario);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //Ejecutar la funcion para obtener las actividades
+  useEffect(() => {
+    obtenerClientes();
+  }, []);
+
   return (
     <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
       <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
@@ -9,11 +62,12 @@ const ListaClientes = () => {
             <th scope="col" class="px-6 py-4 font-medium text-gray-900">Nombre</th>
             <th scope="col" class="px-6 py-4 font-medium text-gray-900">Proyecto</th>
             <th scope="col" class="px-6 py-4 font-medium text-gray-900">Cargo</th>
-            <th scope="col" class="px-6 py-4 font-medium text-gray-900">Etiquetas</th>
+            <th scope="col" class="px-6 py-4 font-medium text-gray-900">Descripcion</th>
             <th scope="col" class="px-6 py-4 font-medium text-gray-900"></th>
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-100 border-t border-gray-100">
+          {clientes.map((cliente) => (
           <tr class="hover:bg-gray-50">
             <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
               <div class="relative h-10 w-10">
@@ -25,7 +79,7 @@ const ListaClientes = () => {
                 <span class="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400 ring ring-white"></span>
               </div>
               <div class="text-sm">
-                <div class="font-medium text-gray-700">Steven Jobs</div>
+                <div class="font-medium text-gray-700">{cliente.nombre_cliente}</div>
                 <div class="text-gray-400">jobs@sailboatui.com</div>
               </div>
             </th>
@@ -33,29 +87,14 @@ const ListaClientes = () => {
               <span
                 class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600"
               >
-                <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
-                Active
+                {cliente.proyecto}
               </span>
             </td>
             <td class="px-6 py-4">Product Designer</td>
             <td class="px-6 py-4">
-              <div class="flex gap-2">
-                <span
-                  class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"
-                >
-                  Design
-                </span>
-                <span
-                  class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"
-                >
-                  Product
-                </span>
-                <span
-                  class="inline-flex items-center gap-1 rounded-full bg-violet-50 px-2 py-1 text-xs font-semibold text-violet-600"
-                >
-                  Develop
-                </span>
-              </div>
+              <p>
+                {cliente.descripcion_cliente}
+              </p>
             </td>
             <td class="px-6 py-4">
               <div class="flex justify-end gap-4">
@@ -96,7 +135,7 @@ const ListaClientes = () => {
               </div>
             </td>
           </tr>
-
+          ))}
          
         </tbody>
       </table>

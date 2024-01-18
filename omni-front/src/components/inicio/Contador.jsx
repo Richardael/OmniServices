@@ -11,7 +11,7 @@ const Contador = () => {
     const [contadorUsuariosRegistrados, setContadorUsuariosRegistrados] = useState(0)
 
     const obtenerContador = async () => {
-        const response = await axios.get('http://192.168.1.50:8000/contador/contador')
+        const response = await axios.get('https://omniservices.onrender.com/contador/contador')
         const obtenido = response.data
         console.log (obtenido)
         const contadorServicios = obtenido.servicios

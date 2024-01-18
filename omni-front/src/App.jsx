@@ -33,6 +33,7 @@ import GaleriaActividades from "./pages/omnitime/GaleriaActividades";
 import GaleriaProyectos from "./pages/omnitime/GaleriaProyectos";
 import ListaClientes from "./pages/omnitime/ListaClientes";
 import Resumen from "./pages/omnitime/Resumen";
+import CrearActividades from "./pages/omnitime/CrearActividades";
 
 function App() {
   const [updateCount, setUpdateCount] = useState(0);
@@ -62,6 +63,7 @@ function App() {
             <Route path="galeria-proyectos" element={<GaleriaProyectos />} />
             <Route path="lista-clientes" element={<ListaClientes />} />
             <Route path="resumen" element={<Resumen />} />
+            <Route path="crear-actividad" element={<CrearActividades />} />
           </Route>
         </Route>
 

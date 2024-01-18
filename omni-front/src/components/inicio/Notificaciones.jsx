@@ -7,7 +7,7 @@ const Notificaciones = () => {
 
   useEffect(() => {
     axios
-      .get("http://192.168.1.50:8000/historial/notificacion/")
+      .get("https://omniservices.onrender.com/historial/notificacion/")
       .then((response) => {
         console.log(response.data);
         setNotificaciones(response.data);

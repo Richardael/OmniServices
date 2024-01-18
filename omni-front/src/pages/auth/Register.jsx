@@ -96,7 +96,7 @@ const Register = () => {
     } else {
       try {
         const response = await axios.post(
-          "http://192.168.1.10:8000/usuarios/registro/",
+          "https://omniservices.onrender.com/usuarios/registro/",
           {
             nombre_us: nombre_us,
             nombre: nombre,
