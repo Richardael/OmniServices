@@ -69,63 +69,104 @@ router.post('/registro', async (req, res) => {
           }
       });
       const htmlContent = `
-      <html>
-        <head>
+      <!DOCTYPE html>
+      <html lang="es">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Título de la Página</title>
           <style>
-            /* Estilos CSS personalizados */
-            body {
-              font-family: Arial, sans-serif;
-              background-color: #f5f5f5; /* Cambio de color de fondo */
-            }
-            .container {
-              max-width: 600px;
-              margin: 0 auto;
-              padding: 20px;
-              background-color: #fff;
-              border-radius: 5px;
-              box-shadow: 0 0 10px #f2f2f2;
-            }
-            h1 {
-              font-size: 24px;
-              margin-bottom: 10px; /* Espacio adicional después del título */
-            }
-            .omnitime{
-              color: ##FFB366; /* Cambio de color para "OmniTime" */
-            }
-            p {
-              color: #666;
-              font-size: 14px; /* Tamaño de fuente reducido para el correo */
-            }
-            .orange-text {
-              color: ##FFB366; /* Color morado para el nombre */
-              font-size: 18px; /* Tamaño de fuente más grande para el nombre */
-            }
-            .token-container {
-              background-color: #666;
-              color: #fff;
-              padding: 10px;
-              border-radius: 5px;
-              font-size: 18px; /* Tamaño de fuente para el texto en el token */
-              margin-top: 10px;
-              text-align: center;
-            }
-            .token {
-              font-size: 24px; /* Tamaño de fuente más grande para el token */
-              font-weight: bold; /* Texto en negrita para el token */
-            }
+              body {
+                  margin: 0;
+                  font-family: Arial, sans-serif;
+                  background-color: #f4f4f4;
+              }
+      
+              header {
+                  background-color: #333;
+                  padding-left: 4vh;
+                  padding-right: 10vh;
+                  padding-top: 2%;
+                  padding-bottom: 2%;
+              }
+      
+              h1 {
+                  color: white;
+                  font-size: 5vh;
+              }
+      
+              h2 {
+                  font-weight: bold;
+                  margin-left: 5%;
+                  margin-top: 10px;
+                  font-size: 24px;
+                  margin-right: 5%;
+              }
+      
+              p {
+                  margin-left: 5%;
+                  font-size: 16px;
+                  line-height: 1.5;
+                  margin-right: 5%;
+                  margin-top: 20px;
+                  font-size: 18px;
+                  color: #333;
+                  line-height: 1.5;
+                  text-align: justify;
+              }
+      
+              .token-container {
+                  background-color: #666;
+                  color: #fff;
+                  padding: 10px;
+                  border-radius: 5px;
+                  font-size: 18px;
+                  margin-top: 10px;
+                  text-align: center;
+              }
+      
+              .token {
+                  font-size: 24px;
+                  font-weight: bold;
+                  color: orange;
+              }
+      
+              .container {
+                    max-width: 900px;
+                    margin: 0 auto;
+                    background-color: #fff;
+                    border-radius: 5px;
+                    box-shadow: 0 0 10px #f2f2f2;
+                  }
+              .span1 {
+                  color: orange
+              }
           </style>
-        </head>
-        <body>
+      </head>
+      <body style="padding: 20px;">
           <div class="container">
-            <h1>Bienvenido a <span class="omnitime">OmniServices</span></h1>
-            <p>¡Gracias <span class="orange-text">${nombre}</span> por registrarte en nuestro servicio! Esperamos que disfrutes de nuestra plataforma.</p>
-            <p>Su código de verificación es:</p>
-            <div class="token-container">
-               <span class="token">${tokenRecuperacion}</span>
-            </div>
+              <header>
+                  <h1>Omni<span class="span1">Solutions</span>
+              </header>
+              <h2>Bienvenido a OmniServices</h2>
+              <p>Gracias <span class="span1">${nombre}</span> por registrarte en nuestro servicio. Esperamos que disfrutes de nuestra plataforma.</p>
+             
+              <p>
+                  Te damos una cálida bienvenida a OmniServices, tu plataforma integral para soluciones innovadoras.
+                  Estamos emocionados de tenerte a bordo y estamos comprometidos a proporcionarte una experiencia excepcional.
+                  Explora todas las funciones y descubre cómo podemos facilitar tu día a día. ¡Bienvenido a la comunidad OmniSolutions!
+              </p>
+              <div class="token-container">
+                  <span class="token">${tokenRecuperacion}</span>
+              </div>
+              <hr>
+              <p>Para completar el proceso de registro, es necesario validar tu dirección de correo electrónico. Por favor, haz clic en el siguiente enlace para confirmar y validar tu correo:</p>
+              <p><a href="https://omniservices.onrender.com">Validar Correo Electrónico</a></p>
+
           </div>
-        </body>
+      </body>
       </html>
+      
       `;
   
       // Configura el correo electrónico de verificación
@@ -247,66 +288,120 @@ router.post('/recuperar-password', async (req, res) => {
         }
     });
     const htmlContent = `
-    <html>
-      <head>
-        <style>
-          /* Estilos CSS personalizados */
-          body {
+    <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Título de la Página</title>
+    <style>
+        body {
+            margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f2f2f2; /* Cambio de color de fondo */
-          }
-          .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5  ;
-            border-radius: 5px;
-            box-shadow: 0 0 10px #f2f2f2;
-          }
-          h1 {
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            padding-left: 4vh;
+            padding-right: 10vh;
+            padding-top: 2%;
+            padding-bottom: 2%;
+        }
+
+        h1 {
+            color: white;
+            font-size: 5vh;
+        }
+
+        h2 {
+            font-weight: bold;
+            margin-left: 5%;
+            margin-top: 10px;
             font-size: 24px;
-            margin-bottom: 10px; /* Espacio adicional después del título */
-          }
-          .omnitime {
-            color: #FFB366; /* Cambio de color para "OmniTime" */
-          }
-          p {
-            color: #666;
-            font-size: 14px; /* Tamaño de fuente reducido para el correo */
-          }
-          .purple-text {
-            color: #FFB366; /* Color morado para el nombre */
-            font-size: 18px; /* Tamaño de fuente más grande para el nombre */
-          }
-          .token-container {
+            margin-right: 5%;
+        }
+
+        p {
+            margin-left: 5%;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-right: 5%;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+            line-height: 1.5;
+            text-align: justify;
+        }
+
+        .token-container {
             background-color: #666;
             color: #fff;
             padding: 10px;
             border-radius: 5px;
-            font-size: 18px; /* Tamaño de fuente para el texto en el token */
+            font-size: 18px;
             margin-top: 10px;
             text-align: center;
-          }
-          .token {
-            font-size: 24px; /* Tamaño de fuente más grande para el token */
-            font-weight: bold; /* Texto en negrita para el token */
-          }
-        </style>
-      </head>
-      <body>
-        <div class="container">
-          <h1>Recuperación de Contraseña en <span class="omnitime">OmniServices</span></h1>
-          <p>¡Hola <span class="purple-text">${nombre}</span>!</p>
-          <p>Has solicitado restablecer tu contraseña en OmniServices. Por favor, sigue las instrucciones a continuación:</p>
-          <p>Tu código de verificación es:</p>
-          <div class="token-container">
+        }
+
+        .token {
+            font-size: 24px;
+            font-weight: bold;
+            color: orange;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px #f2f2f2;
+        }
+
+        .span1 {
+            color: orange;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        hr {
+            border: 1px solid #ccc; /* Hace la línea un poco más gruesa */
+            margin-top: 20px;
+            margin-bottom: 20px; /* Aumenta el espacio debajo de la línea */
+        }
+
+        /* Estilo adicional para el texto debajo del hr */
+        .text-despues-de-linea {
+            font-size: 20px; /* Aumenta el tamaño del texto */
+            color: #333;
+            text-align: center;
+        }
+    </style>
+</head>
+<body style="padding: 20px;">
+    <div class="container">
+        <header>
+            <h1>Omni<span class="span1">Solutions</span></h1>
+        </header>
+        <h2>Recuperación de Contraseña en Omni<span class="span1">Solutions</span></h2>
+        <p>¡Hola <span class="span1">${nombre}</span>!</p> 
+        <p>Has solicitado restablecer tu contraseña en OmniServices. Por favor, sigue las instrucciones a continuación:</p>
+        <p>Tu código de verificación es:</p>
+
+        <div class="token-container">
             <span class="token">${tokenRecuperacion}</span>
-          </div>
-          <p>Por favor haz clic en el siguiente enlace para restablecer tu contraseña:</p>
-          <p><a href="https://omniservices.onrender.com/usuarios/reset-password/${tokenRecuperacion}">Restablecer Contraseña</a></p>
         </div>
-      </body>
-    </html>
+        <hr>
+        <p>Por favor haz clic en el siguiente enlace para restablecer tu contraseña:</p>
+        <p><a href="https://omniservices.onrender.com/usuarios/reset-password/${tokenRecuperacion}">Restablecer Contraseña</a></p>
+    </div>
+</body>
+</html>
   `;
     // Configura el correo electrónico de verificación
     const mailOptions = {
