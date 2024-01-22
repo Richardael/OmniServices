@@ -39,6 +39,8 @@ const TarjetaActividad = ({
     //Actualizar componente
     const [contadorActualizarComponente, setContadorActualizarComponente] = useState(0);
 
+    //Color Proyecto
+
   const colorCategoria = () => {
     switch (categoria) {
       case 1:

@@ -5,7 +5,8 @@ import {RiCheckLine} from "react-icons/ri"
 
 const AlertaBuena = ({mostrarAlertaBuena, alertaBuena}) => {
   return (
-<div className={`absolute flex md:right-0 md:top-0 bg-white py-4 px-6 max-w-md border-l-4 border-green-600 rounded-lg items-center gap-3 shadow-lg ${mostrarAlertaBuena ? 'block' : 'hidden'}`}>
+<div className={`absolute flex md:right-0 md:top-0 z-[9999]
+   bg-white py-4 px-6 max-w-md border-l-4 border-green-600 rounded-lg items-center gap-3 shadow-lg ${mostrarAlertaBuena ? 'block' : 'hidden'}`}>
   <div>
     <RiCheckLine
       className="h-7 w-7 text-green-600"

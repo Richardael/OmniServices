@@ -34,7 +34,6 @@ const GaleriaActividades = () => {
   return (
     <div className='m-4 items-center justify-center overflow-hidden'>
     <div className='flex-1'>
-    <h1 className='text-3xl text-center mb-5 text-secondary-300 font-bold'> <span className='text-violet-600' >Galeria</span> de Actividades</h1>
     {actividadesObtenidas.length ? (
 <>
       {/* Barra de Busqueda */}
