@@ -33,8 +33,7 @@ const refreshAccessToken = (accountTransport, callback) => {
 router.post('/registro', async (req, res) => {
   try {
       // Obtén los datos del cuerpo de la solicitud
-      const { nombre_us, nombre, apellido, email, password } = req.body;
-       // Verificar si el correo electrónico ya existe en la colección
+      const { nombre_us, nombre, apellido, email, password, cargo, num_tel, empresa, departamento } = req.body; // Verificar si el correo electrónico ya existe en la colección
        const usuarioExistente = await UsuariosModel.findOne({ email });
 
        if (usuarioExistente) {
@@ -49,7 +48,7 @@ router.post('/registro', async (req, res) => {
 
       // Crea una nueva instancia de servicio
       const newUsuario = new UsuariosModel({
-          nombre_us, nombre, apellido, email, password,
+        nombre_us, nombre, apellido, email, password, cargo, num_tel, empresa, departamento,
           fecha_registro: fechaRegistro, // Convertir a objeto Date
           token_recuperacion: tokenRecuperacion, // Guardar el código de verificación
       });
