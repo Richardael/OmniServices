@@ -20,7 +20,7 @@ const OlvideValidado = () => {
         e.preventDefault();
         try {
         const response = await axios.put(
-          "http://192.168.1.50:8000/usuarios/reset-password",
+          "https://omniservices.onrender.com/usuarios/reset-password",
           {
             nuevo_password: password,
           }

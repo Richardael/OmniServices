@@ -1,61 +1,99 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const ListaClientes = () => {
+  const [clientes, setClientes] = useState([]);
+  //Modal
+  const [visible, setVisible] = React.useState(false);
+  //Estados de crear Cliente
+  const [nombreCliente, setNombreCliente] = React.useState("");
+  const [descripcionCliente, setDescripcionCliente] = React.useState("");
+
+  //Obtener el usuario actual
+  const id_usuario = localStorage.getItem("id_usuario");
+
+  //Crear Clientes
+  const crearCliente = async () => {
+    try {
+      if (nombreCliente === "") {
+        Alert.alert("Error", "El nombre del cliente es obligatorio");
+        return;
+      }
+      const cliente = {
+        nombre_cliente: nombreCliente,
+        descripcion_cliente: descripcionCliente,
+        id_usuario: id_usuario,
+      };
+      const response = await axios.post(
+        "https://clockigenial2.onrender.com/cliente/registro-cliente",
+        cliente
+      );
+      console.log(response.data);
+      Alert.alert("Cliente creado", "El cliente se ha creado correctamente");
+      setContadorActualizacion(contadorActualizacion + 1);
+      setVisible(false);
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+
+  //ObtenerClientes
+  const obtenerClientes = async () => {
+    try {
+      const { data } = await axios.get(
+        `https://clockigenial2.onrender.com/lista/lista-clientes/${id_usuario}`
+      );
+      setClientes(data.clientesUsuario);
+      console.log(data.clientesUsuario);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //Ejecutar la funcion para obtener las actividades
+  useEffect(() => {
+    obtenerClientes();
+  }, []);
+
+  //Modal
+  const abrirModal = () => setVisible(!visible);
+
   return (
+    <div className="m-4 flex flex-col overflow-hidden">
+    <>
     <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
       <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
-        <thead class="bg-gray-50">
+        <thead class="bg-violet-600">
           <tr>
-            <th scope="col" class="px-6 py-4 font-medium text-gray-900">Nombre</th>
-            <th scope="col" class="px-6 py-4 font-medium text-gray-900">Proyecto</th>
-            <th scope="col" class="px-6 py-4 font-medium text-gray-900">Cargo</th>
-            <th scope="col" class="px-6 py-4 font-medium text-gray-900">Etiquetas</th>
-            <th scope="col" class="px-6 py-4 font-medium text-gray-900"></th>
+            <th scope="col" class="px-6 py-4 font-medium text-gray-200">Nombre</th>
+            <th scope="col" class="px-6 py-4 font-medium text-gray-200">Telefono</th>
+            <th scope="col" class="px-6 py-4 font-medium text-gray-200">Cargo</th>
+            <th scope="col" class="px-6 py-4 font-medium text-gray-200">Descripcion</th>
+            <th scope="col" class="px-6 py-4 font-medium text-gray-200"></th>
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-100 border-t border-gray-100">
+          {clientes.map((cliente) => (
           <tr class="hover:bg-gray-50">
             <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
-              <div class="relative h-10 w-10">
-                <img
-                  class="h-full w-full rounded-full object-cover object-center"
-                  src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                  alt=""
-                />
-                <span class="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400 ring ring-white"></span>
-              </div>
               <div class="text-sm">
-                <div class="font-medium text-gray-700">Steven Jobs</div>
-                <div class="text-gray-400">jobs@sailboatui.com</div>
+                <div class="font-medium text-gray-700">{cliente.nombre_cliente}</div>
+                <div class="text-gray-400">{cliente.email_cliente}</div>
               </div>
             </th>
             <td class="px-6 py-4">
               <span
                 class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600"
               >
-                <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
-                Active
+                {cliente.tel_cliente}
               </span>
             </td>
-            <td class="px-6 py-4">Product Designer</td>
+            <td class="px-6 py-4">{cliente.cargo_cliente}</td>
             <td class="px-6 py-4">
-              <div class="flex gap-2">
-                <span
-                  class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"
-                >
-                  Design
-                </span>
-                <span
-                  class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"
-                >
-                  Product
-                </span>
-                <span
-                  class="inline-flex items-center gap-1 rounded-full bg-violet-50 px-2 py-1 text-xs font-semibold text-violet-600"
-                >
-                  Develop
-                </span>
-              </div>
+              <p>
+                {cliente.descripcion_cliente}
+              </p>
             </td>
             <td class="px-6 py-4">
               <div class="flex justify-end gap-4">
@@ -96,11 +134,76 @@ const ListaClientes = () => {
               </div>
             </td>
           </tr>
-
+          ))}
          
         </tbody>
       </table>
     </div>
+              <button
+              onClick={abrirModal}
+              class="bg-[#1E1F24] hover:bg-[#2D2E33] text-white font-bold py-2 px-4 mx-auto rounded-xl items-end justify-end "
+            >
+              Crear Cliente
+            </button>
+            </>
+            {/* Modal */}
+            { visible ? (
+            <>
+            <div className="justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+              <div className="relative w-auto my-6 mx-auto max-w-3xl">
+                {/*content*/}
+                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                  {/*header*/}
+                  <div className="flex items-start justify-between p-5 border-b border-solid border-secondary-300 rounded-t">
+                    <h3 className="text-3xl font-semibold">Crear Cliente</h3>
+                  </div>
+                  {/*body*/}
+                  <div className="relative p-6 flex-auto">
+                    <div>
+                      <div className="mb-3 pt-0">
+                        <label className="block mb-2 text-sm font-bold text-gray-700">
+                          Nombre Cliente
+                        </label>
+                        <input
+                          type="text"
+                          className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                          placeholder="Nombre Cliente"
+                          value={nombreCliente}
+                          onChange={(e) => setNombreCliente(e.target.value)}
+                        />
+                      </div>
+                      <div className="mb-3 pt-0">
+                        <label className="block mb-2 text-sm font-bold text-gray-700">
+                          Descripcion Cliente
+                        </label>
+                        <input
+                          type="text"
+                          className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                          placeholder="Descripcion Cliente"
+                          value={descripcionCliente}
+                          onChange={(e) => setDescripcionCliente(e.target.value)}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  {/*footer*/}
+                  <div className="flex items-center justify-end p-6 border-t border-solid border-secondary-300 rounded-b">
+                    <button
+                      className="bg-[#1E1F24] hover:bg-[#2D2E33] text-white font-bold py-2 px-4 mx-auto rounded-xl items-end justify-end "
+                      type="button"
+                      onClick={crearCliente}
+                    >
+                      Crear Cliente
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+            </>) : null
+          
+            }
+</div>
   )
 }
 

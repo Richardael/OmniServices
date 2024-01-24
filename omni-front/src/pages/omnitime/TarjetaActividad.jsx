@@ -39,6 +39,8 @@ const TarjetaActividad = ({
     //Actualizar componente
     const [contadorActualizarComponente, setContadorActualizarComponente] = useState(0);
 
+    //Color Proyecto
+
   const colorCategoria = () => {
     switch (categoria) {
       case 1:
@@ -80,9 +82,12 @@ const TarjetaActividad = ({
   };
 
   const obtenerIntervalos = async (id_actividad) => {
+    if (id_actividad === null) {
+      return;
+    }
     try {
       const { data } = await axios.get(
-        `http://192.168.1.10:7000/lista/lista-tiempo/${id_actividad}`
+        `https://clockigenial2.onrender.com/lista/lista-tiempo/${id_actividad}`
       );
       console.log(data);
       setRegistrosTiempoObtenidos(data);
@@ -93,7 +98,7 @@ const TarjetaActividad = ({
 
   const completarActividad = async (id_actividad) => {
     const {data} = await axios.post(
-      `http://192.168.1.10:7000/actividad/actividad-completada`,
+      `https://clockigenial2.onrender.com/actividad/actividad-completada`,
       {
         id_actividad: id_actividad,
       },
@@ -138,7 +143,7 @@ const TarjetaActividad = ({
             return;
         }
         const { data } = await axios.post(
-            `http://192.168.1.10:7000/actividad/actualizar-actividad`,
+            `https://clockigenial2.onrender.com/actividad/actualizar-actividad`,
             {
                 id_actividad: actividadSeleccionada,
                 horas: parseInt(horaIntervalo),
@@ -200,18 +205,18 @@ const TarjetaActividad = ({
           </div>
         </div>
         <div className="flex flex-row items-center justify-between gap-4 mb-2 px-4">
-          <div className="flex flex-col md:flex-row items-center gap-2">
+          <div className="flex flex-col md:flex-row items-center gap-1">
             <RiUser2Line />
             <h5 className="text-neutral-500">
               {nombre_cliente ? nombre_cliente : "Sin Cliente"}
             </h5>
           </div>
-          <div className="flex flex-col md:flex-row items-center gap-2 text-neutral-500">
-            <RiBookmark2Line />
+          <div className="flex flex-col md:flex-row items-center gap-1 text-neutral-500">
+            <RiCalendar2Line />
             <h5 className="text-neutral-600">{fecha_registro}</h5>
           </div>
-          <div className="flex flex-col md:flex-row items-center gap-2 text-neutral-500">
-            <RiStarLine />
+          <div className="flex flex-col md:flex-row items-center gap-1 text-neutral-500">
+            <RiMoneyDollarCircleLine />
             <h5>{tarifa ? `$${tarifa}` : "No Facturable"}</h5>
           </div>
         </div>

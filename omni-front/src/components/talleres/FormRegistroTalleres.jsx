@@ -34,7 +34,7 @@ const FormRegistroTalleres = () => {
         } else {
         try {
           const response = await axios.post(
-            "http://192.168.1.50:8000/talleres/registro",
+            "https://omniservices.onrender.com/talleres/registro",
             {
               nombre_us: localStorage.getItem("nombre_us"),
               tipo_plataforma,

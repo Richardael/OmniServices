@@ -11,7 +11,7 @@ const TalleresOpen = () => {
   useEffect(() => {
     //Obtengo los servicios desde mi backend y los almaceno en mi estado de servicios
  const obtenerTalleres = async () => {
-     const { data} = await axios.get('http://192.168.1.50:8000/talleres/open');
+     const { data} = await axios.get('https://omniservices.onrender.com/talleres/open');
      setTalleress(data);
  }
  //Aca quiero exportar las categorias, nombre y descripcion en forma de un array para mis tarjetas
