@@ -13,9 +13,14 @@ import {
   RiCalendar2Line,
   RiDeleteBinLine,
   RiPencilLine,
+  RiCheckboxLine,
+  RiCheckboxBlankLine,
+  RiCloseLine,
 } from "react-icons/ri";
 
 const TarjetaActividad = ({
+  contadorActualizarComponente,
+  setContadorActualizarComponente,
   id_actividad,
   nombre_actividad,
   duracion_total,
@@ -35,9 +40,20 @@ const TarjetaActividad = ({
     const [horaIntervalo, setHoraIntervalo] = useState(null);
     const [minutoIntervalo, setMinutoIntervalo] = useState(null);
     const [segundoIntervalo, setSegundoIntervalo] = useState(null);
+//ModalEditar
+const [modalEditar, setModalEditar] = useState(false);
 
-    //Actualizar componente
-    const [contadorActualizarComponente, setContadorActualizarComponente] = useState(0);
+//Estados de Editar Actividad
+const [nombreActividad, setNombreActividad] = useState("");
+const [proyectoActividad, setProyectoActividad] = useState("");
+const [facturableActividad, setFacturableActividad] = useState(false);
+const [tarifaActividad, setTarifaActividad] = useState(0);
+//Traer Proyectos
+const [proyectos, setProyectos] = React.useState([]);
+
+//Estado usuario localStorage
+const id_usuario = localStorage.getItem("id_usuario");
+
 
     //Color Proyecto
 
@@ -75,6 +91,12 @@ const TarjetaActividad = ({
     }
   };
 
+  const abrirModalEditar = (id_actividad) => {
+    setModalEditar(!modalEditar);
+    setModalActividad(false);
+    setActividadSeleccionada(id_actividad);
+  };
+
   const abrirModalActividad = (id_actividad) => {
     setModalActividad(!modalActividad);
     obtenerIntervalos(id_actividad);
@@ -105,6 +127,7 @@ const TarjetaActividad = ({
     );
     console.log(data);
     alert("Actividad completada");
+    setContadorActualizarComponente(contadorActualizarComponente + 1);
     };
 
     const agregarIntervalo = async (id_actividad) => {
@@ -164,6 +187,58 @@ const TarjetaActividad = ({
         useEffect(() => {
             obtenerIntervalos(actividadSeleccionada);
         }, [contadorActualizarComponente]);
+
+        //Editar Actividad
+        const editarActividad = async (e) => {
+            //preventdefault
+            e.preventDefault();
+            //Validar campos
+            if (nombreActividad === "") {
+                alert("El nombre de la actividad no puede estar vacío");
+                return;
+            }
+            if (facturableActividad === true && tarifaActividad === 0) {
+                alert(
+                    "La tarifa no puede ser 0 si la actividad es facturable"
+                );
+                return;
+            }
+            if (facturableActividad === false && tarifaActividad !== 0) {
+                alert(
+                    "La tarifa no puede ser diferente de 0 si la actividad no es facturable"
+                );
+                return;
+            }
+            console.log("Actividad creada");
+            const actividad = {
+                nombre_actividad: nombreActividad,
+                id_usuario: id_usuario,
+                id_proyecto: proyectoActividad,
+                //Convertir en valores int
+                tarifa: parseInt(tarifaActividad),
+                segundos: parseInt(segundos),
+                minutos: parseInt(minutos),
+                horas: parseInt(horas),
+            };
+            axios
+                .post(
+                    `https://clockigenial2.onrender.com/actividad/actualizar-actividad`,
+                    {
+                        id_actividad: actividadSeleccionada,
+                        nombre_actividad: nombreActividad,
+                        id_proyecto: proyectoActividad,
+                        tarifa: parseInt(tarifaActividad),
+                    },
+                )
+                .then((res) => {
+                    console.log(res);
+                    console.log(res.data);
+                    alert("Actividad editada");
+                    setContadorActualizarComponente(contadorActualizarComponente + 1);
+                    setModalEditar(!modalEditar);
+                });
+        };
+
   return (
     <div>
       <div className="bg-white rounded-3xl p-2 shadow-xl">
@@ -274,11 +349,14 @@ const TarjetaActividad = ({
                       </p>
                     </div>
                     <div className="flex flex-row items-center gap-2">
-                      <button className="bg-red-600 p-2 rounded-lg flex-row flex items-center gap-1 text-gray-200 hover:bg-red-500 transition-colors duration-300 ease-in-out">
+                      <button
+                      className="bg-red-600 p-2 rounded-lg flex-row flex items-center gap-1 text-gray-200 hover:bg-red-500 transition-colors duration-300 ease-in-out">
                         <RiDeleteBinLine />
                         Eliminar
                       </button>
-                      <button className="bg-yellow-400 p-2 rounded-lg text-gray-200 hover:bg-yellow-300 flex flex-row items-center gap-1 transition-colors duration-300 ease-in-out">
+                      <button
+                      onClick={() => abrirModalEditar(id_actividad)}
+                      className="bg-yellow-400 p-2 rounded-lg text-gray-200 hover:bg-yellow-300 flex flex-row items-center gap-1 transition-colors duration-300 ease-in-out">
                         <RiPencilLine />
                         Editar
                         </button>
@@ -468,6 +546,135 @@ const TarjetaActividad = ({
           </div>
         </div>
       ) : null}
+      {
+        //Modal Editar
+        modalEditar ? (
+          <div className="fixed z-10 inset-0 overflow-y-auto">
+          <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            {/* Background overlay, show/hide based on modal state. */}
+            <div
+              className="fixed inset-0 transition-opacity"
+              aria-hidden="true"
+            >
+              <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            {/* This element is to trick the browser into centering the modal contents. */}
+            <span
+              className="hidden sm:inline-block sm:align-middle sm:h-screen"
+              aria-hidden="true"
+            >
+              &#8203;
+            </span>
+            {/* Modal panel, show/hide based on modal state. */}
+            <div
+              className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle max-w-3xl w-full"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="modal-headline"
+            >
+              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div className="flex flex-col">
+                  {/* Header */}
+                  <div className="flex flex-row justify-between items-center mb-5">
+              <h2 className="text-2xl font-semibold mb-6">Edita tu Actividad</h2>
+              <RiCloseLine className="text-2xl cursor-pointer" onClick={() => abrirModalEditar(id_actividad)}/>
+              </div>
+              <form onSubmit={editarActividad} className="space-y-6">
+                <div className="mb-4">
+                  <label
+                    htmlFor="name"
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                  >
+                    Nombre de la Actividad
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Nombre de la Actividad"
+                    value={nombreActividad}
+                    onChange={(e) => setNombreActividad(e.target.value)}
+                    required
+                    className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-violet-600"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label
+                    htmlFor="proyecto"
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                  >
+                    Proyecto de la Actividad
+                  </label>
+                  <select
+                    id="proyecto"
+                    name="proyecto"
+                    className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-violet-600"
+                    value={proyectoActividad}
+                    onChange={(e) => setProyectoActividad(e.target.value)}
+                  >
+                    <option value="">Selecciona un proyecto</option>
+                    {proyectos.map((proyecto) => (
+                      <option
+                        key={proyecto.id_proyecto}
+                        value={proyecto.id_proyecto}
+                      >
+                        {proyecto.nombre_proyecto}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="mb-6">
+                  <div className="flex flex-row justify-between">
+                    <div className="flex flex-row items-center">
+                      {facturableActividad ? (
+                        <RiCheckboxLine
+                          className="text-3xl text-violet-600 cursor-pointer select-none"
+                          onClick={() => setFacturableActividad(false)}
+                        />
+                      ) : (
+                        <RiCheckboxBlankLine
+                          className="text-3xl text-secondary-300 cursor-pointer select-none"
+                          onClick={() => setFacturableActividad(true)}
+                        />
+                      )}
+                      <label
+                        htmlFor="facturable"
+                        className="text-gray-700 text-base items-center flex justify-center font-bold mb-2"
+                      >
+                        ¿Es Facturable?
+                      </label>
+                    </div>
+                    {/* Tarifa */}
+                    {facturableActividad ? (
+                      <div>
+                        <input
+                          type="text"
+                          id="tarifa"
+                          name="tarifa"
+                          placeholder="Tarifa por hora"
+                          value={tarifaActividad}
+                          onChange={(e) => setTarifaActividad(e.target.value)}
+                          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-violet-600"
+                        />
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+                <button
+                  type="submit"
+                  className="bg-violet-600 text-white px-4 py-2 rounded-md hover:bg-violet-700 focus:outline-none focus:shadow-outline-violet mx-auto w-full"
+                >
+                  Editar Actividad
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+        ) : null
+
+      }
     </div>
   );
 };

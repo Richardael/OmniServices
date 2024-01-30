@@ -15,7 +15,8 @@ const Resumen = () => {
   const fecha_inicio = //Obtener fecha del sistema
     new Date().getFullYear() +
     "-" +
-    (new Date().getMonth() + 1) +
+   //Agregar mes con un 0 al inicio si es menor a 10
+    ("0" + (new Date().getMonth() + 1)).slice(-2) +
     "-" +
     new Date().getDate();
 
@@ -131,7 +132,7 @@ const Resumen = () => {
   
   {seleccionado === "mensual" ? (
         <div className="flex flex-col items-center justify-center mt-24">
-    <PDFDownloadLink document={<ReporteMensual informeSemanal={informeMensual} gananciaPorProyecto={gananciaPorProyecto} actividadesObtenidas={actividadesObtenidas} />} fileName="reporte-mensual.pdf">
+    <PDFDownloadLink document={<ReporteMensual informeMensual={informeMensual} gananciaPorProyecto={gananciaPorProyecto} actividadesObtenidas={actividadesObtenidas} />} fileName="reporte-mensual.pdf">
       {({ blob, url, loading, error }) =>
         loading ? <button className="bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-8 text-xl rounded-full">Generando Reporte</button> : <button className="bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-8 text-xl rounded-full">Descargar Reporte</button>
       }

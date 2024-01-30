@@ -109,7 +109,7 @@ const ReporteMensual = ({informeMensual, actividadesObtenidas, gananciaPorProyec
             {actividadesObtenidas.map((actividad) => (
             <View style={styles.tr} key={actividad.id_actividad}>
               <Text style={styles.td}>{actividad.nombre_actividad}</Text>
-              <Text style={styles.td}>{actividad.duracion_total.horas.toString().padStart(2, '0')} : {actividad.duracion_total.minutos.toString().padStart(2, '0')}h</Text>
+              <Text style={styles.td}></Text>
               <Text style={styles.td}>{actividad.tarifa}$</Text>
               <Text style={styles.td}>{actividad.total_tarifa}$</Text>
               <Text style={styles.td}>{actividad.nombre_proyecto}</Text>
@@ -128,11 +128,11 @@ const ReporteMensual = ({informeMensual, actividadesObtenidas, gananciaPorProyec
           </View>
           <View style={styles.tbody}>
             {/* Ciclo que recorra actividades */}
-            {gananciaPorProyecto.map((ganancia) => (
-            <View style={styles.tr} key={ganancia.id_proyecto}>
-              <Text style={styles.td}>{ganancia.proyecto}: {ganancia.gananciaTotal}$ </Text>
-              <Text style={styles.td}>{ganancia.descripcion}</Text>
-            </View>
+            {Object.values(gananciaPorProyecto).map((ganancia) => (
+              <View style={styles.tr} key={ganancia.index}>
+                <Text style={styles.td}>{ganancia.proyecto}: {ganancia.gananciaTotal}$</Text>
+                <Text style={styles.td}>{ganancia.descripcion}</Text>
+              </View>
             ))}
           </View>
         </View>
@@ -147,7 +147,7 @@ const ReporteMensual = ({informeMensual, actividadesObtenidas, gananciaPorProyec
             </View>
             <View style={styles.tbody}>
             <View style={styles.tr}>
-              <Text style={styles.td}>{informeMensual.duracion_total_informe.horas.toString().padStart(2, '0')} : {informeMensual.duracion_total_informe.minutos.toString().padStart(2, '0')}h</Text>
+              <Text style={styles.td}></Text>
               <Text style={styles.td}>{informeMensual.ingresosTotales}$</Text>
               <Text style={styles.td}>{informeMensual.ingresosTotalesbcv}bs</Text>
             </View>

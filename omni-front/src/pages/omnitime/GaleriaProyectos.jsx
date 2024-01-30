@@ -10,6 +10,7 @@ const GaleriaProyectos = () => {
   const [proyectos, setProyectos] = React.useState([]);
   //Estado de Modal
   const [modalCrearProyecto, setModalCrearProyecto] = React.useState(false);
+  const [modalEditar, setModalEditar] = React.useState(false);
   //Estados de crear Proyecto
   const [nombreProyecto, setNombreProyecto] = React.useState("");
   const [descripcionProyecto, setDescripcionProyecto] = React.useState("");
@@ -25,6 +26,7 @@ const GaleriaProyectos = () => {
   const [alertaMala, setAlertaMala] = React.useState("");
   const [mostrarAlertaBuena, setMostrarAlertaBuena] = React.useState(false);
   const [alertaBuena, setAlertaBuena] = React.useState("");
+  const [contadorActualizarComponente, setContadorActualizarComponente] = React.useState(0);
   //Obtener Proyectos
   const obtenerProyectos = async () => {
     try {
@@ -40,7 +42,7 @@ const GaleriaProyectos = () => {
 
   React.useEffect(() => {
     obtenerProyectos();
-  }, []);
+  }, [contadorActualizarComponente]);
 
   //Obtener Clientes
   const obtenerClientes = async () => {
@@ -97,6 +99,15 @@ const GaleriaProyectos = () => {
   const abrirModal = () => {
     setModalCrearProyecto(true);
   };
+  const abrirModalEditar = (id_proyecto) => {
+    setModalEditar(true);
+    const proyecto = proyectos.find((proyecto) => proyecto.id_proyecto === id_proyecto);
+    console.log(proyecto);
+    setNombreProyecto(proyecto.nombre_proyecto);
+    setDescripcionProyecto(proyecto.descripcion);
+    setClienteProyecto(proyecto.nombre_cliente);
+    setCategoriaProyecto(proyecto.categoria);
+  }
 
   //Crear Proyecto
   const crearProyecto = async (e) => {
@@ -130,6 +141,8 @@ const GaleriaProyectos = () => {
         setMostrarAlertaBuena(false);
       }, 5000);
       setAlertaBuena("Proyecto creado correctamente");
+      setContadorActualizarComponente(contadorActualizarComponente + 1);
+      setModalCrearProyecto(false);
     } catch (error) {
       console.log(error);
       //Alerta
@@ -140,6 +153,26 @@ const GaleriaProyectos = () => {
       setAlertaMala("Error al crear el proyecto");
     }
   };
+
+  const editarCliente = async (id_cliente) => {
+    try {
+      const cliente = {
+        nombre_cliente: nombreCliente,
+        descripcion_cliente: descripcionCliente,
+        id_usuario: id_usuario,
+      };
+      const response = await axios.put(
+        `https://clockigenial2.onrender.com/cliente/editar-cliente/${id_cliente}`,
+        cliente
+      );
+      console.log(response.data);
+      setContadorActualizacionComponente(contadorActualizarComponente + 1);
+      setModalEditar(false);
+      alert("Cliente Editado");
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className="m-4 flex flex-col overflow-hidden">
@@ -217,6 +250,7 @@ const GaleriaProyectos = () => {
                             viewBox="0 0 24 24"
                             stroke-width="1.5"
                             stroke="currentColor"
+                            onClick={() => abrirModalEditar(proyecto.id_proyecto)}
                             class="h-6 w-6 text-gray-600 hover:scale-125 transition-all duration-300"
                             x-tooltip="tooltip"
                           >
@@ -257,6 +291,108 @@ const GaleriaProyectos = () => {
           </div>
         </>
       )}
+      {/* Modal Editar Proyecto */}
+      {modalEditar ? (
+        <>
+          <div className="justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+              {/*content*/}
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                {/*header*/}
+                <div className="flex items-start justify-between p-5 border-b border-solid border-secondary-300 rounded-t">
+                  <h3 className="text-3xl font-semibold">Editar Proyecto</h3>
+                </div>
+                {/*body*/}
+                <div className="relative p-6 flex-auto">
+                  <div>
+                    <div className="mb-3 pt-0">
+                      <label className="block mb-2 text-sm font-bold text-gray-700">
+                        Nombre del Proyecto
+                      </label>
+                      <input
+                        type="text"
+                        className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ring-violet-600"
+                        placeholder="Nombre del Proyecto"
+                        style={{ transition: "all .15s ease" }}
+                        value={nombreProyecto}
+                        onChange={(e) => setNombreProyecto(e.target.value)}
+                      />
+                    </div>
+                    <div className="mb-3 pt-0">
+                      <label className="block mb-2 text-sm font-bold text-gray-700">
+                        Descripcion
+                      </label>
+                      <textarea
+                        type="text"
+                        className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ring-violet-600"
+                        placeholder="Descripcion"
+                        style={{ transition: "all .15s ease" }}
+                        value={descripcionProyecto}
+                        onChange={(e) => setDescripcionProyecto(e.target.value)}
+                      />
+                    </div>
+                    <div className="mb-3 pt-0">
+                      <label className="block mb-2 text-sm font-bold text-gray-700">
+                        Cliente
+                      </label>
+                      <select
+                        className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ring-violet-600 "
+                        value={clienteProyecto}
+                        onChange={(e) => setClienteProyecto(e.target.value)}
+                      >
+                        <option value="0">Selecciona un Cliente</option>
+                        {clientes.map((cliente) => (
+                          <option value={cliente.id_cliente}>
+                            {cliente.nombre_cliente}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="mb-3 pt-0">
+                      <label className="block mb-2 text-sm font-bold text-gray-700">
+                        Categoria del Proyecto (Color)
+                      </label>
+                      <select
+                        className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ring-violet-600 "
+                        value={categoriaProyecto}
+                        onChange={(e) => setCategoriaProyecto(e.target.value)}
+                      >
+                        <option value="0">Selecciona una Categoria</option>
+                        <option value="1">Rojo</option>
+                        <option value="2">Azul</option>
+                        <option value="3">Verde</option>
+                        <option value="4">Amarillo</option>
+                        <option value="5">Morado</option>
+                        <option value="6">Naranja</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                {/*footer*/}
+                <div className="flex items-center justify-end p-6 border-t border-solid border-secondary-200 rounded-b">
+                  <button
+                    className="text-red-600 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
+                    type="button"
+                    style={{ transition: "all .15s ease" }}
+                    onClick={() => setModalEditar(false)}
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    className="bg-violet-600 text-white active:bg-violet-600 font-bold uppercase text-sm px-6 py-3 rounded-lg shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                    type="button"
+                    style={{ transition: "all .15s ease" }}
+                    onClick={editarCliente}
+                  >
+                    Editar Proyecto
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+        </>
+      ) : null}
       {/* Modal Crear Proyecto */}
       {modalCrearProyecto ? (
         <>

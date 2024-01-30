@@ -8,16 +8,22 @@ const GaleriaActividades = () => {
     const [actividadesObtenidas, setActividadesObtenidas] = useState([]);
       //Estados de crear Actividad
   const [nombreActividad, setNombreActividad] = useState("");
+  const [contadorActualizarComponente, setContadorActualizarComponente] = useState(0);
 
-
+  //loader
+  const [loading, setLoading] = useState(false);
     //Obtener el usuario actual
   const id_usuario = localStorage.getItem('id_usuario');
 
   //Obtener actividades
   const obtenerActividades = async () => {
+    setLoading(true)
     try {
       const { data } = await axios.get(`https://clockigenial2.onrender.com/lista/actividades-por-usuario-no-completado/${id_usuario}`)
       setActividadesObtenidas(data.actividadesNoCompletadas)
+      if (data.actividadesNoCompletadas.length) {
+        setLoading(false)
+      }
     }
     catch (error) {
       console.log(error)
@@ -27,7 +33,7 @@ const GaleriaActividades = () => {
   //Ejecutar la funcion para obtener las actividades
   useEffect(() => {
     obtenerActividades()
-  }, [])
+  }, [contadorActualizarComponente])
 
   console.log(actividadesObtenidas)
             
@@ -57,7 +63,7 @@ const GaleriaActividades = () => {
       </div>
   <div className='grid grid-cols-3 gap-4 py-2 max-sm:grid-cols-1 overflow-y-scroll max-h-[57vh]'>
   {actividadesObtenidas.map((actividad) => (
-      <TarjetaActividad key={actividad.id_actividad } {...actividad} />
+      <TarjetaActividad key={actividad.id_actividad } {...actividad} setContadorActualizarComponente={setContadorActualizarComponente} contadorActualizarComponente={contadorActualizarComponente}/>
     ))}
     </div>
 </>
@@ -68,6 +74,15 @@ const GaleriaActividades = () => {
 <h2 className="font-black text-4xl text-center grid col-span-3">
     No tienes ninguna actividad registrada
   </h2>
+  {loading ? (
+    <div
+  class="inline-block mt-4 text-violet-600 h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+  role="status">
+  <span
+    class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+    >Loading...</span>
+</div>
+  ) : null}
   <p className="text-xl mt-5 mb-10 text-center">
     Registra tus {""}
     <span className="text-violet-600 font-bold">
