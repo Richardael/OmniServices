@@ -33,8 +33,7 @@ const refreshAccessToken = (accountTransport, callback) => {
 router.post('/registro', async (req, res) => {
   try {
       // Obtén los datos del cuerpo de la solicitud
-      const { nombre_us, nombre, apellido, email, password } = req.body;
-       // Verificar si el correo electrónico ya existe en la colección
+      const { nombre_us, nombre, apellido, email, password, cargo, num_tel, empresa, departamento } = req.body; // Verificar si el correo electrónico ya existe en la colección
        const usuarioExistente = await UsuariosModel.findOne({ email });
 
        if (usuarioExistente) {
@@ -49,7 +48,7 @@ router.post('/registro', async (req, res) => {
 
       // Crea una nueva instancia de servicio
       const newUsuario = new UsuariosModel({
-          nombre_us, nombre, apellido, email, password,
+        nombre_us, nombre, apellido, email, password, cargo, num_tel, empresa, departamento,
           fecha_registro: fechaRegistro, // Convertir a objeto Date
           token_recuperacion: tokenRecuperacion, // Guardar el código de verificación
       });
@@ -475,5 +474,36 @@ router.post('/reset-password/:token', async (req, res) => {
   }
 });
 
+
+// Ruta para editar un usuario existente
+router.put('/editar-usuario/:id_usuario', async (req, res) => {
+    try {
+      const { id_usuario } = req.params;
+      const { nombre_us, nombre, apellido, cargo, num_tel, empresa, departamento } = req.body;
+  
+      // Verifica si el usuario existe antes de continuar
+      const usuarioExistente = await UsuariosModel.findById(id_usuario);
+      if (!usuarioExistente) {
+        return res.status(404).json({ error: 'El usuario no existe' });
+      }
+  
+      // Actualiza los campos del usuario, excluyendo la contraseña y el correo electrónico
+      usuarioExistente.nombre_us = nombre_us || usuarioExistente.nombre_us;
+      usuarioExistente.nombre = nombre || usuarioExistente.nombre;
+      usuarioExistente.apellido = apellido || usuarioExistente.apellido;
+      usuarioExistente.cargo = cargo || usuarioExistente.cargo;
+      usuarioExistente.num_tel = num_tel || usuarioExistente.num_tel;
+      usuarioExistente.empresa = empresa || usuarioExistente.empresa;
+      usuarioExistente.departamento = departamento || usuarioExistente.departamento;
+  
+      // Guarda los cambios en MongoDB
+      await usuarioExistente.save();
+  
+      res.status(200).json({ message: 'Usuario actualizado con éxito' });
+    } catch (error) {
+      console.error('Error al actualizar usuario:', error);
+      res.status(500).json({ error: 'Ocurrió un error al actualizar usuario' });
+    }
+  });
 
 module.exports = router;

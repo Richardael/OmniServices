@@ -6,14 +6,28 @@ const usuariosSchema = new mongoose.Schema({
     nombre_us: String,
     email: String,
     password: String,
-
     
+    cargo: {
+        type: String,
+        default: null
+    },
+    num_tel: {
+        type: String,
+        default: null
+    },
+    empresa: {
+        type: String,
+        default: null
+    },
+    departamento: {
+        type: String,
+        default: null
+    },
     id_rol: {
         type: Number,
         default: 5 // Valor predeterminado para id_rol (4 para "vendedor")
     },
     
-   
     verificado: {
         type: Boolean,
         default: false // Valor predeterminado para verificado
@@ -25,11 +39,11 @@ const usuariosSchema = new mongoose.Schema({
     fecha_registro: {
         type: String,
         require: true,
-      },
-      rol: {
+    },
+    rol: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Rol'
-      }
+    }
 });
 
 const UsuariosModel = mongoose.model('usuarios', usuariosSchema);
