@@ -5,30 +5,46 @@ const UsuariosModel = require('../Modelo/Usuarios');
 const crypto = require('crypto');
 const { generarCodigoRecuperacion } = require('../token'); //importa el codigo en donde se genera el token de 6 digitos
 const moment = require('moment');
+const google = require('googleapis');
 
 // Función para obtener un nuevo token de acceso OAuth2
 const refreshAccessToken = (accountTransport, callback) => {
-  const oauth2Client = new google.auth.OAuth2(
-      accountTransport.auth.clientId,
-      accountTransport.auth.clientSecret,
-      'https://developers.google.com/oauthplayground'
-  );
-
-  oauth2Client.setCredentials({
-      refresh_token: accountTransport.auth.refreshToken,
-      tls: {
-          rejectUnauthorized: false
+    try {
+      if (!accountTransport || !accountTransport.auth) {
+        throw new Error('Objeto accountTransport no válido');
       }
-  });
   
-  oauth2Client.getAccessToken((err, token) => {
-      if (err)
-          return console.log(err);
-      accountTransport.auth.accessToken = token;
-      callback(nodemailer.createTransport(accountTransport));
-  });
-};
-
+      const oauth2Client = new google.auth.OAuth2(
+        accountTransport.auth.clientId,
+        accountTransport.auth.clientSecret,
+        'https://developers.google.com/oauthplayground'
+      );
+  
+      oauth2Client.setCredentials({
+        refresh_token: accountTransport.auth.refreshToken,
+        tls: {
+          rejectUnauthorized: false,
+        },
+      });
+  
+      oauth2Client.getAccessToken((err, token) => {
+        if (err) {
+          console.error('Error al obtener el token de acceso:', err);
+          throw err;
+        }
+        
+        if (!accountTransport.auth) {
+          throw new Error('Objeto accountTransport no válido');
+        }
+  
+        accountTransport.auth.accessToken = token;
+        callback(nodemailer.createTransport(accountTransport));
+      });
+    } catch (error) {
+      console.error('Error en refreshAccessToken:', error);
+      callback(null); // Pasa null para indicar un fallo
+    }
+  };
 // Ruta para registrar un nuevo servicio
 router.post('/registro', async (req, res) => {
   try {
