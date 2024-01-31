@@ -71,25 +71,25 @@ const ReporteMensual = ({informeMensual, actividadesObtenidas, gananciaPorProyec
     <Page style={styles.page} size="A4" orientation="landscape" >
      <View style={styles.div}>
       <View style={styles.div2}>
-        <Text style={styles.h1}>Reporte Semanal</Text>
+        <Text style={styles.h1}>Reporte Mensual</Text>
         <View style={styles.div} >
           <Text style={styles.h4} >Fecha: 
-          {informeMensual.rango_fechas.inicio} - {informeMensual.rango_fechas.fin}
+          {informeMensual.rango_fechas.inicio} / {informeMensual.rango_fechas.fin}
           </Text>
         </View>
         </View>
         <View style={styles.table}>
           <View style={styles.tr}>
             <Text style={styles.td}>Nombre:{informeMensual.usuario.nombre} {informeMensual.usuario.apellido}</Text>
-            <Text style={styles.td}>Empresa: </Text>
+            <Text style={styles.td}>Empresa: {informeMensual.usuario.empresa}</Text>
             </View>
             <View style={styles.tr}>
             <Text style={styles.td}>Correo: {informeMensual.usuario.email}</Text>
-            <Text style={styles.td}>Departamento </Text>
+            <Text style={styles.td}>Departamento: {informeMensual.usuario.departamento}</Text>
             </View>
             <View style={styles.tr}>
-            <Text style={styles.td}>Telefono: </Text>
-            <Text style={styles.td}>Cargo: </Text>
+            <Text style={styles.td}>Telefono: {informeMensual.usuario.num_tel}</Text>
+            <Text style={styles.td}>Cargo: {informeMensual.usuario.cargo}</Text>
           </View>
         </View>
         {/* Crear otra tabla que contenga las actividades */}
@@ -109,7 +109,9 @@ const ReporteMensual = ({informeMensual, actividadesObtenidas, gananciaPorProyec
             {actividadesObtenidas.map((actividad) => (
             <View style={styles.tr} key={actividad.id_actividad}>
               <Text style={styles.td}>{actividad.nombre_actividad}</Text>
-              <Text style={styles.td}></Text>
+              <Text style={styles.td}>
+              <Text style={styles.td}>{actividad.duracion_total.horas.toString().padStart(2, '0')} : {actividad.duracion_total.minutos.toString().padStart(2, '0')}h</Text>
+              </Text>
               <Text style={styles.td}>{actividad.tarifa}$</Text>
               <Text style={styles.td}>{actividad.total_tarifa}$</Text>
               <Text style={styles.td}>{actividad.nombre_proyecto}</Text>
@@ -147,7 +149,9 @@ const ReporteMensual = ({informeMensual, actividadesObtenidas, gananciaPorProyec
             </View>
             <View style={styles.tbody}>
             <View style={styles.tr}>
-              <Text style={styles.td}></Text>
+              <Text style={styles.td}>
+                {informeMensual.duracion_total_informe.horas.toString().padStart(2, '0')} : {informeMensual.duracion_total_informe.minutos.toString().padStart(2, '0')}h  
+              </Text>
               <Text style={styles.td}>{informeMensual.ingresosTotales}$</Text>
               <Text style={styles.td}>{informeMensual.ingresosTotalesbcv}bs</Text>
             </View>

@@ -43,13 +43,12 @@ const LayoutOmniTime = () => {
           >
             Resumen
           </Link>
-          {/* <a
-            onClick={cerrarSesion}
-            href="#"
+          <Link
+            to="/omnitime/editar-perfil"
             className="flex items-center gap-4 text-gray-400 text-xl p-4 hover:text-gray-200 transition-colors"
           >
-            <RiLogoutCircleRLine /> Cerrar Sesión
-          </a> */}
+            Perfil
+          </Link>
           <Link
             to="/"
             className="flex absolute right-0 justify-end gap-4 text-gray-400 text-xl p-4 hover:text-gray-200 transition-colors"

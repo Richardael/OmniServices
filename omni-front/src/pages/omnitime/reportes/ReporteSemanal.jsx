@@ -74,7 +74,7 @@ const ReporteSemanal = ({informeSemanal, actividadesObtenidas, gananciaPorProyec
         <Text style={styles.h1}>Reporte Semanal</Text>
         <View style={styles.div} >
           <Text style={styles.h4} >Fecha: 
-          {informeSemanal.rango_fechas.inicio} - {informeSemanal.rango_fechas.fin}
+          {informeSemanal.rango_fechas.inicio} / {informeSemanal.rango_fechas.fin}
           </Text>
         </View>
         </View>

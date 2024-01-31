@@ -17,6 +17,7 @@ const GaleriaProyectos = () => {
   const [clienteProyecto, setClienteProyecto] = React.useState("");
   const [categoriaProyecto, setCategoriaProyecto] = React.useState(0);
   const [clientes, setClientes] = React.useState([]);
+  const [idProyecto, setIdProyecto] = React.useState("");
 
   //Obtener el usuario actual
   const id_usuario = localStorage.getItem("id_usuario");
@@ -107,6 +108,7 @@ const GaleriaProyectos = () => {
     setDescripcionProyecto(proyecto.descripcion);
     setClienteProyecto(proyecto.nombre_cliente);
     setCategoriaProyecto(proyecto.categoria);
+    setIdProyecto(proyecto.id_proyecto);
   }
 
   //Crear Proyecto
@@ -154,78 +156,125 @@ const GaleriaProyectos = () => {
     }
   };
 
-  const editarCliente = async (id_cliente) => {
+  //Eliminar Proyecto
+  const eliminarProyecto = async (id_proyecto) => {
     try {
-      const cliente = {
-        nombre_cliente: nombreCliente,
-        descripcion_cliente: descripcionCliente,
-        id_usuario: id_usuario,
-      };
-      const response = await axios.put(
-        `https://clockigenial2.onrender.com/cliente/editar-cliente/${id_cliente}`,
-        cliente
+      const { data } = await axios.delete(
+        `https://clockigenial2.onrender.com/proyecto/eliminar-proyecto/${id_proyecto}`
       );
-      console.log(response.data);
-      setContadorActualizacionComponente(contadorActualizarComponente + 1);
-      setModalEditar(false);
-      alert("Cliente Editado");
+      console.log(data);
+      //Alerta
+      setMostrarAlertaBuena(true);
+      setTimeout(() => {
+        setMostrarAlertaBuena(false);
+      }, 5000);
+      setAlertaBuena("Proyecto eliminado correctamente");
+      setContadorActualizarComponente(contadorActualizarComponente + 1);
     } catch (error) {
       console.log(error);
+      //Alerta
+      setMostrarAlertaMala(true);
+      setTimeout(() => {
+        setMostrarAlertaMala(false);
+      }, 5000);
+      setAlertaMala("Error al eliminar el proyecto");
     }
-  }
+  };
+
+  //Editar Proyecto
+  const editarCliente = async (e) => {
+    e.preventDefault();
+    //Validar
+    if (
+      nombreProyecto.trim() === "" ||
+      descripcionProyecto.trim() === ""
+    ) {
+      console.log("Campos vacios");
+      return;
+    }
+    //Editar
+    try {
+      const { data } = await axios.put(
+        `https://clockigenial2.onrender.com/proyecto/editar-proyecto/${idProyecto}`,
+        {
+          nombre_proyecto: nombreProyecto,
+          categoria: categoriaProyecto,
+          descripcion: descripcionProyecto,
+        }
+      );
+      console.log(data);
+      //Alerta
+      setMostrarAlertaBuena(true);
+      setTimeout(() => {
+        setMostrarAlertaBuena(false);
+      }, 5000);
+      setAlertaBuena("Proyecto actualizado correctamente");
+      setContadorActualizarComponente(contadorActualizarComponente + 1);
+      setModalEditar(false);
+    } catch (error) {
+      console.log(error);
+      //Alerta
+      setMostrarAlertaMala(true);
+      setTimeout(() => {
+        setMostrarAlertaMala(false);
+      }, 5000);
+      setAlertaMala("Error al actualizar el proyecto");
+    }
+  };
+
 
   return (
     <div className="m-4 flex flex-col overflow-hidden">
       {proyectos.length ? (
         <>
-          <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
-            <table class="w-full border-collapse bg-gray-50 text-left text-sm text-gray-500">
-              <thead class="bg-[#1E1F24]">
+          <div  className="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
+            <table  className="w-full border-collapse bg-gray-50 text-left text-sm text-gray-500">
+              <thead  className="bg-[#1E1F24]">
                 <tr>
-                  <th scope="col" class="px-6 py-4 font-medium text-gray-300">
+                  <th scope="col"  className="px-6 py-4 font-medium text-gray-300">
                     Nombre de Proyecto
                   </th>
-                  <th scope="col" class="px-6 py-4 font-medium text-gray-300">
+                  <th scope="col"  className="px-6 py-4 font-medium text-gray-300">
                     Cliente
                   </th>
-                  <th scope="col" class="px-6 py-4 font-medium text-gray-300">
+                  <th scope="col"  className="px-6 py-4 font-medium text-gray-300">
                     Actividades
                   </th>
-                  <th scope="col" class="px-6 py-4 font-medium text-gray-300">
+                  <th scope="col"  className="px-6 py-4 font-medium text-gray-300">
                     Descripcion
                   </th>
                   <th
                     scope="col"
-                    class="px-6 py-4 font-medium text-gray-300"
+                     className="px-6 py-4 font-medium text-gray-300"
                   ></th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-secondary-300 border-t border-secondary-300">
+              <tbody  className="divide-y divide-secondary-300 border-t border-secondary-300">
                 {proyectos.map((proyecto) => (
                   <tr
-                    class="hover:bg-gray-50"
+                     className="hover:bg-gray-50"
                     key={proyecto.id_proyecto}
                   >
-                    <th class="flex gap-3 px-6 py-4 items-center font-normal text-gray-600">
-                      <div class="relative h-10 w-10 rounded-full" style={colorCategoria(proyecto.categoria)} >
+                    <th  className="flex gap-3 px-6 py-4 items-center font-normal text-gray-600">
+                      <div  className="relative h-10 w-10 rounded-full" style={colorCategoria(proyecto.categoria)} >
                       </div>
-                      <div class="text-sm">
-                        <div class="font-semibold text-gray-600">
+                      <div  className="text-sm">
+                        <div  className="font-semibold text-gray-600">
                           {proyecto.nombre_proyecto}
                         </div>
                       </div>
                     </th>
-                    <td class="px-6 py-4">
-                      <span class="inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold text-violet-600">
+                    <td  className="px-6 py-4">
+                      <span  className="inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold text-violet-600">
                         {proyecto.nombre_cliente}
                       </span>
                     </td>
-                    <td class="px-6 py-4 text-gray-600">{proyecto.contador}</td>
-                    <td class="px-6 py-4 text-gray-600">
+                    <td  className="px-6 py-4 text-gray-600">{proyecto.contador}</td>
+                    <td  className="px-6 py-4 text-gray-600">
                       <p>{proyecto.descripcion}</p>
                     </td>
-                    <td class="px-6 py-4">
-                      <div class="flex justify-end gap-4">
+                    <td  className="px-6 py-4">
+                      <div  className="flex justify-end gap-4">
                         <a x-data="{ tooltip: 'Delete' }" href="#">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -233,7 +282,8 @@ const GaleriaProyectos = () => {
                             viewBox="0 0 24 24"
                             stroke-width="1.5"
                             stroke="currentColor"
-                            class="h-6 w-6 text-gray-600 hover:scale-125 transition-all duration-300"
+                            onClick={() => eliminarProyecto(proyecto.id_proyecto)}
+                             className="h-6 w-6 text-gray-600 hover:scale-125 transition-all duration-300"
                             x-tooltip="tooltip"
                           >
                             <path
@@ -251,7 +301,7 @@ const GaleriaProyectos = () => {
                             stroke-width="1.5"
                             stroke="currentColor"
                             onClick={() => abrirModalEditar(proyecto.id_proyecto)}
-                            class="h-6 w-6 text-gray-600 hover:scale-125 transition-all duration-300"
+                             className="h-6 w-6 text-gray-600 hover:scale-125 transition-all duration-300"
                             x-tooltip="tooltip"
                           >
                             <path
@@ -270,7 +320,7 @@ const GaleriaProyectos = () => {
           </div>
           <button
             onClick={abrirModal}
-            class="bg-[#1E1F24] hover:bg-[#2D2E33] text-white font-bold py-2 px-4 mx-auto rounded-xl items-end justify-end "
+             className="bg-[#1E1F24] hover:bg-[#2D2E33] text-white font-bold py-2 px-4 mx-auto rounded-xl items-end justify-end "
           >
             Crear Proyecto
           </button>
@@ -285,7 +335,7 @@ const GaleriaProyectos = () => {
               Registra tus {""}
               <span className="text-violet-600 font-bold">Proyectos</span>
             </p>
-            <button class="bg-[#1E1F24] hover:bg-[#2D2E33] text-white font-bold py-2 px-4 mx-auto rounded-xl items-end justify-end ">
+            <button  className="bg-[#1E1F24] hover:bg-[#2D2E33] text-white font-bold py-2 px-4 mx-auto rounded-xl items-end justify-end ">
               Crear Proyecto
             </button>
           </div>
@@ -330,23 +380,6 @@ const GaleriaProyectos = () => {
                         value={descripcionProyecto}
                         onChange={(e) => setDescripcionProyecto(e.target.value)}
                       />
-                    </div>
-                    <div className="mb-3 pt-0">
-                      <label className="block mb-2 text-sm font-bold text-gray-700">
-                        Cliente
-                      </label>
-                      <select
-                        className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ring-violet-600 "
-                        value={clienteProyecto}
-                        onChange={(e) => setClienteProyecto(e.target.value)}
-                      >
-                        <option value="0">Selecciona un Cliente</option>
-                        {clientes.map((cliente) => (
-                          <option value={cliente.id_cliente}>
-                            {cliente.nombre_cliente}
-                          </option>
-                        ))}
-                      </select>
                     </div>
                     <div className="mb-3 pt-0">
                       <label className="block mb-2 text-sm font-bold text-gray-700">

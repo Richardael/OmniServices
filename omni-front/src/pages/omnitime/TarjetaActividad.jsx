@@ -54,6 +54,18 @@ const [proyectos, setProyectos] = React.useState([]);
 //Estado usuario localStorage
 const id_usuario = localStorage.getItem("id_usuario");
 
+//Obtener Proyectos
+const obtenerProyectos = async () => {
+  try {
+    const { data } = await axios.get(
+      `https://clockigenial2.onrender.com/lista/proyectos-por-usuario/${id_usuario}`
+    );
+    setProyectos(data.proyectosUsuario);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 
     //Color Proyecto
 
@@ -95,6 +107,7 @@ const id_usuario = localStorage.getItem("id_usuario");
     setModalEditar(!modalEditar);
     setModalActividad(false);
     setActividadSeleccionada(id_actividad);
+    obtenerProyectos();
   };
 
   const abrirModalActividad = (id_actividad) => {
@@ -209,22 +222,10 @@ const id_usuario = localStorage.getItem("id_usuario");
                 );
                 return;
             }
-            console.log("Actividad creada");
-            const actividad = {
-                nombre_actividad: nombreActividad,
-                id_usuario: id_usuario,
-                id_proyecto: proyectoActividad,
-                //Convertir en valores int
-                tarifa: parseInt(tarifaActividad),
-                segundos: parseInt(segundos),
-                minutos: parseInt(minutos),
-                horas: parseInt(horas),
-            };
             axios
-                .post(
-                    `https://clockigenial2.onrender.com/actividad/actualizar-actividad`,
+                .put(
+                    `https://clockigenial2.onrender.com/actividad/editar-actividad/${id_actividad}`,
                     {
-                        id_actividad: actividadSeleccionada,
                         nombre_actividad: nombreActividad,
                         id_proyecto: proyectoActividad,
                         tarifa: parseInt(tarifaActividad),
@@ -237,6 +238,19 @@ const id_usuario = localStorage.getItem("id_usuario");
                     setContadorActualizarComponente(contadorActualizarComponente + 1);
                     setModalEditar(!modalEditar);
                 });
+        };
+
+        //Eliminar Actividad
+        const eliminarActividad = async (id_actividad) => {
+            console.log(id_actividad);
+            const { data } = await axios.delete(
+                `https://clockigenial2.onrender.com/actividad/eliminar-actividad/${id_actividad}`,
+            );
+            console.log(data);
+            alert("Actividad eliminada");
+            setContadorActualizarComponente(contadorActualizarComponente + 1);
+            setModalEditar(false);
+            setModalActividad(false);
         };
 
   return (
@@ -350,6 +364,7 @@ const id_usuario = localStorage.getItem("id_usuario");
                     </div>
                     <div className="flex flex-row items-center gap-2">
                       <button
+                      onClick={() => eliminarActividad(id_actividad)}
                       className="bg-red-600 p-2 rounded-lg flex-row flex items-center gap-1 text-gray-200 hover:bg-red-500 transition-colors duration-300 ease-in-out">
                         <RiDeleteBinLine />
                         Eliminar
