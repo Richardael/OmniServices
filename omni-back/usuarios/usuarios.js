@@ -526,11 +526,6 @@ router.get('/datos-usuario/:id_usuario', async (req, res) => {
   try {
     const { id_usuario } = req.params;
 
-    // Verifica si el ID de usuario es válido
-    if (!mongoose.isValidObjectId(id_usuario)) {
-      return res.status(400).json({ error: 'ID de usuario no válido' });
-    }
-
     // Busca el usuario por ID en la base de datos
     const usuario = await UsuariosModel.findById(id_usuario);
 
