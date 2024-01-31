@@ -495,7 +495,7 @@ router.post('/reset-password/:token', async (req, res) => {
 router.put('/editar-usuario/:id_usuario', async (req, res) => {
     try {
       const { id_usuario } = req.params;
-      const { nombre_us, nombre, apellido, cargo, num_tel, empresa, departamento } = req.body;
+      const { nombre_us, nombre, apellido, cargo, num_tel, empresa, departamento, email } = req.body;
   
       // Verifica si el usuario existe antes de continuar
       const usuarioExistente = await UsuariosModel.findById(id_usuario);
@@ -511,6 +511,8 @@ router.put('/editar-usuario/:id_usuario', async (req, res) => {
       usuarioExistente.num_tel = num_tel || usuarioExistente.num_tel;
       usuarioExistente.empresa = empresa || usuarioExistente.empresa;
       usuarioExistente.departamento = departamento || usuarioExistente.departamento;
+      usuarioExistente.email = email || usuarioExistente.email;
+
   
       // Guarda los cambios en MongoDB
       await usuarioExistente.save();
