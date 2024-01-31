@@ -5,30 +5,46 @@ const UsuariosModel = require('../Modelo/Usuarios');
 const crypto = require('crypto');
 const { generarCodigoRecuperacion } = require('../token'); //importa el codigo en donde se genera el token de 6 digitos
 const moment = require('moment');
+const google = require('googleapis');
 
 // Función para obtener un nuevo token de acceso OAuth2
 const refreshAccessToken = (accountTransport, callback) => {
-  const oauth2Client = new google.auth.OAuth2(
-      accountTransport.auth.clientId,
-      accountTransport.auth.clientSecret,
-      'https://developers.google.com/oauthplayground'
-  );
-
-  oauth2Client.setCredentials({
-      refresh_token: accountTransport.auth.refreshToken,
-      tls: {
-          rejectUnauthorized: false
+    try {
+      if (!accountTransport || !accountTransport.auth) {
+        throw new Error('Objeto accountTransport no válido');
       }
-  });
   
-  oauth2Client.getAccessToken((err, token) => {
-      if (err)
-          return console.log(err);
-      accountTransport.auth.accessToken = token;
-      callback(nodemailer.createTransport(accountTransport));
-  });
-};
-
+      const oauth2Client = new google.auth.OAuth2(
+        accountTransport.auth.clientId,
+        accountTransport.auth.clientSecret,
+        'https://developers.google.com/oauthplayground'
+      );
+  
+      oauth2Client.setCredentials({
+        refresh_token: accountTransport.auth.refreshToken,
+        tls: {
+          rejectUnauthorized: false,
+        },
+      });
+  
+      oauth2Client.getAccessToken((err, token) => {
+        if (err) {
+          console.error('Error al obtener el token de acceso:', err);
+          throw err;
+        }
+        
+        if (!accountTransport.auth) {
+          throw new Error('Objeto accountTransport no válido');
+        }
+  
+        accountTransport.auth.accessToken = token;
+        callback(nodemailer.createTransport(accountTransport));
+      });
+    } catch (error) {
+      console.error('Error en refreshAccessToken:', error);
+      callback(null); // Pasa null para indicar un fallo
+    }
+  };
 // Ruta para registrar un nuevo servicio
 router.post('/registro', async (req, res) => {
   try {
@@ -479,7 +495,7 @@ router.post('/reset-password/:token', async (req, res) => {
 router.put('/editar-usuario/:id_usuario', async (req, res) => {
     try {
       const { id_usuario } = req.params;
-      const { nombre_us, nombre, apellido, cargo, num_tel, empresa, departamento } = req.body;
+      const { nombre_us, nombre, apellido, cargo, num_tel, empresa, departamento, email } = req.body;
   
       // Verifica si el usuario existe antes de continuar
       const usuarioExistente = await UsuariosModel.findById(id_usuario);
@@ -495,6 +511,8 @@ router.put('/editar-usuario/:id_usuario', async (req, res) => {
       usuarioExistente.num_tel = num_tel || usuarioExistente.num_tel;
       usuarioExistente.empresa = empresa || usuarioExistente.empresa;
       usuarioExistente.departamento = departamento || usuarioExistente.departamento;
+      usuarioExistente.email = email || usuarioExistente.email;
+
   
       // Guarda los cambios en MongoDB
       await usuarioExistente.save();
@@ -505,5 +523,24 @@ router.put('/editar-usuario/:id_usuario', async (req, res) => {
       res.status(500).json({ error: 'Ocurrió un error al actualizar usuario' });
     }
   });
+// Ruta para obtener todos los datos de un usuario por ID
+router.get('/datos-usuario/:id_usuario', async (req, res) => {
+  try {
+    const { id_usuario } = req.params;
+
+    // Busca el usuario por ID en la base de datos
+    const usuario = await UsuariosModel.findById(id_usuario);
+
+    if (!usuario) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+
+    // Devuelve todos los datos del usuario
+    res.status(200).json({ usuario });
+  } catch (error) {
+    console.error('Error al obtener datos de usuario:', error);
+    res.status(500).json({ error: 'Ocurrió un error al obtener datos de usuario' });
+  }
+});
 
 module.exports = router;
