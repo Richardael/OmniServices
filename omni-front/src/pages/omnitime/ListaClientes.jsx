@@ -5,9 +5,12 @@ const ListaClientes = () => {
   const [clientes, setClientes] = useState([]);
   //Modal
   const [visible, setVisible] = React.useState(false);
+  const [modalEditar, setModalEditar] = React.useState(false);
   //Estados de crear Cliente
   const [nombreCliente, setNombreCliente] = React.useState("");
   const [descripcionCliente, setDescripcionCliente] = React.useState("");
+
+  const [contadorActualizarComponente, setContadorActualizacionComponente] = useState(0);
 
   //Obtener el usuario actual
   const id_usuario = localStorage.getItem("id_usuario");
@@ -29,9 +32,9 @@ const ListaClientes = () => {
         cliente
       );
       console.log(response.data);
-      Alert.alert("Cliente creado", "El cliente se ha creado correctamente");
-      setContadorActualizacion(contadorActualizacion + 1);
+      setContadorActualizacionComponente(contadorActualizarComponente + 1);
       setVisible(false);
+      alert("Cliente Creado");
     }
     catch (error) {
       console.log(error);
@@ -54,10 +57,50 @@ const ListaClientes = () => {
   //Ejecutar la funcion para obtener las actividades
   useEffect(() => {
     obtenerClientes();
-  }, []);
+  }, [contadorActualizarComponente]);
 
   //Modal
   const abrirModal = () => setVisible(!visible);
+  const abrirModalEditar = (id_cliente) => {
+    setModalEditar(!modalEditar);
+    const cliente = clientes.find((cliente) => cliente.id_cliente === id_cliente);
+    setNombreCliente(cliente.nombre_cliente);
+    setDescripcionCliente(cliente.descripcion_cliente);
+  }
+
+  //Eliminar Cliente
+  const eliminarCliente = async (id_cliente) => {
+    try {
+      const response = await axios.delete(
+        `https://clockigenial2.onrender.com/cliente/eliminar-cliente/${id_cliente}`
+      );
+      console.log(response.data);
+      setContadorActualizacionComponente(contadorActualizarComponente + 1);
+      alert("Cliente Eliminado");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const editarCliente = async (id_cliente) => {
+    try {
+      const cliente = {
+        nombre_cliente: nombreCliente,
+        descripcion_cliente: descripcionCliente,
+        id_usuario: id_usuario,
+      };
+      const response = await axios.put(
+        `https://clockigenial2.onrender.com/cliente/editar-cliente/${id_cliente}`,
+        cliente
+      );
+      console.log(response.data);
+      setContadorActualizacionComponente(contadorActualizarComponente + 1);
+      setModalEditar(false);
+      alert("Cliente Editado");
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className="m-4 flex flex-col overflow-hidden">
@@ -75,7 +118,7 @@ const ListaClientes = () => {
         </thead>
         <tbody class="divide-y divide-gray-100 border-t border-gray-100">
           {clientes.map((cliente) => (
-          <tr class="hover:bg-gray-50">
+          <tr class="hover:bg-gray-50" key={cliente.id_cliente}>
             <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
               <div class="text-sm">
                 <div class="font-medium text-gray-700">{cliente.nombre_cliente}</div>
@@ -103,8 +146,9 @@ const ListaClientes = () => {
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke-width="1.5"
+                    onClick={() => eliminarCliente(cliente.id_cliente)}
                     stroke="currentColor"
-                    class="h-6 w-6"
+                    class="h-6 w-6 text-gray-600 hover:scale-125 transition-all duration-300"
                     x-tooltip="tooltip"
                   >
                     <path
@@ -120,8 +164,9 @@ const ListaClientes = () => {
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke-width="1.5"
+                    onClick={() => abrirModalEditar(cliente.id_cliente)}
                     stroke="currentColor"
-                    class="h-6 w-6"
+                    class="h-6 w-6 text-gray-600 hover:scale-125 transition-all duration-300"
                     x-tooltip="tooltip"
                   >
                     <path
@@ -146,6 +191,96 @@ const ListaClientes = () => {
               Crear Cliente
             </button>
             </>
+            {/* Modal Editar */}
+            { modalEditar ? (
+            <>
+            <div className="justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+              <div className="relative w-auto my-6 mx-auto max-w-3xl">
+                {/*content*/}
+                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                  {/*header*/}
+                  <div className="flex items-start justify-between p-5 border-b border-solid border-secondary-300 rounded-t">
+                    <h3 className="text-3xl font-semibold">Editar Cliente</h3>
+                    <button
+                      className="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                      onClick={abrirModalEditar}
+                    >
+                      <span className="bg-transparent text-black h-6 w-6 text-2xl block outline-none focus:outline-none">
+                        ×
+                      </span>
+                    </button>
+                  </div>
+                  {/*body*/}
+                  <div className="relative p-6 flex-auto">
+                    <div>
+                      <div className="mb-3 pt-0">
+                        <label className="block mb-2 text-sm font-bold text-gray-700">
+                          Nombre Cliente
+                        </label>
+                        <input
+                          type="text"
+                          className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                          placeholder="Nombre Cliente"
+                          value={nombreCliente}
+                          onChange={(e) => setNombreCliente(e.target.value)}
+                        />
+                      </div>
+                      <div className="mb-3 pt-0">
+                        <label className="block mb-2 text-sm font-bold text-gray-700">
+                          Telefono
+                        </label>
+                        <input
+                          type="text"
+                          className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                          placeholder="Nombre Cliente"
+                          value={nombreCliente}
+                          onChange={(e) => setNombreCliente(e.target.value)}
+                        />
+                      </div>
+                      <div className="mb-3 pt-0">
+                        <label className="block mb-2 text-sm font-bold text-gray-700">
+                          Cargo
+                        </label>
+                        <input
+                          type="text"
+                          className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                          placeholder="Nombre Cliente"
+                          value={nombreCliente}
+                          onChange={(e) => setNombreCliente(e.target.value)}
+                        />
+                      </div>
+                      <div className="mb-3 pt-0">
+                        <label className="block mb-2 text-sm font-bold text-gray-700">
+                          Descripcion Cliente
+                        </label>
+                        <input
+                          type="text"
+                          className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                          placeholder="Descripcion Cliente"
+                          value={descripcionCliente}
+                          onChange={(e) => setDescripcionCliente(e.target.value)}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  {/*footer*/}
+                  <div className="flex items-center justify-end p-6 border-t border-solid border-secondary-300 rounded-b">
+                    <button
+                      className="bg-[#1E1F24] hover:bg-[#2D2E33] text-white font-bold py-2 px-4 mx-auto rounded-xl items-end justify-end "
+                      type="button"
+                      onClick={() => editarCliente(cliente.id_cliente)}
+                    >
+                      Editar Cliente
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+            </>) : null
+            
+            }
+
             {/* Modal */}
             { visible ? (
             <>
@@ -156,6 +291,14 @@ const ListaClientes = () => {
                   {/*header*/}
                   <div className="flex items-start justify-between p-5 border-b border-solid border-secondary-300 rounded-t">
                     <h3 className="text-3xl font-semibold">Crear Cliente</h3>
+                    <button
+                      className="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                      onClick={abrirModal}
+                    >
+                      <span className="bg-transparent text-black h-6 w-6 text-2xl block outline-none focus:outline-none">
+                        ×
+                      </span>
+                    </button>
                   </div>
                   {/*body*/}
                   <div className="relative p-6 flex-auto">
