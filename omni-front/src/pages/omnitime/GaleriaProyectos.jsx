@@ -335,7 +335,9 @@ const GaleriaProyectos = () => {
               Registra tus {""}
               <span className="text-violet-600 font-bold">Proyectos</span>
             </p>
-            <button  className="bg-[#1E1F24] hover:bg-[#2D2E33] text-white font-bold py-2 px-4 mx-auto rounded-xl items-end justify-end ">
+            <button
+            onClick={abrirModal}
+            className="bg-[#1E1F24] hover:bg-[#2D2E33] text-white font-bold py-2 px-4 mx-auto rounded-xl items-end justify-end ">
               Crear Proyecto
             </button>
           </div>
