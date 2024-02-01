@@ -18,7 +18,8 @@ const Resumen = () => {
    //Agregar mes con un 0 al inicio si es menor a 10
     ("0" + (new Date().getMonth() + 1)).slice(-2) +
     "-" +
-    new Date().getDate();
+    //Agregar dia con un 0 al inicio si es menor a 10
+    ("0" + new Date().getDate()).slice(-2);
 
     const mes = new Date().getMonth() + 1;
 
