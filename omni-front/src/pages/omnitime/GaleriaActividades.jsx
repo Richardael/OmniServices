@@ -9,6 +9,7 @@ const GaleriaActividades = () => {
       //Estados de crear Actividad
   const [nombreActividad, setNombreActividad] = useState("");
   const [contadorActualizarComponente, setContadorActualizarComponente] = useState(0);
+  const [buscarActividad, setBuscarActividad] = useState("");
 
   //loader
   const [loading, setLoading] = useState(false);
@@ -27,6 +28,7 @@ const GaleriaActividades = () => {
     }
     catch (error) {
       console.log(error)
+      setLoading(false)
     }
   }
 
@@ -51,6 +53,8 @@ const GaleriaActividades = () => {
           type="text"
           placeholder="Buscar Actividad"
           className="border-gray-200 rounded-lg px-4 py-2 w-full max-w-lg focus:outline-none"
+          value={buscarActividad}
+          onChange={(e) => setBuscarActividad(e.target.value)}
         />
             <Link
             className='flex justify-end items-center'
@@ -62,7 +66,13 @@ const GaleriaActividades = () => {
     </Link>
       </div>
   <div className='grid grid-cols-3 gap-4 py-2 max-sm:grid-cols-1 overflow-y-scroll max-h-[57vh]'>
-  {actividadesObtenidas.map((actividad) => (
+  {actividadesObtenidas.filter((actividad) => {
+    if (buscarActividad === "") {
+      return actividad
+    } else if (actividad.nombre_actividad.toLowerCase().includes(buscarActividad.toLowerCase())) {
+      return actividad
+    }
+  }).map((actividad) => (
       <TarjetaActividad key={actividad.id_actividad } {...actividad} setContadorActualizarComponente={setContadorActualizarComponente} contadorActualizarComponente={contadorActualizarComponente}/>
     ))}
     </div>

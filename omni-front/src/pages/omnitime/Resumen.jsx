@@ -36,9 +36,9 @@ const Resumen = () => {
         id_usuario,
       }
     );
-    setInformeDiario(data);
+    setInformeDiario(data.informeDiaria);
 
-    console.log(data);
+    console.log(data.informeDiaria);
 
     alert("Reporte Diario Generado");
     setSeleccionado("diario");

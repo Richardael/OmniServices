@@ -71,25 +71,25 @@ const ReporteDiario = ({informeDiario, actividadesObtenidas, gananciaPorProyecto
     <Page style={styles.page} size="A4" orientation="landscape" >
      <View style={styles.div}>
       <View style={styles.div2}>
-        <Text style={styles.h1}>Reporte Semanal</Text>
+        <Text style={styles.h1}>Reporte Diario</Text>
         <View style={styles.div} >
           <Text style={styles.h4} >Fecha: 
-          {informeDiario.fecha}
+          {informeDiario.fechas.fecha}
           </Text>
         </View>
         </View>
         <View style={styles.table}>
           <View style={styles.tr}>
             <Text style={styles.td}>Nombre:{informeDiario.usuario.nombre} {informeDiario.usuario.apellido}</Text>
-            <Text style={styles.td}>Empresa: </Text>
+            <Text style={styles.td}>Empresa: {informeDiario.usuario.empresa}</Text>
             </View>
             <View style={styles.tr}>
             <Text style={styles.td}>Correo: {informeDiario.usuario.email}</Text>
-            <Text style={styles.td}>Departamento </Text>
+            <Text style={styles.td}>Departamento : {informeDiario.usuario.departamento}</Text>
             </View>
             <View style={styles.tr}>
-            <Text style={styles.td}>Telefono: </Text>
-            <Text style={styles.td}>Cargo: </Text>
+            <Text style={styles.td}>Telefono: {informeDiario.usuario.num_tel}</Text>
+            <Text style={styles.td}>Cargo: {informeDiario.usuario.cargo}</Text>
           </View>
         </View>
         {/* Crear otra tabla que contenga las actividades */}
