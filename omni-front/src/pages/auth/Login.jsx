@@ -173,12 +173,10 @@ const Login = () => {
           </div>
           <span className="flex items-center justify-center gap-2 text-gray-200">
             ¿Olvidaste tu contraseña?{" "}
-            <Link
-                to="/auth/olvide-contraseña"
-                className="text-secondary-100 font-medium hover:underline decoration-1 transition-colors"
-              >
-                Recuperar
-              </Link>
+            <span className="font-bold hover:underline decoration-1 transition-colors">
+            Contacta Soporte Pascal
+            </span>
+           
           </span>
         </div>
       </div>

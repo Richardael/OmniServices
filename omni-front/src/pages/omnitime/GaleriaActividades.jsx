@@ -25,6 +25,7 @@ const GaleriaActividades = () => {
       if (data.actividadesNoCompletadas.length) {
         setLoading(false)
       }
+      setLoading(false)
     }
     catch (error) {
       console.log(error)
@@ -65,7 +66,7 @@ const GaleriaActividades = () => {
     </button>
     </Link>
       </div>
-  <div className='grid grid-cols-3 gap-4 py-2 max-sm:grid-cols-1 overflow-y-scroll max-h-[57vh]'>
+  <div className='grid grid-cols-3 gap-4 py-2 max-sm:grid-cols-1 overflow-y-scroll max-h-[64vh]'>
   {actividadesObtenidas.filter((actividad) => {
     if (buscarActividad === "") {
       return actividad

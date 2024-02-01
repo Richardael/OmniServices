@@ -116,12 +116,11 @@ const GaleriaProyectos = () => {
     e.preventDefault();
     //Validar
     if (
-      nombreProyecto.trim() === "" ||
-      descripcionProyecto.trim() === "" ||
-      clienteProyecto.trim() === "" ||
-      categoriaProyecto.trim() === ""
-    ) {
-      console.log("Campos vacios");
+      nombreProyecto.trim() === "") {
+        alert("Nombre del proyecto no puede estar vacio")
+      return;
+    } else if (descripcionProyecto.trim() === "") {
+      alert("Descripcion del proyecto no puede estar vacio")
       return;
     }
     //Crear Proyecto
@@ -266,7 +265,7 @@ const GaleriaProyectos = () => {
                     </th>
                     <td  className="px-6 py-4">
                       <span  className="inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold text-violet-600">
-                        {proyecto.nombre_cliente}
+                        {proyecto.nombre_cliente ? proyecto.nombre_cliente : "Sin Cliente"}
                       </span>
                     </td>
                     <td  className="px-6 py-4 text-gray-600">{proyecto.contador}</td>
@@ -368,6 +367,7 @@ const GaleriaProyectos = () => {
                         style={{ transition: "all .15s ease" }}
                         value={nombreProyecto}
                         onChange={(e) => setNombreProyecto(e.target.value)}
+                        required
                       />
                     </div>
                     <div className="mb-3 pt-0">
@@ -381,6 +381,7 @@ const GaleriaProyectos = () => {
                         style={{ transition: "all .15s ease" }}
                         value={descripcionProyecto}
                         onChange={(e) => setDescripcionProyecto(e.target.value)}
+                        required
                       />
                     </div>
                     <div className="mb-3 pt-0">
@@ -453,6 +454,7 @@ const GaleriaProyectos = () => {
                         style={{ transition: "all .15s ease" }}
                         value={nombreProyecto}
                         onChange={(e) => setNombreProyecto(e.target.value)}
+                        required
                       />
                     </div>
                     <div className="mb-3 pt-0">
@@ -466,11 +468,12 @@ const GaleriaProyectos = () => {
                         style={{ transition: "all .15s ease" }}
                         value={descripcionProyecto}
                         onChange={(e) => setDescripcionProyecto(e.target.value)}
+                        required
                       />
                     </div>
                     <div className="mb-3 pt-0">
                       <label className="block mb-2 text-sm font-bold text-gray-700">
-                        Cliente
+                        Cliente (opcional)
                       </label>
                       <select
                         className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ring-violet-600 "
@@ -487,7 +490,7 @@ const GaleriaProyectos = () => {
                     </div>
                     <div className="mb-3 pt-0">
                       <label className="block mb-2 text-sm font-bold text-gray-700">
-                        Categoria del Proyecto (Color)
+                        Color del Proyecto (Opcional)
                       </label>
                       <select
                         className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ring-violet-600 "

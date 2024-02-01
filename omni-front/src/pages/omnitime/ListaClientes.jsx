@@ -26,7 +26,11 @@ const ListaClientes = () => {
   const crearCliente = async () => {
     try {
       if (nombreCliente === "") {
-        Alert.alert("Error", "El nombre del cliente es obligatorio");
+        alert("El nombre del cliente no puede estar vacío");
+        return;
+      }
+      if (descripcionCliente === "") {
+        alert("La descripcion del cliente no puede estar vacía");
         return;
       }
       const cliente = {

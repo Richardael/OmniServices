@@ -12,6 +12,7 @@ const Resumen = () => {
   const [informeSemanal, setInformeSemanal] = useState([]);
   const [informeDiario, setInformeDiario] = useState([]);
   const [gananciaPorProyecto, setGananciaPorProyecto] = useState([]);
+  const [desactivarBoton, setDesactivarBoton] = useState(false);
   const fecha_inicio = //Obtener fecha del sistema
     new Date().getFullYear() +
     "-" +
@@ -29,6 +30,7 @@ const Resumen = () => {
 
   //Obtener Reporte Diario
   const obtenerReporteDiario = async () => {
+    setDesactivarBoton(true);
     //Manda por metodo post la fecha actual y el usuario
     const { data } = await axios.post(
       `https://clockigenial2.onrender.com/reportes/informe-diario`,
@@ -49,6 +51,7 @@ const Resumen = () => {
 
   //Obtener Reporte Semanal
   const obtenerReporteSemanal = async () => {
+    setDesactivarBoton(true);
    
     //Manda por metodo post la fecha actual y el usuario
     const { data } = await axios.post(
@@ -71,6 +74,7 @@ const Resumen = () => {
 
   //Obtener Reporte Mensual
   const obtenerReporteMensual = async () => {
+    setDesactivarBoton(true);
     //Manda por metodo post la fecha actual y el usuario
     const { data } = await axios.post(
       `https://clockigenial2.onrender.com/reportes/informe-mensual`,
@@ -97,21 +101,51 @@ const Resumen = () => {
       </h1>
       { seleccionado === "" ? (
       <div className="flex flex-grow justify-center items-center flex-1 gap-4">
-        <button
-        onClick={obtenerReporteDiario}
-        className="bg-violet-600 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded-full">
-          Obtener Reporte Diario
-        </button>
-        <button
-          onClick={obtenerReporteSemanal}
-        className="bg-violet-600 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded-full">
-          Obtener Reporte Semanal
-        </button>
-        <button
-        onClick={obtenerReporteMensual}
-        className="bg-violet-600 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded-full">
-          Obtener Reporte Mensual
-        </button>
+        {
+          desactivarBoton ? (
+            <button
+            disabled
+            className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full">
+              Obtener Reporte Diario
+            </button>
+          ) : (
+            <button
+            onClick={obtenerReporteDiario}
+            className="bg-violet-600 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded-full">
+              Obtener Reporte Diario
+            </button>
+          )
+        }
+        {
+          desactivarBoton ? (
+            <button
+            disabled
+            className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full">
+              Obtener Reporte Semanal
+            </button>
+          ) : (
+            <button
+            onClick={obtenerReporteSemanal}
+            className="bg-violet-600 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded-full">
+              Obtener Reporte Semanal
+            </button>
+          )
+        }
+        {
+          desactivarBoton ? (
+            <button
+            disabled
+            className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full">
+              Obtener Reporte Mensual
+            </button>
+          ) : (
+            <button
+            onClick={obtenerReporteMensual}
+            className="bg-violet-600 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded-full">
+              Obtener Reporte Mensual
+            </button>
+          )
+        }
       </div>
       ) : null }
       { seleccionado === "diario" ? (
