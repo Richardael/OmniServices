@@ -108,6 +108,7 @@ const obtenerProyectos = async () => {
     setModalActividad(false);
     setActividadSeleccionada(id_actividad);
     obtenerProyectos();
+    setNombreActividad(nombre_actividad);
   };
 
   const abrirModalActividad = (id_actividad) => {
