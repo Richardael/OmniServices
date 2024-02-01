@@ -38,6 +38,8 @@ const Resumen = () => {
       }
     );
     setInformeDiario(data.informeDiaria);
+    setActividadesObtenidas(data.informeDiaria.actividades);
+    setGananciaPorProyecto(data.informeDiaria.gananciaPorProyecto);
 
     console.log(data.informeDiaria);
 

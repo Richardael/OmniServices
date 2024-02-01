@@ -107,7 +107,7 @@ const ReporteDiario = ({informeDiario, actividadesObtenidas, gananciaPorProyecto
           <View style={styles.tbody}>
             {/* Ciclo que recorra actividades */}
             {actividadesObtenidas.map((actividad) => (
-            <View style={styles.tr} key={actividad.id_actividad}>
+            <View style={styles.tr} key={actividad.index}>
               <Text style={styles.td}>{actividad.nombre_actividad}</Text>
               <Text style={styles.td}>{actividad.duracion_total.horas.toString().padStart(2, '0')} : {actividad.duracion_total.minutos.toString().padStart(2, '0')}h</Text>
               <Text style={styles.td}>{actividad.tarifa}$</Text>
@@ -129,7 +129,7 @@ const ReporteDiario = ({informeDiario, actividadesObtenidas, gananciaPorProyecto
           <View style={styles.tbody}>
             {/* Ciclo que recorra actividades */}
             {gananciaPorProyecto.map((ganancia) => (
-            <View style={styles.tr} key={ganancia.id_proyecto}>
+            <View style={styles.tr} key={ganancia.index}>
               <Text style={styles.td}>{ganancia.proyecto}: {ganancia.gananciaTotal}$ </Text>
               <Text style={styles.td}>{ganancia.descripcion}</Text>
             </View>
